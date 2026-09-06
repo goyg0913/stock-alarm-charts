@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>W패턴(이중바닥) 스캔 (2026-09-06 17:51)</title>
+<style>
+  * { box-sizing:border-box; }
+  body { margin:0; padding:14px 10px 40px; background:#fff; color:#1a1a1a;
+         font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',
+                     'Apple SD Gothic Neo','Malgun Gothic',sans-serif; }
+  h1 { font-size:18px; margin:0 0 2px; }
+  .sub { font-size:12.5px; color:#888; margin-bottom:10px; }
+  .stats { display:flex; gap:5px; flex-wrap:wrap; margin-bottom:10px; }
+  .pill { font-size:12px; padding:4px 9px; border-radius:999px;
+          background:#f1f3f6; border:1px solid #e2e6eb; white-space:nowrap; }
+  details { margin-bottom:10px; }
+  summary { font-size:12.5px; color:#1264a3; cursor:pointer; }
+  .legend { font-size:12px; color:#666; line-height:1.65; padding:8px 2px 0; }
+  input { width:100%; padding:10px 12px; font-size:16px; border-radius:8px;
+          border:1px solid #d5dbe6; margin-bottom:10px; }
+  table { border-collapse:collapse; width:100%; table-layout:auto;
+          font-size:13px; font-variant-numeric:tabular-nums;
+          border:1px solid #e2e6eb; border-radius:8px; }
+  th, td { padding:7px 6px; white-space:nowrap;
+           border-bottom:1px solid #eef1f4; }
+  th { position:sticky; top:0; background:#f7f9fb; font-size:11px; color:#556;
+       text-align:right; cursor:pointer; user-select:none; z-index:1; }
+  th.l { text-align:left; }
+  th.c, td.c { text-align:center; padding-left:3px; padding-right:3px; }
+  td.n { text-align:right; }
+  td.st { text-align:center; color:#555; }
+  td.tk { font-weight:700; padding-left:4px; }
+  td.nm { width:100%; max-width:0; overflow:hidden; text-overflow:ellipsis;
+          color:#555; }
+  td.geo { color:#888; font-size:11.5px; }
+  .dot { display:inline-block; width:10px; height:10px; border-radius:50%;
+         vertical-align:middle; }
+  .dot.on { background:#2ea043; }
+  .dot.part { background:#e3b341; }
+  .dot.cand { background:#8fb8e0; }
+  .dot.off { background:#d6dbe1; }
+  tr[data-status="breakout"] { background:#f2fbf4; }
+  tr[data-status="setup"] { background:#fffbf0; }
+  .none { padding:18px; text-align:center; color:#888; font-size:13px; }
+  @media (max-width:420px) {
+    table { font-size:12px; }
+    th, td { padding:6px 4px; }
+    td.geo { display:none; }
+    th:nth-child(8) { display:none; }
+  }
+</style>
+</head>
+<body>
+  <h1>W패턴(이중바닥) 스캔</h1>
+  <div class="sub">생성 2026-09-06 17:51 · 점수 임계값 6점 이상 셋업</div>
+
+  <div class="stats">
+    <span class="pill">전체 <b>20</b>종목</span>
+    <span class="pill"><i class="dot on"></i> 돌파 <b>0</b></span>
+    <span class="pill"><i class="dot part"></i> 셋업 <b>1</b></span>
+    <span class="pill"><i class="dot cand"></i> 후보 <b>5</b></span>
+  </div>
+
+  <details>
+    <summary>패턴 설명</summary>
+    <div class="legend">
+      <div><b>돌파(W_BREAKOUT)</b> 종가가 Neckline을 넘고 거래량도 확인됨</div>
+      <div><b>셋업(W_SETUP)</b> Low1→Neckline→Low2 형태 확인 + 점수 임계값 이상, 아직 Neckline 미돌파</div>
+      <div><b>후보</b> 형태는 게이트를 통과했지만 점수 미달</div>
+      <div>L1/N/L2 = Low1 / Neckline / Low2 가격</div>
+    </div>
+  </details>
+
+  <input id="q" type="search" placeholder="티커 또는 회사명 검색 (예: NVDA, Apple)"
+         autocomplete="off">
+
+  <table id="t">
+    <thead><tr>
+      <th class="c" data-k="status">상태</th>
+      <th class="l" data-k="text">티커</th>
+      <th class="l" data-k="text">회사명</th>
+      <th data-k="text">구분</th>
+      <th data-k="num">점수</th>
+      <th data-k="num">종가</th>
+      <th data-k="num">RSI</th>
+      <th class="l" data-k="text">L1/N/L2</th>
+    </tr></thead>
+    <tbody>
+<tr data-q="nvda nvidia" data-status="setup" data-score="7"><td class="c"><i class="dot part"></i></td><td class="tk">NVDA</td><td class="nm">Nvidia</td><td class="st">셋업</td><td class="n">7</td><td class="n">230.36</td><td class="n">60.4</td><td class="geo">L1 207.25 · N 230.47 · L2 215.10</td></tr>
+<tr data-q="intc intel" data-status="candidate" data-score="10"><td class="c"><i class="dot cand"></i></td><td class="tk">INTC</td><td class="nm">Intel</td><td class="st">후보</td><td class="n">10</td><td class="n">95.80</td><td class="n">51.7</td><td class="geo">L1 85.14 · N 93.70 · L2 85.72</td></tr>
+<tr data-q="aapl apple inc." data-status="candidate" data-score="6"><td class="c"><i class="dot cand"></i></td><td class="tk">AAPL</td><td class="nm">Apple Inc.</td><td class="st">후보</td><td class="n">6</td><td class="n">319.97</td><td class="n">54.0</td><td class="geo">L1 299.74 · N 316.02 · L2 300.57</td></tr>
+<tr data-q="meta meta platforms" data-status="candidate" data-score="6"><td class="c"><i class="dot cand"></i></td><td class="tk">META</td><td class="nm">Meta Platforms</td><td class="st">후보</td><td class="n">6</td><td class="n">616.77</td><td class="n">62.4</td><td class="geo">L1 537.27 · N 593.34 · L2 556.10</td></tr>
+<tr data-q="brk-b berkshire hathaway" data-status="candidate" data-score="5"><td class="c"><i class="dot cand"></i></td><td class="tk">BRK-B</td><td class="nm">Berkshire Hathaway</td><td class="st">후보</td><td class="n">5</td><td class="n">506.03</td><td class="n">51.8</td><td class="geo">L1 486.06 · N 537.74 · L2 495.68</td></tr>
+<tr data-q="v visa inc." data-status="candidate" data-score="3"><td class="c"><i class="dot cand"></i></td><td class="tk">V</td><td class="nm">Visa Inc.</td><td class="st">후보</td><td class="n">3</td><td class="n">375.07</td><td class="n">55.1</td><td class="geo">L1 358.05 · N 385.57 · L2 372.22</td></tr>
+<tr data-q="amd advanced micro devices" data-status="none" data-score="0"><td class="c"><i class="dot off"></i></td><td class="tk">AMD</td><td class="nm">Advanced Micro Devices</td><td class="st">-</td><td class="n">0</td><td class="n">477.57</td><td class="n">49.7</td><td class="geo">-</td></tr>
+<tr data-q="amzn amazon" data-status="none" data-score="0"><td class="c"><i class="dot off"></i></td><td class="tk">AMZN</td><td class="nm">Amazon</td><td class="st">-</td><td class="n">0</td><td class="n">258.51</td><td class="n">49.5</td><td class="geo">-</td></tr>
+<tr data-q="avgo broadcom" data-status="none" data-score="0"><td class="c"><i class="dot off"></i></td><td class="tk">AVGO</td><td class="nm">Broadcom</td><td class="st">-</td><td class="n">0</td><td class="n">357.90</td><td class="n">38.1</td><td class="geo">-</td></tr>
+<tr data-q="goog alphabet inc. (class c)" data-status="none" data-score="0"><td class="c"><i class="dot off"></i></td><td class="tk">GOOG</td><td class="nm">Alphabet Inc. (Class C)</td><td class="st">-</td><td class="n">0</td><td class="n">335.31</td><td class="n">44.1</td><td class="geo">-</td></tr>
+<tr data-q="googl alphabet inc. (class a)" data-status="none" data-score="0"><td class="c"><i class="dot off"></i></td><td class="tk">GOOGL</td><td class="nm">Alphabet Inc. (Class A)</td><td class="st">-</td><td class="n">0</td><td class="n">338.46</td><td class="n">45.0</td><td class="geo">-</td></tr>
+<tr data-q="jnj johnson &amp; johnson" data-status="none" data-score="0"><td class="c"><i class="dot off"></i></td><td class="tk">JNJ</td><td class="nm">Johnson &amp; Johnson</td><td class="st">-</td><td class="n">0</td><td class="n">275.23</td><td class="n">61.2</td><td class="geo">-</td></tr>
+<tr data-q="jpm jpmorgan chase" data-status="none" data-score="0"><td class="c"><i class="dot off"></i></td><td class="tk">JPM</td><td class="nm">JPMorgan Chase</td><td class="st">-</td><td class="n">0</td><td class="n">358.64</td><td class="n">55.0</td><td class="geo">-</td></tr>
+<tr data-q="lly lilly (eli)" data-status="none" data-score="0"><td class="c"><i class="dot off"></i></td><td class="tk">LLY</td><td class="nm">Lilly (Eli)</td><td class="st">-</td><td class="n">0</td><td class="n">1149.36</td><td class="n">41.4</td><td class="geo">-</td></tr>
+<tr data-q="ma mastercard" data-status="none" data-score="0"><td class="c"><i class="dot off"></i></td><td class="tk">MA</td><td class="nm">Mastercard</td><td class="st">-</td><td class="n">0</td><td class="n">579.21</td><td class="n">52.9</td><td class="geo">-</td></tr>
+<tr data-q="msft microsoft" data-status="none" data-score="0"><td class="c"><i class="dot off"></i></td><td class="tk">MSFT</td><td class="nm">Microsoft</td><td class="st">-</td><td class="n">0</td><td class="n">499.70</td><td class="n">59.6</td><td class="geo">-</td></tr>
+<tr data-q="mu micron technology" data-status="none" data-score="0"><td class="c"><i class="dot off"></i></td><td class="tk">MU</td><td class="nm">Micron Technology</td><td class="st">-</td><td class="n">0</td><td class="n">1016.59</td><td class="n">60.1</td><td class="geo">-</td></tr>
+<tr data-q="tsla tesla, inc." data-status="none" data-score="0"><td class="c"><i class="dot off"></i></td><td class="tk">TSLA</td><td class="nm">Tesla, Inc.</td><td class="st">-</td><td class="n">0</td><td class="n">354.08</td><td class="n">50.9</td><td class="geo">-</td></tr>
+<tr data-q="wmt walmart" data-status="none" data-score="0"><td class="c"><i class="dot off"></i></td><td class="tk">WMT</td><td class="nm">Walmart</td><td class="st">-</td><td class="n">0</td><td class="n">107.14</td><td class="n">46.0</td><td class="geo">-</td></tr>
+<tr data-q="xom exxonmobil" data-status="none" data-score="0"><td class="c"><i class="dot off"></i></td><td class="tk">XOM</td><td class="nm">ExxonMobil</td><td class="st">-</td><td class="n">0</td><td class="n">159.47</td><td class="n">51.6</td><td class="geo">-</td></tr>
+    </tbody>
+  </table>
+  <div class="none" id="none" hidden>검색 결과 없음</div>
+
+<script>
+  const tb = document.querySelector('#t tbody');
+  const all = Array.from(tb.rows);
+
+  document.getElementById('q').addEventListener('input', e => {
+    const q = e.target.value.trim().toLowerCase();
+    let shown = 0;
+    for (const tr of all) {
+      const hit = !q || tr.dataset.q.includes(q);
+      tr.hidden = !hit;
+      if (hit) shown++;
+    }
+    document.getElementById('none').hidden = shown > 0;
+  });
+
+  const statusRank = {breakout:0, setup:1, candidate:2, none:3};
+  let sortCol = -1, asc = false;
+  document.querySelectorAll('#t th').forEach((th, i) => {
+    th.addEventListener('click', () => {
+      asc = sortCol === i ? !asc : false;
+      sortCol = i;
+      const kind = th.dataset.k;
+      const val = tr => {
+        if (kind === 'status') return statusRank[tr.dataset.status];
+        const c = tr.cells[i];
+        if (kind === 'num')
+          return parseFloat(c.textContent.replace(/[^0-9.\-]/g, '')) || 0;
+        return c.textContent;
+      };
+      const sorted = all.slice().sort((a, b) => {
+        const x = val(a), y = val(b);
+        const c = typeof x === 'string' ? x.localeCompare(y) : x - y;
+        return asc ? c : -c;
+      });
+      sorted.forEach(tr => tb.appendChild(tr));
+    });
+  });
+</script>
+</body>
+</html>
