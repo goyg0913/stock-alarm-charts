@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>미국 주식 스캔 대시보드</title>
+<title data-i18n="page_title">미국 주식 스캔 대시보드</title>
 
 <style>
   * { box-sizing:border-box; }
@@ -29,30 +29,44 @@
                      font-size:12px; color:#bbb; border:1px dashed #ddd;
                      border-radius:12px; }
   .foot { margin-top:26px; font-size:11px; color:#aaa; text-align:center; }
+
+  .i18n-switch { display:flex; gap:4px; justify-content:flex-end; margin-bottom:8px; }
+  .i18n-switch button { font-size:11px; padding:4px 9px; border-radius:999px;
+    border:1px solid #e2e6eb; background:#f7f7f9; color:#888; cursor:pointer; }
+  .i18n-switch button.active { background:#1a1a1a; color:#fff; border-color:#1a1a1a; }
+
 </style>
 </head>
 <body>
   <div class="wrap">
-    <h1>📈 미국 주식 스캔 대시보드</h1>
-    <div class="sub">두 가지 방식으로 S&amp;P 500을 스캔합니다</div>
+    <div class="i18n-switch">
+    <button type="button" data-lang="ko">한국어</button>
+    <button type="button" data-lang="ja">日本語</button>
+    <button type="button" data-lang="en">English</button>
+  </div>
+
+    <h1>📈 <span data-i18n="h1">미국 주식 스캔 대시보드</span></h1>
+    <div class="sub" data-i18n="sub">두 가지 방식으로 S&amp;P 500을 스캔합니다</div>
 
     <a class="card green" id="sp500-link" href="sp500_table.html">
       <span class="arrow">›</span>
-      <h2>📊 AND 신호 스캔</h2>
-      <p>골든크로스·RSI·MACD·볼린저·거래량 중 필수 지표가 동시에 활성화되면 신호.</p>
-      <div class="meta">시총 상위 100종목 · 매시간</div>
+      <h2>📊 <span data-i18n="card1_title">AND 신호 스캔</span></h2>
+      <p data-i18n="card1_desc">골든크로스·RSI·MACD·볼린저·거래량 중 필수 지표가
+        동시에 활성화되면 신호.</p>
+      <div class="meta" data-i18n="card1_meta">시총 상위 100종목 · 매시간</div>
     </a>
 
     <a class="card pink" id="wpattern-link" href="wpattern_table.html">
       <span class="arrow">›</span>
-      <h2>🌊 예쁜 W패턴 스캔</h2>
-      <p>Low1→Neckline→Low2 이중바닥 형태를 점수제로 판정 — 돌파 전 셋업까지 포착.</p>
-      <div class="meta">시총 상위 20종목 · 매일 오전 10시(KST)</div>
+      <h2>🌊 <span data-i18n="card2_title">예쁜 W패턴 스캔</span></h2>
+      <p data-i18n="card2_desc">Low1→Neckline→Low2 이중바닥 형태를 점수제로 판정
+        — 돌파 전 셋업까지 포착.</p>
+      <div class="meta" data-i18n="card2_meta">시총 상위 20종목 · 매일 오전 10시(KST)</div>
     </a>
 
-    <div class="ad-placeholder">광고 영역 (애드센스 승인 전)</div>
+    <div class="ad-placeholder" data-i18n="ad_placeholder"></div>
 
-    <div class="foot">참고용 지표 스캔입니다. 투자 판단은 본인 책임.</div>
+    <div class="foot" data-i18n="footer">참고용 지표 스캔입니다. 투자 판단은 본인 책임.</div>
   </div>
 
 <script>
@@ -64,5 +78,43 @@
     });
   });
 </script>
+
+<script>
+(function() {
+  var DICT = {"ko": {"page_title": "미국 주식 스캔 대시보드", "h1": "미국 주식 스캔 대시보드", "sub": "두 가지 방식으로 S&P 500을 스캔합니다", "card1_title": "AND 신호 스캔", "card1_desc": "골든크로스·RSI·MACD·볼린저·거래량 중 필수 지표가 동시에 활성화되면 신호.", "card1_meta": "시총 상위 100종목 · 매시간", "card2_title": "예쁜 W패턴 스캔", "card2_desc": "Low1→Neckline→Low2 이중바닥 형태를 점수제로 판정 — 돌파 전 셋업까지 포착.", "card2_meta": "시총 상위 20종목 · 매일 오전 10시(KST)", "ad_placeholder": "광고 영역 (애드센스 승인 전)", "footer": "참고용 지표 스캔입니다. 투자 판단은 본인 책임."}, "ja": {"page_title": "米国株スキャンダッシュボード", "h1": "米国株スキャンダッシュボード", "sub": "2つの方式でS&P 500をスキャンします", "card1_title": "AND シグナルスキャン", "card1_desc": "ゴールデンクロス・RSI・MACD・ボリンジャー・出来高のうち、必須指標が同時に点灯すればシグナル。", "card1_meta": "時価総額上位100銘柄 · 毎時", "card2_title": "きれいなWパターンスキャン", "card2_desc": "Low1→ネックライン→Low2のダブルボトム形状をスコア制で判定 — ブレイクアウト前のセットアップまで検知。", "card2_meta": "時価総額上位20銘柄 · 毎日午前10時(KST)", "ad_placeholder": "広告枠（アドセンス承認前）", "footer": "参考用の指標スキャンです。投資判断は自己責任で。"}, "en": {"page_title": "US Stock Scan Dashboard", "h1": "US Stock Scan Dashboard", "sub": "Scanning the S&P 500 two different ways", "card1_title": "AND Signal Scan", "card1_desc": "Signals when the required indicators — golden cross, RSI, MACD, Bollinger, volume — are active at the same time.", "card1_meta": "Top 100 by market cap · Hourly", "card2_title": "Pretty W-Pattern Scan", "card2_desc": "Scores Low1→Neckline→Low2 double-bottom shapes — catches the setup before the breakout.", "card2_meta": "Top 20 by market cap · Daily 10AM (KST)", "ad_placeholder": "Ad space (pending AdSense approval)", "footer": "For reference only. Investment decisions are your own responsibility."}};
+  var KEY = "sa_lang";
+
+  function apply(lang) {
+    document.documentElement.lang = lang;
+    document.querySelectorAll("[data-i18n]").forEach(function(el) {
+      var k = el.getAttribute("data-i18n");
+      var tpl = (DICT[lang] && DICT[lang][k]) || (DICT.ko && DICT.ko[k]) || "";
+      var n = el.getAttribute("data-i18n-n");
+      el.innerHTML = n !== null ? tpl.split("{n}").join("<b>" + n + "</b>") : tpl;
+    });
+    document.querySelectorAll("[data-i18n-ph]").forEach(function(el) {
+      var k = el.getAttribute("data-i18n-ph");
+      el.placeholder = (DICT[lang] && DICT[lang][k]) || "";
+    });
+    document.querySelectorAll("[data-i18n-title]").forEach(function(el) {
+      var k = el.getAttribute("data-i18n-title");
+      el.title = (DICT[lang] && DICT[lang][k]) || "";
+    });
+    document.querySelectorAll(".i18n-switch button").forEach(function(b) {
+      b.classList.toggle("active", b.dataset.lang === lang);
+    });
+    try { localStorage.setItem(KEY, lang); } catch (e) {}
+  }
+
+  document.querySelectorAll(".i18n-switch button").forEach(function(b) {
+    b.addEventListener("click", function() { apply(b.dataset.lang); });
+  });
+
+  var initial = "ko";
+  try { initial = localStorage.getItem(KEY) || "ko"; } catch (e) {}
+  apply(initial);
+})();
+</script>
+
 </body>
 </html>
