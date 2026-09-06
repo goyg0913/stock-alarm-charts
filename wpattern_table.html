@@ -3,28 +3,35 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>W패턴(이중바닥) 스캔 (2026-09-06 17:51)</title>
+<title>💗 예쁜 W패턴 스캐너 (2026-09-06 18:07)</title>
 <style>
   * { box-sizing:border-box; }
-  body { margin:0; padding:14px 10px 40px; background:#fff; color:#1a1a1a;
+  body { margin:0; padding:16px 10px 40px; color:#1a1a1a;
+         background:linear-gradient(180deg,#fff5fa 0%,#fff 140px);
          font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',
                      'Apple SD Gothic Neo','Malgun Gothic',sans-serif; }
-  h1 { font-size:18px; margin:0 0 2px; }
-  .sub { font-size:12.5px; color:#888; margin-bottom:10px; }
-  .stats { display:flex; gap:5px; flex-wrap:wrap; margin-bottom:10px; }
-  .pill { font-size:12px; padding:4px 9px; border-radius:999px;
-          background:#f1f3f6; border:1px solid #e2e6eb; white-space:nowrap; }
+  h1 { font-size:21px; margin:0 0 3px; font-weight:800; letter-spacing:-.2px;
+       display:flex; align-items:center; gap:6px; }
+  h1 .grad { background:linear-gradient(90deg,#ff6fb0,#ff9d6c 45%,#7ec8ff 90%);
+             -webkit-background-clip:text; background-clip:text;
+             -webkit-text-fill-color:transparent; }
+  .sub { font-size:12.5px; color:#a9789a; margin-bottom:12px; font-weight:500; }
+  .stats { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px; }
+  .pill { font-size:12px; padding:5px 11px; border-radius:999px;
+          background:#fdf1f7; border:1px solid #fbdcec; white-space:nowrap;
+          box-shadow:0 1px 3px rgba(255,111,176,.08); }
   details { margin-bottom:10px; }
-  summary { font-size:12.5px; color:#1264a3; cursor:pointer; }
+  summary { font-size:12.5px; color:#e0609a; cursor:pointer; font-weight:600; }
   .legend { font-size:12px; color:#666; line-height:1.65; padding:8px 2px 0; }
-  input { width:100%; padding:10px 12px; font-size:16px; border-radius:8px;
-          border:1px solid #d5dbe6; margin-bottom:10px; }
+  input { width:100%; padding:10px 12px; font-size:16px; border-radius:12px;
+          border:1.5px solid #ffd3e8; margin-bottom:10px; }
+  input:focus { outline:none; border-color:#ff8fbd; }
   table { border-collapse:collapse; width:100%; table-layout:auto;
           font-size:13px; font-variant-numeric:tabular-nums;
-          border:1px solid #e2e6eb; border-radius:8px; }
+          border:1px solid #f5dfeb; border-radius:12px; overflow:hidden; }
   th, td { padding:7px 6px; white-space:nowrap;
-           border-bottom:1px solid #eef1f4; }
-  th { position:sticky; top:0; background:#f7f9fb; font-size:11px; color:#556;
+           border-bottom:1px solid #fbeef5; }
+  th { position:sticky; top:0; background:#fff3f9; font-size:11px; color:#a9678a;
        text-align:right; cursor:pointer; user-select:none; z-index:1; }
   th.l { text-align:left; }
   th.c, td.c { text-align:center; padding-left:3px; padding-right:3px; }
@@ -36,12 +43,12 @@
   td.geo { color:#888; font-size:11.5px; }
   .dot { display:inline-block; width:10px; height:10px; border-radius:50%;
          vertical-align:middle; }
-  .dot.on { background:#2ea043; }
-  .dot.part { background:#e3b341; }
-  .dot.cand { background:#8fb8e0; }
-  .dot.off { background:#d6dbe1; }
-  tr[data-status="breakout"] { background:#f2fbf4; }
-  tr[data-status="setup"] { background:#fffbf0; }
+  .dot.on { background:#ff6fb0; }
+  .dot.part { background:#ffb26b; }
+  .dot.cand { background:#7ec8ff; }
+  .dot.off { background:#e2d6dd; }
+  tr[data-status="breakout"] { background:#fff0f7; }
+  tr[data-status="setup"] { background:#fff8ef; }
   .none { padding:18px; text-align:center; color:#888; font-size:13px; }
   @media (max-width:420px) {
     table { font-size:12px; }
@@ -52,8 +59,8 @@
 </style>
 </head>
 <body>
-  <h1>W패턴(이중바닥) 스캔</h1>
-  <div class="sub">생성 2026-09-06 17:51 · 점수 임계값 6점 이상 셋업</div>
+  <h1>🌊 <span class="grad">예쁜 W패턴</span> 스캐너 ✨</h1>
+  <div class="sub">생성 2026-09-06 18:07 · 점수 임계값 6점 이상 셋업</div>
 
   <div class="stats">
     <span class="pill">전체 <b>20</b>종목</span>
