@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>미국 주식 스캔 대시보드</title>
+
+<style>
+  * { box-sizing:border-box; }
+  body { margin:0; padding:20px 16px 40px; color:#1a1a1a;
+         background:linear-gradient(160deg,#f4fbf6 0%,#fff5fa 55%,#fff 100%);
+         font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',
+                     'Apple SD Gothic Neo','Malgun Gothic',sans-serif; }
+  .wrap { max-width:480px; margin:0 auto; }
+  h1 { font-size:22px; margin:6px 0 4px; font-weight:800; }
+  .sub { font-size:13px; color:#777; margin-bottom:22px; }
+  .card { display:block; text-decoration:none; color:inherit;
+          border-radius:16px; padding:18px 18px 16px; margin-bottom:14px;
+          border:1px solid #e9e9ee; box-shadow:0 2px 10px rgba(0,0,0,.04);
+          transition:transform .12s; }
+  .card:active { transform:scale(.98); }
+  .card.green { background:linear-gradient(135deg,#f2fbf4,#fff); }
+  .card.pink { background:linear-gradient(135deg,#fff0f7,#fff); }
+  .card h2 { font-size:16px; margin:0 0 4px; display:flex; align-items:center; gap:6px; }
+  .card p { font-size:12.5px; color:#666; margin:0 0 8px; line-height:1.5; }
+  .card .meta { font-size:11.5px; color:#999; }
+  .card .arrow { float:right; color:#bbb; font-size:14px; }
+  .ad-placeholder { margin-top:24px; padding:24px; text-align:center;
+                     font-size:12px; color:#bbb; border:1px dashed #ddd;
+                     border-radius:12px; }
+  .foot { margin-top:26px; font-size:11px; color:#aaa; text-align:center; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>📈 미국 주식 스캔 대시보드</h1>
+    <div class="sub">두 가지 방식으로 S&amp;P 500을 스캔합니다</div>
+
+    <a class="card green" id="sp500-link" href="sp500_table.html">
+      <span class="arrow">›</span>
+      <h2>📊 AND 신호 스캔</h2>
+      <p>골든크로스·RSI·MACD·볼린저·거래량 중 필수 지표가 동시에 활성화되면 신호.</p>
+      <div class="meta">시총 상위 100종목 · 매시간</div>
+    </a>
+
+    <a class="card pink" id="wpattern-link" href="wpattern_table.html">
+      <span class="arrow">›</span>
+      <h2>🌊 예쁜 W패턴 스캔</h2>
+      <p>Low1→Neckline→Low2 이중바닥 형태를 점수제로 판정 — 돌파 전 셋업까지 포착.</p>
+      <div class="meta">시총 상위 20종목 · 매일 오전 10시(KST)</div>
+    </a>
+
+    <div class="ad-placeholder">광고 영역 (애드센스 승인 전)</div>
+
+    <div class="foot">참고용 지표 스캔입니다. 투자 판단은 본인 책임.</div>
+  </div>
+
+<script>
+  // 링크 클릭 시 캐시 우회 쿼리를 붙여 항상 최신 버전을 연다.
+  ["sp500-link", "wpattern-link"].forEach(id => {
+    const a = document.getElementById(id);
+    a.addEventListener("click", () => {
+      a.href = a.getAttribute("href").split("?")[0] + "?v=" + Date.now();
+    });
+  });
+</script>
+</body>
+</html>
