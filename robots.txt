@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://goyg0913.github.io/stock-alarm-charts/sitemap.xml
