@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index,follow">
+<title>V 株価 買いシグナル分析 — RSI・MACD・出来高指標</title>
+<meta name="description" content="V（Visa Inc.）の最新終値、RSI、MACD、出来高指標と買いシグナルの発生状況をチェック。">
+<meta property="og:title" content="V 株価 買いシグナル分析 — RSI・MACD・出来高指標">
+<meta property="og:description" content="V（Visa Inc.）の最新終値、RSI、MACD、出来高指標と買いシグナルの発生状況をチェック。">
+<link rel="canonical" href="stock-v-ja.html">
+<link rel="alternate" hreflang="ko" href="stock-v-ko.html">
+<link rel="alternate" hreflang="ja" href="stock-v-ja.html">
+<link rel="alternate" hreflang="en" href="stock-v-en.html">
+<style>
+  * { box-sizing:border-box; }
+  body { margin:0; padding:18px 16px 40px; color:#1a1a1a; background:#fff;
+         font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',
+                     'Apple SD Gothic Neo','Malgun Gothic',
+                     'Hiragino Sans','Yu Gothic',sans-serif; }
+  .wrap { max-width:480px; margin:0 auto; }
+  h1 { font-size:20px; margin:0 0 2px; font-weight:800; }
+  .sub { font-size:12.5px; color:#888; margin-bottom:12px; }
+  .signal { font-size:15px; font-weight:700; padding:10px 14px; border-radius:12px;
+            background:#f2fbf4; margin-bottom:14px; }
+  .disclaimer { display:flex; align-items:flex-start; gap:8px; margin:0 0 16px;
+    padding:11px 13px; border-radius:12px; background:#fff8e1; border:1.5px solid #ffd54f;
+    color:#7a5c00; font-size:12px; font-weight:700; line-height:1.5; }
+  table { width:100%; border-collapse:collapse; font-size:13px; margin-bottom:16px; }
+  td { padding:6px 4px; border-bottom:1px solid #eef1f4; }
+  td.lbl { color:#888; width:45%; }
+  td.val { text-align:right; font-variant-numeric:tabular-nums; font-weight:600; }
+  h2 { font-size:14px; margin:18px 0 8px; }
+  .ind-row { font-size:12.5px; color:#555; line-height:1.7; }
+  .ind-row .dot { display:inline-block; width:9px; height:9px; border-radius:50%;
+                   margin-right:4px; }
+  .ind-row .dot.on { background:#2ea043; }
+  .ind-row .dot.off { background:#d6dbe1; }
+  .ind-row .when { color:#aaa; }
+  .nav { margin-top:22px; font-size:12.5px; display:flex; justify-content:space-between; }
+  .nav a { color:#1264a3; text-decoration:none; }
+  .other-langs { margin-top:8px; font-size:11.5px; color:#999; }
+  .other-langs a { color:#888; }
+  @media (max-width:420px) { table { font-size:12px; } }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>V 株価 ・ 買いシグナル</h1>
+    <div class="sub">Visa Inc. ・ 基準日 2026-09-04</div>
+    <div class="signal">⚪ 現在シグナルなし</div>
+
+    <div class="disclaimer"><span>⚠️</span><span>投資判断はご自身の責任で行ってください。本ページは参考指標であり、売買の推奨ではありません。</span></div>
+
+    <table>
+      <tr><td class="lbl">終値</td><td class="val">375.07 (-0.97%)</td></tr>
+      <tr><td class="lbl">RSI</td><td class="val">55.1</td></tr>
+      <tr><td class="lbl">MACD / シグナル線 / ヒストグラム</td>
+          <td class="val">5.084 / 5.587 / -0.503</td></tr>
+      <tr><td class="lbl">短期移動平均 / 長期移動平均</td>
+          <td class="val">376.85 / 371.69</td></tr>
+      <tr><td class="lbl">ボリンジャーバンド（上/中/下）</td><td class="val">389.39 / 371.69 / 353.99</td></tr>
+      <tr><td class="lbl">出来高</td><td class="val">4,645,100</td></tr>
+      <tr><td class="lbl">平均出来高</td><td class="val">6,620,845</td></tr>
+    </table>
+
+    <h2>指標別の状態</h2>
+    <div class="ind-row"><i class="dot off"></i> <b>ゴールデン</b> — 短期移動平均線が長期移動平均線を上抜け → 上昇トレンド転換のサイン <span class="when">(非アクティブ)</span></div>
+<div class="ind-row"><i class="dot off"></i> <b>RSI</b> — 売られすぎ圏(RSI 30以下)から反発 → 売り圧力の弱まり <span class="when">(非アクティブ)</span></div>
+<div class="ind-row"><i class="dot off"></i> <b>MACD</b> — MACD線がシグナル線を上抜け → 上昇モメンタムへの転換 <span class="when">(非アクティブ)</span></div>
+<div class="ind-row"><i class="dot off"></i> <b>ボリンジャー</b> — ボリンジャーバンド下限にタッチ後、再び上に戻る → 売られすぎからの反発 <span class="when">(非アクティブ)</span></div>
+<div class="ind-row"><i class="dot off"></i> <b>出来高</b> — 直近平均出来高の一定倍率以上を記録 → 関心・資金流入のサイン <span class="when">(非アクティブ)</span></div>
+
+    <div class="nav">
+      <a href="index.html">← ダッシュボードホーム</a>
+      <a href="sp500_table.html">全銘柄の表を見る →</a>
+    </div>
+    <div class="other-langs">他の言語で見る: <a href="stock-v-ko.html">한국어</a> · <a href="stock-v-en.html">English</a></div>
+  </div>
+</body>
+</html>
