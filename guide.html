@@ -5,174 +5,38 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title data-i18n="page_title">매수 신호 지표 쉽게 알아보기</title>
 <style>
-  * { box-sizing:border-box; }
-  body { margin:0; padding:20px 16px 40px; color:#1a1a1a; background:#fff;
-         font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',
-                     'Apple SD Gothic Neo','Malgun Gothic',sans-serif; }
-  .wrap { max-width:480px; margin:0 auto; }
-  h1 { font-size:21px; margin:6px 0 4px; font-weight:800; }
-  .sub { font-size:13px; color:#777; margin-bottom:14px; line-height:1.6; }
-  .level-switch { display:flex; gap:6px; margin-bottom:14px; }
-  .level-switch button { flex:1; font-size:12.5px; font-weight:600; padding:9px 8px;
-    border-radius:10px; border:1.5px solid #e2e6eb; background:#f7f7f9; color:#888;
-    cursor:pointer; }
-  .level-switch button.active { background:#eef4ff; border-color:#7ba9ff; color:#1a4fb0; }
-  .ind-switch { display:flex; gap:6px; margin-bottom:14px; }
-  .ind-switch button { flex:1; font-size:12.5px; font-weight:700; padding:11px 6px;
-    border-radius:10px; border:1.5px solid #e2e6eb; background:#fff; color:#555;
-    cursor:pointer; }
-  .ind-switch button.active { background:#1a1a1a; color:#fff; border-color:#1a1a1a; }
-  section { border:1px solid #eee; border-radius:14px; padding:16px; margin-bottom:12px; }
-  section h2 { font-size:15.5px; margin:0 0 10px; }
-  section p { font-size:13.5px; line-height:1.8; color:#333; margin:0; }
-  .ind-section { display:none; }
-  body.ind-macd .ind-macd { display:block; }
-  body.ind-rsi .ind-rsi { display:block; }
-  body.ind-volume .ind-volume { display:block; }
-  .lvl-eli5 { display:none; }
-  body.eli5 .lvl-eli5 { display:block; }
-  body.eli5 .lvl-normal { display:none; }
-  .combo { background:#fbfaf5; }
-  .nav { margin-top:20px; font-size:12.5px; display:flex; justify-content:space-between; }
-  .nav a { color:#1264a3; text-decoration:none; }
-
-  .i18n-switch { display:flex; gap:4px; justify-content:flex-end; margin-bottom:8px; }
-  .i18n-switch button { font-size:11px; padding:4px 9px; border-radius:999px;
-    border:1px solid #e2e6eb; background:#f7f7f9; color:#888; cursor:pointer; }
-  .i18n-switch button.active { background:#1a1a1a; color:#fff; border-color:#1a1a1a; }
-
-
-  .disclaimer { display:flex; align-items:flex-start; gap:8px; margin:4px 0 14px;
-    padding:11px 13px; border-radius:12px; background:#fff8e1; border:1.5px solid #ffd54f;
-    color:#7a5c00; font-size:12.5px; font-weight:700; line-height:1.5; }
-  .disclaimer .ico { font-size:16px; line-height:1.4; flex-shrink:0; }
-
+*{box-sizing:border-box}body{margin:0;padding:20px 16px 40px;color:#1a1a1a;background:#fff;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Apple SD Gothic Neo','Malgun Gothic',sans-serif}.wrap{max-width:480px;margin:0 auto}h1{font-size:21px;margin:6px 0 4px;font-weight:800}.sub{font-size:13px;color:#777;margin-bottom:14px;line-height:1.6}.level-switch,.ind-switch{display:flex;gap:6px;margin-bottom:14px}.level-switch button,.ind-switch button{flex:1;border-radius:10px;cursor:pointer}.level-switch button{font-size:12.5px;font-weight:600;padding:9px 8px;border:1.5px solid #e2e6eb;background:#f7f7f9;color:#888}.level-switch button.active{background:#eef4ff;border-color:#7ba9ff;color:#1a4fb0}.ind-switch button{font-size:12.5px;font-weight:700;padding:11px 6px;border:1.5px solid #e2e6eb;background:#fff;color:#555}.ind-switch button.active{background:#1a1a1a;color:#fff;border-color:#1a1a1a}section{border:1px solid #eee;border-radius:14px;padding:16px;margin-bottom:12px}section h2{font-size:15.5px;margin:0 0 10px}section p{font-size:13.5px;line-height:1.8;color:#333;margin:0}.ind-section{display:none}body.ind-macd .ind-macd,body.ind-rsi .ind-rsi,body.ind-volume .ind-volume{display:block}.lvl-eli5{display:none}body.eli5 .lvl-eli5{display:block}body.eli5 .lvl-normal{display:none}.combo{background:#fbfaf5}.nav{margin-top:20px;font-size:12.5px;display:flex;justify-content:space-between}.nav a{color:#1264a3;text-decoration:none}.i18n-switch{display:flex;gap:4px;justify-content:flex-end;margin-bottom:8px}.i18n-switch button{font-size:11px;padding:4px 9px;border-radius:999px;border:1px solid #e2e6eb;background:#f7f7f9;color:#888;cursor:pointer}.i18n-switch button.active{background:#1a1a1a;color:#fff;border-color:#1a1a1a}.disclaimer{display:flex;align-items:flex-start;gap:8px;margin:4px 0 14px;padding:11px 13px;border-radius:12px;background:#fff8e1;border:1.5px solid #ffd54f;color:#7a5c00;font-size:12.5px;font-weight:700;line-height:1.5}.visual{margin:2px 0 14px;border:1px solid #e9edf2;border-radius:13px;overflow:hidden;background:linear-gradient(180deg,#fbfcfe,#f6f8fb)}.visual svg{display:block;width:100%;height:auto}.visual-note{display:flex;align-items:center;gap:7px;padding:9px 11px;border-top:1px solid #e9edf2;background:#fff;font-size:12px;font-weight:700;color:#344054}.dot{width:8px;height:8px;border-radius:50%;background:#20a464;box-shadow:0 0 0 4px #dff5ea;flex:0 0 auto}.axis{stroke:#d9dee7;stroke-width:1}.grid{stroke:#edf0f4;stroke-width:1;stroke-dasharray:4 4}.signal-zone{fill:#eaf8f0}.warn-zone{fill:#fff3f1}.macd-line{fill:none;stroke:#1677ff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}.sig-line{fill:none;stroke:#ff8a34;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}.rsi-line{fill:none;stroke:#7b61ff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}.avg-line{stroke:#8b95a5;stroke-width:2;stroke-dasharray:5 4}.bar{fill:#c8d0dc}.bar-hot{fill:#20a464}.hist-neg{fill:#f2b7ad}.hist-pos{fill:#95d9b5}.marker{fill:#20a464;stroke:#fff;stroke-width:3}.label{font:700 10px -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;fill:#667085}.label-strong{font:800 11px -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;fill:#147a4d}@media(max-width:390px){.ind-switch button{font-size:11.5px;padding-left:3px;padding-right:3px}}
 </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="i18n-switch">
-    <button type="button" data-lang="ko">한국어</button>
-    <button type="button" data-lang="ja">日本語</button>
-    <button type="button" data-lang="en">English</button>
-  </div>
-
-    <h1 data-i18n="h1">이 신호, 어떻게 나온 거예요?</h1>
-    <div class="sub" data-i18n="sub">대시보드가 매수 신호를 판단할 때 실제로 쓰는
-      3가지 지표예요.</div>
-
-    <div class="level-switch">
-      <button type="button" data-level="normal" data-i18n="level_normal">🎓 일반 설명</button>
-      <button type="button" data-level="eli5" data-i18n="level_eli5">🧒 초등학생도 이해하는 설명</button>
-    </div>
-
-    <div class="ind-switch">
-      <button type="button" data-ind="macd" data-i18n="macd_tab"></button>
-      <button type="button" data-ind="rsi" data-i18n="rsi_tab"></button>
-      <button type="button" data-ind="volume" data-i18n="volume_tab"></button>
-    </div>
-
-    <div class="disclaimer"><span class="ico">⚠️</span><span data-i18n="disclaimer"></span></div>
-    <section class="ind-section ind-macd">
-      <h2 data-i18n="macd_title"></h2>
-      <p class="lvl-normal" data-i18n="macd_normal"></p>
-      <p class="lvl-eli5" data-i18n="macd_eli5"></p>
-    </section>
-    <section class="ind-section ind-rsi">
-      <h2 data-i18n="rsi_title"></h2>
-      <p class="lvl-normal" data-i18n="rsi_normal"></p>
-      <p class="lvl-eli5" data-i18n="rsi_eli5"></p>
-    </section>
-    <section class="ind-section ind-volume">
-      <h2 data-i18n="volume_title"></h2>
-      <p class="lvl-normal" data-i18n="volume_normal"></p>
-      <p class="lvl-eli5" data-i18n="volume_eli5"></p>
-    </section>
-    <section class="combo">
-      <h2 data-i18n="combo_title">그럼 왜 3개를 같이 봐요?</h2>
-      <p class="lvl-normal" data-i18n="combo_normal"></p>
-      <p class="lvl-eli5" data-i18n="combo_eli5"></p>
-    </section>
-
-    <div class="nav">
-      <a href="index.html" data-i18n="back_home">← 대시보드 홈</a>
-      <a href="sp500_table.html" data-i18n="back_table">실제 신호 보러 가기 →</a>
-    </div>
-  </div>
-
+<div class="wrap">
+<div class="i18n-switch"><button data-lang="ko">한국어</button><button data-lang="ja">日本語</button><button data-lang="en">English</button></div>
+<h1 data-i18n="h1"></h1><div class="sub" data-i18n="sub"></div>
+<div class="level-switch"><button data-level="normal" data-i18n="level_normal"></button><button data-level="eli5" data-i18n="level_eli5"></button></div>
+<div class="ind-switch"><button data-ind="macd" data-i18n="macd_tab"></button><button data-ind="rsi" data-i18n="rsi_tab"></button><button data-ind="volume" data-i18n="volume_tab"></button></div>
+<div class="disclaimer"><span>⚠️</span><span data-i18n="disclaimer"></span></div>
+<section class="ind-section ind-macd"><h2 data-i18n="macd_title"></h2>
+<div class="visual"><svg viewBox="0 0 420 190" role="img" aria-label="MACD crossover diagram"><line class="grid" x1="30" y1="90" x2="395" y2="90"/><text class="label" x="32" y="82">0</text><rect class="hist-neg" x="55" y="91" width="18" height="22" rx="3"/><rect class="hist-neg" x="82" y="91" width="18" height="16" rx="3"/><rect class="hist-neg" x="109" y="91" width="18" height="10" rx="3"/><rect class="hist-neg" x="136" y="91" width="18" height="5" rx="3"/><rect class="hist-pos" x="163" y="82" width="18" height="8" rx="3"/><rect class="hist-pos" x="190" y="75" width="18" height="15" rx="3"/><rect class="hist-pos" x="217" y="68" width="18" height="22" rx="3"/><path class="sig-line" d="M42 64 C92 50,130 54,166 63 S237 75,286 67 S350 55,390 49"/><path class="macd-line" d="M42 49 C88 56,127 70,166 65 S233 50,286 45 S349 40,390 31"/><circle class="marker" cx="166" cy="64" r="6"/><text class="label-strong" x="177" y="54">CROSS ↑</text><text class="label" x="302" y="28">MACD</text><text class="label" x="302" y="67">SIGNAL</text></svg><div class="visual-note"><span class="dot"></span><span data-i18n="macd_visual"></span></div></div>
+<p class="lvl-normal" data-i18n="macd_normal"></p><p class="lvl-eli5" data-i18n="macd_eli5"></p></section>
+<section class="ind-section ind-rsi"><h2 data-i18n="rsi_title"></h2>
+<div class="visual"><svg viewBox="0 0 420 190" role="img" aria-label="RSI rebound diagram"><rect class="warn-zone" x="34" y="25" width="356" height="35" rx="7"/><rect class="signal-zone" x="34" y="125" width="356" height="38" rx="7"/><line class="grid" x1="34" y1="60" x2="390" y2="60"/><line class="grid" x1="34" y1="125" x2="390" y2="125"/><text class="label" x="10" y="63">70</text><text class="label" x="10" y="129">30</text><path class="rsi-line" d="M40 82 C75 89,98 101,125 119 S174 151,205 143 S248 111,273 103 S328 88,385 81"/><circle class="marker" cx="244" cy="119" r="6"/><text class="label-strong" x="255" y="112">30 ↑</text></svg><div class="visual-note"><span class="dot"></span><span data-i18n="rsi_visual"></span></div></div>
+<p class="lvl-normal" data-i18n="rsi_normal"></p><p class="lvl-eli5" data-i18n="rsi_eli5"></p></section>
+<section class="ind-section ind-volume"><h2 data-i18n="volume_title"></h2>
+<div class="visual"><svg viewBox="0 0 420 190" role="img" aria-label="Volume spike diagram"><line class="axis" x1="35" y1="157" x2="392" y2="157"/><line class="avg-line" x1="35" y1="104" x2="392" y2="104"/><text class="label" x="38" y="97">20D AVG</text><rect class="bar" x="50" y="124" width="24" height="33" rx="3"/><rect class="bar" x="86" y="116" width="24" height="41" rx="3"/><rect class="bar" x="122" y="128" width="24" height="29" rx="3"/><rect class="bar" x="158" y="111" width="24" height="46" rx="3"/><rect class="bar" x="194" y="120" width="24" height="37" rx="3"/><rect class="bar" x="230" y="126" width="24" height="31" rx="3"/><rect class="bar-hot" x="266" y="59" width="30" height="98" rx="4"/><rect class="bar" x="308" y="109" width="24" height="48" rx="3"/><rect class="bar" x="344" y="118" width="24" height="39" rx="3"/><circle class="marker" cx="281" cy="58" r="6"/><text class="label-strong" x="296" y="54">1.5×+</text></svg><div class="visual-note"><span class="dot"></span><span data-i18n="volume_visual"></span></div></div>
+<p class="lvl-normal" data-i18n="volume_normal"></p><p class="lvl-eli5" data-i18n="volume_eli5"></p></section>
+<section class="combo"><h2 data-i18n="combo_title"></h2><p class="lvl-normal" data-i18n="combo_normal"></p><p class="lvl-eli5" data-i18n="combo_eli5"></p></section>
+<div class="nav"><a href="index.html" data-i18n="back_home"></a><a href="sp500_table.html" data-i18n="back_table"></a></div>
+</div>
 <script>
-(function() {
-  var LEVEL_KEY = "sa_level";
-  var IND_KEY = "sa_indicator";
-  var levelButtons = document.querySelectorAll(".level-switch button");
-  var indButtons = document.querySelectorAll(".ind-switch button");
-  var INDS = ["macd", "rsi", "volume"];
-
-  function applyLevel(level) {
-    document.body.classList.toggle("eli5", level === "eli5");
-    levelButtons.forEach(function(b) { b.classList.toggle("active", b.dataset.level === level); });
-    try { localStorage.setItem(LEVEL_KEY, level); } catch (e) {}
-  }
-
-  function applyInd(ind) {
-    INDS.forEach(function(i) { document.body.classList.toggle("ind-" + i, i === ind); });
-    indButtons.forEach(function(b) { b.classList.toggle("active", b.dataset.ind === ind); });
-    try { localStorage.setItem(IND_KEY, ind); } catch (e) {}
-  }
-
-  levelButtons.forEach(function(b) {
-    b.addEventListener("click", function() { applyLevel(b.dataset.level); });
-  });
-  indButtons.forEach(function(b) {
-    b.addEventListener("click", function() { applyInd(b.dataset.ind); });
-  });
-
-  var initialLevel = "normal";
-  try { initialLevel = localStorage.getItem(LEVEL_KEY) || "normal"; } catch (e) {}
-  applyLevel(initialLevel);
-
-  var initialInd = "macd";
-  try { initialInd = localStorage.getItem(IND_KEY) || "macd"; } catch (e) {}
-  applyInd(initialInd);
-})();
+(function(){var LK='sa_level',IK='sa_indicator',lbs=document.querySelectorAll('.level-switch button'),ibs=document.querySelectorAll('.ind-switch button'),inds=['macd','rsi','volume'];function level(v){document.body.classList.toggle('eli5',v==='eli5');lbs.forEach(b=>b.classList.toggle('active',b.dataset.level===v));try{localStorage.setItem(LK,v)}catch(e){}}function ind(v){inds.forEach(i=>document.body.classList.toggle('ind-'+i,i===v));ibs.forEach(b=>b.classList.toggle('active',b.dataset.ind===v));try{localStorage.setItem(IK,v)}catch(e){}}lbs.forEach(b=>b.onclick=()=>level(b.dataset.level));ibs.forEach(b=>b.onclick=()=>ind(b.dataset.ind));var l='normal',i='macd';try{l=localStorage.getItem(LK)||l;i=localStorage.getItem(IK)||i}catch(e){}level(l);ind(i)})();
 </script>
-
 <script>
-(function() {
-  var DICT = {"ko": {"page_title": "매수 신호 지표 쉽게 알아보기", "h1": "이 신호, 어떻게 나온 거예요?", "sub": "대시보드가 매수 신호를 판단할 때 실제로 쓰는 3가지 지표예요. 궁금한 지표 버튼을 눌러서 하나씩 읽어보세요.", "level_normal": "🎓 일반 설명", "level_eli5": "🧒 초등학생도 이해하는 설명", "macd_tab": "① MACD 크로스", "rsi_tab": "② RSI 반등", "volume_tab": "③ 거래량 급증", "macd_title": "① MACD 크로스 — 추세 전환", "macd_normal": "MACD는 '단기 이동평균선'과 '장기 이동평균선'의 차이를 하나의 선으로 그린 지표예요. 이 MACD선이 그 차이의 평균을 나타내는 '시그널선'을 아래에서 위로 뚫고 올라가면, 최근 가격 흐름이 하락에서 상승 쪽으로 바뀌고 있다는 신호로 봅니다. 반대로 MACD선이 시그널선 아래에 계속 머물러 있으면 아직 하락 추세가 이어지고 있다는 뜻이에요. 이 대시보드는 히스토그램(MACD선과 시그널선의 차이)이 음수에서 양수로 바뀌는 바로 그 순간, 즉 두 선이 교차하는 시점을 잡아서 신호로 씁니다. 다만 MACD는 원래 '후행지표'라서 실제 바닥을 찍고 어느 정도 지난 뒤에야 신호가 뜨는 경우가 많다는 점은 참고해 두면 좋아요 — 그래서 이 대시보드는 MACD 혼자만 보지 않고 RSI, 거래량과 함께 확인합니다.", "macd_eli5": "친구 두 명이 달리기를 해요. 한 명은 원래 느리게 뛰던 친구고(이 친구를 '오랫동안의 흐름'이라고 생각해봐요), 다른 한 명은 요 며칠 사이에 갑자기 스퍼트를 낸 빠른 친구예요(이 친구는 '요즘의 흐름'이에요). 처음엔 느린 친구가 앞서 있었는데, 빠른 친구가 점점 따라붙다가 어느 순간 딱! 하고 앞질러버려요. 바로 그 추월하는 순간이 'MACD 크로스'예요. 마치 술래잡기에서 갑자기 술래가 바뀌는 것처럼, \"어? 분위기가 완전히 바뀌었네?\" 하고 다들 눈치채는 순간이죠. 그런데 이 신호는 추월한 걸 다 같이 확인한 '다음에' 알려주는 거라서, 사실 조금 늦게 알려주는 편이에요. 그래도 \"아, 흐름이 바뀌기 시작했구나\"를 알아채는 데는 큰 도움이 된답니다. 그래서 선생님(이 대시보드)은 이 친구 말만 믿지 않고 RSI, 거래량이라는 다른 두 친구한테도 꼭 같이 물어봐요.", "rsi_title": "② RSI 반등 — 너무 많이 떨어졌다가 돌아오기", "rsi_normal": "RSI(상대강도지수)는 0에서 100 사이의 숫자로 '최근에 이 주식이 너무 많이 팔렸는지 혹은 너무 많이 샀는지'를 재는 지표예요. 보통 30 이하면 '과매도' 구간이라고 부르고, 반대로 70 이상이면 '과매수' 구간이라고 불러요. 이 대시보드가 주목하는 건 과매도 구간(30 이하)까지 떨어졌던 RSI가 다시 30 위로 올라오는 순간이에요 — 팔려는 힘이 약해지고 사려는 힘이 조금씩 살아나기 시작했다는 신호로 해석하는 거죠. 다만 RSI가 30 밑에서 한참을 머무를 수도 있다는 점(주가가 계속 떨어지는 경우)은 꼭 기억해 두세요. 그래서 RSI 하나만으로 매수를 결정하지 않고, MACD와 거래량까지 같이 확인하는 거예요.", "rsi_eli5": "고무줄을 생각해봐요. 고무줄을 손으로 너무 세게 잡아당기면(주가가 너무 많이 떨어지면), 어느 순간부터는 잡고 있는 손을 놓지 않아도 저절로 다시 돌아오려는 힘이 생기죠? RSI는 바로 '지금 이 고무줄이 얼마나 늘어나 있는지'를 재는 자예요. 숫자가 30보다 작으면 고무줄이 아주 많이 늘어난 상태고, 70보다 크면 반대로 너무 많이 압축된 상태예요. 이 대시보드는 고무줄이 많이 늘어났다가(30 이하) 다시 줄어들기 시작하면 \"어! 이제 튕겨 돌아오려나 보다!\" 하고 신호를 줍니다. 그런데 가끔은 고무줄이 계속 늘어나기만 할 때도 있어요 — 그래서 이 신호 하나만 믿지 않고, 다른 친구들(MACD, 거래량)한테도 꼭 확인을 받는답니다.", "volume_title": "③ 거래량 급증 — 사람들이 갑자기 몰릴 때", "volume_normal": "거래량은 그 주식이 하루 동안 얼마나 많이 사고팔렸는지를 나타내는 숫자예요(주식 수 기준). 이 대시보드는 최근 20일 평균 거래량과 오늘 거래량을 비교해서, 오늘 거래량이 평균의 일정 배수(기본 1.5배) 이상이면 '거래량 급증'으로 판단해요. 거래량이 갑자기 늘었다는 건 그만큼 많은 사람이 그 종목에 관심을 갖고 사고팔기 시작했다는 뜻이라, 다른 지표(MACD, RSI)가 보내는 신호가 진짜인지 뒷받침해 주는 역할을 해요. 반대로 거래량 없이 가격만 슬쩍 움직이는 경우엔, 그 움직임이 오래가지 못하고 금방 사그라들 때가 많아요. 그래서 이 대시보드는 거래량을 '검증용 지표'로 꼭 같이 확인합니다.", "volume_eli5": "학교 매점을 떠올려봐요. 평소엔 쉬는 시간에 몇 명만 슬쩍 가는데, 어느 날 갑자기 우르르 엄청 많은 친구들이 몰려가면 \"오늘 뭔가 특별한 게 있나 보다!\" 하고 바로 눈치채잖아요. 주식의 거래량도 똑같아요 — 평소보다 훨씬 많은 사람이 그 주식을 사고팔면, \"어? 이 종목에 관심이 확 쏠리고 있네!\" 하는 신호예요. 이 대시보드는 오늘 거래량이 최근 20일 평균보다 1.5배 넘게 많으면 이 신호를 켜줘요. 그런데 사람이 별로 없는데 가격만 살짝 움직이는 건 별로 안 믿을만해요 — 마치 매점에 아무도 없는데 소문만 도는 것처럼요. 그래서 이 대시보드는 다른 친구들(MACD, RSI)이 신호를 보낼 때, \"진짜야?\"하고 거래량한테 꼭 다시 확인해요.", "combo_title": "그럼 왜 3개를 같이 봐요?", "combo_normal": "3개 지표 중 하나만 보면 속기 쉬워요. MACD만 보면 이미 오른 다음에 뒤늦게 신호가 뜰 수 있고, RSI만 보면 계속 떨어지는 중에 성급하게 신호가 뜰 수도 있고, 거래량만 보면 별다른 이유 없이 반짝 튄 거래량에 낚일 수도 있어요. 그래서 이 대시보드는 추세 전환(MACD) + 과매도 회복(RSI) + 거래량 검증, 이렇게 성격이 서로 다른 3개 축이 최근 몇 봉(기본 3봉) 이내에 동시에 '활성' 상태가 됐을 때만 진짜 매수 신호로 인정해요. 세 조건이 완벽히 같은 봉에서 딱 맞아떨어지는 일은 거의 없어서, 최근 며칠 안에만 발생했으면 넉넉하게 '아직 유효하다'고 봐주는 것도 포인트예요.", "combo_eli5": "친구 한 명 말만 듣고 판단하면 가끔 틀릴 수 있죠? MACD 친구는 원래 좀 느려서 이미 다 오른 다음에야 말해줄 때가 있고, RSI 친구는 성격이 급해서 아직 떨어지는 중인데도 성급하게 말할 때가 있고, 거래량 친구는 가끔 별일 아닌데도 잠깐 흥분해서 소란을 피울 때가 있어요. 그런데 서로 다른 성격의 친구 세 명이 다 같이 \"어, 이거 진짜인 것 같아!\"라고 입을 모으면 훨씬 믿을 만하겠죠? 이 대시보드도 딱 그래요 — 세 지표가 최근 며칠 사이에 다 같이 신호를 보내야만 진짜 '매수 신호'로 인정해줘요. 세 명이 정확히 같은 순간에 동시에 말하는 건 어려우니까, 최근 며칠 안에만 말했으면 \"아직 유효해!\" 하고 너그럽게 봐주는 것도 재밌는 포인트예요.", "back_home": "← 대시보드 홈", "back_table": "실제 신호 보러 가기 →", "disclaimer": "투자 판단은 본인 책임입니다. 참고용 지표일 뿐 매수·매도 추천이 아닙니다."}, "ja": {"page_title": "買いシグナルの指標をやさしく解説", "h1": "このシグナル、どうやって出るの？", "sub": "ダッシュボードが買いシグナルを判断するときに実際に使う3つの指標です。気になる指標のボタンを押して、ひとつずつ読んでみてください。", "level_normal": "🎓 通常の説明", "level_eli5": "🧒 小学生でもわかる説明", "macd_tab": "① MACDクロス", "rsi_tab": "② RSI反発", "volume_tab": "③ 出来高急増", "macd_title": "① MACDクロス — トレンド転換", "macd_normal": "MACDは「短期移動平均線」と「長期移動平均線」の差を1本の線で表した指標です。このMACD線が、その差の平均を示す「シグナル線」を下から上に突き抜けると、最近の値動きが下降から上昇へ変わりつつあるサインとみなします。逆にMACD線がシグナル線の下にとどまっている間は、まだ下降トレンドが続いているという意味です。このダッシュボードは、ヒストグラム(MACD線とシグナル線の差)がマイナスからプラスに変わる瞬間、つまり2本の線が交差する時点を捉えてシグナルとして使います。ただしMACDは元々「遅行指標」なので、実際の底を打ってからしばらく経ってからシグナルが出ることが多い点は覚えておくとよいでしょう — だからこのダッシュボードはMACD単体ではなく、RSIや出来高と合わせて確認します。", "macd_eli5": "友だち2人が競走をしています。1人はもともとゆっくり走っていた友だち（この子を「長い間の流れ」だと思ってください）、もう1人はここ数日で急にスパートをかけた速い友だち（この子は「最近の流れ」です）。最初は遅い友だちが前にいたのに、速い友だちがどんどん追いついてきて、ある瞬間ピタッと追い抜いてしまいます。その追い抜く瞬間こそが「MACDクロス」なんです。鬼ごっこで急に鬼が交代するみたいに、「あれ、雰囲気がすっかり変わったぞ？」とみんなが気づく瞬間です。ただ、このサインは追い抜いたのをちゃんと確認した「あと」で教えてくれるので、実は少し遅れて分かるタイプなんです。それでも「あ、流れが変わり始めたな」と気づくのにはとても役立ちます。だから先生（このダッシュボード）は、この子の言葉だけを信じず、RSIと出来高という他の2人の友だちにも必ず一緒に聞くようにしているんです。", "rsi_title": "② RSI反発 — 下がりすぎからの回復", "rsi_normal": "RSI（相対力指数）は0から100までの数字で、「最近この銘柄が売られすぎているか、買われすぎているか」を測る指標です。一般的に30以下は「売られすぎ」の圏内、70以上は「買われすぎ」の圏内と呼ばれます。このダッシュボードが注目するのは、売られすぎ圏(30以下)まで下がったRSIが再び30を上回る瞬間です — 売る力が弱まり、買う力が少しずつ戻り始めたサインと解釈します。ただし、RSIが30の下にしばらくとどまり続けることもある(株価が下がり続ける場合)点は覚えておいてください。だからこそRSIだけで判断せず、MACDや出来高も一緒に確認するのです。", "rsi_eli5": "ゴムひもを思い浮かべてください。手でゴムを強く引っぱると（株価がすごく下がると）、ある時点からは手を離さなくても自然と元に戻ろうとする力が生まれますよね？RSIはまさに「今このゴムがどれくらい伸びているか」を測るものさしです。数字が30より小さいとゴムがとても伸びている状態、70より大きいと逆にすごく縮んでいる状態です。このダッシュボードは、ゴムが大きく伸びたあと（30以下）また縮み始めたら「あ、そろそろ戻ってきそう！」というサインを出します。ただ、時にはゴムが伸び続けたままのこともあります — だからこのサインだけを信じず、ほかの友だち（MACD、出来高）にも必ず確認してもらうんです。", "volume_title": "③ 出来高急増 — 人が急に集まるとき", "volume_normal": "出来高とは、その株が1日にどれくらい売買されたかを示す数字です(株数ベース)。このダッシュボードは直近20日間の平均出来高と当日の出来高を比較し、当日の出来高が平均の一定倍率(デフォルト1.5倍)以上なら「出来高急増」と判断します。出来高が急に増えたということは、それだけ多くの人がその銘柄に関心を持ち、売買を始めたという意味なので、ほかの指標(MACD、RSI)が出すシグナルが本物かどうかを裏付ける役割を果たします。逆に出来高が伴わずに価格だけがわずかに動く場合、その動きは長続きせずすぐにしぼんでしまうことが多いです。だからこのダッシュボードは出来高を「裏付け用の指標」として必ず一緒に確認します。", "volume_eli5": "学校の売店を思い浮かべてください。いつもは休み時間に数人しかこっそり行かないのに、ある日突然たくさんの友だちがどっと押し寄せたら「今日は何か特別なことがあるんだ！」とすぐ気づきますよね。株の出来高も同じです — いつもよりずっと多くの人がその株を売買すると、「あれ、この銘柄に注目が集まっている！」というサインです。このダッシュボードは、当日の出来高が直近20日間の平均の1.5倍を超えたら、このサインを出します。でも、人がほとんどいないのに値段だけがちょっと動くのはあまり信用できません — まるで売店に誰もいないのに噂だけが広がっているようなものです。だからこのダッシュボードは、ほかの友だち（MACD、RSI）がサインを出したとき、「本当かな？」と出来高にも必ず聞き直すんです。", "combo_title": "じゃあ、なぜ3つ一緒に見るの？", "combo_normal": "3つの指標のうち1つだけを見ると、だまされやすくなります。MACDだけを見ると、すでに上がったあとに遅れてサインが出ることがありますし、RSIだけを見ると、下がり続けている途中で早まってサインが出てしまうこともあります。出来高だけを見ると、特に理由もなく一時的に増えた出来高に惑わされることもあります。だからこのダッシュボードは、トレンド転換(MACD)＋売られすぎからの回復(RSI)＋出来高による裏付け、という性質の異なる3つの軸が、直近数本のローソク足(デフォルト3本)以内に同時に「有効」になったときだけ、本当の買いシグナルとして認めます。3つの条件がぴったり同じローソク足でそろうことはほとんどないので、直近数日以内に起きていれば「まだ有効」と広めに見てあげるのもポイントです。", "combo_eli5": "友だち1人の話だけを聞いて判断すると、たまに間違えますよね？MACDくんはちょっとのんびり屋さんで、すでに上がりきったあとに教えてくれることがあります。RSIちゃんはせっかちで、まだ下がっている最中なのに早とちりして言ってしまうことも。出来高くんは、たいしたことじゃないのに一瞬興奮して騒ぐことがあります。でも、性格の違う3人の友だちが全員そろって「これ、本当っぽいよ！」と口をそろえたら、ずっと信じられそうですよね？このダッシュボードもまさにそれ — 3つの指標が直近数日のあいだに全部そろってサインを出したときだけ、本当の「買いシグナル」として認めます。3人がぴったり同じ瞬間に言うのは難しいので、直近数日以内に言っていれば「まだ有効だよ！」と大目に見てあげるのも、ちょっと面白いポイントです。", "back_home": "← ダッシュボードホーム", "back_table": "実際のシグナルを見る →", "disclaimer": "投資判断はご自身の責任で行ってください。本ページは参考指標であり、売買の推奨ではありません。"}, "en": {"page_title": "Understanding the Buy-Signal Indicators", "h1": "How Are These Signals Made?", "sub": "The 3 indicators the dashboard actually relies on to call a buy signal. Tap a button below to read about one at a time.", "level_normal": "🎓 Standard explanation", "level_eli5": "🧒 Explain it like I'm a kid", "macd_tab": "① MACD Cross", "rsi_tab": "② RSI Rebound", "volume_tab": "③ Volume Spike", "macd_title": "① MACD Cross — Trend Reversal", "macd_normal": "MACD is a single line that tracks the gap between a short-term and a long-term moving average. When this MACD line crosses above its 'signal line' — which tracks the average of that gap — it suggests the recent price trend is shifting from falling to rising. Conversely, while the MACD line stays below the signal line, the downtrend is likely still in play. This dashboard captures the exact moment the histogram (the gap between the MACD and signal lines) flips from negative to positive — the instant the two lines cross — and uses that as the signal. Keep in mind MACD is a lagging indicator by nature, so it often fires a while after the actual bottom has already passed. That's exactly why this dashboard never relies on MACD alone — it always checks it together with RSI and volume.", "macd_eli5": "Picture two friends racing. One used to run slowly (think of this friend as the 'long-term trend'), and the other just sped up over the last few days (this one is the 'recent trend'). At first the slow friend was in the lead, but the fast friend keeps catching up — and at one moment, whoosh, passes right by! That exact moment of passing is the 'MACD cross.' It's like when the tagger suddenly changes in a game of tag: everyone goes, \"Whoa, the mood just totally shifted!\" But here's the thing — this signal only shows up after everyone's already confirmed the pass happened, so it tends to tell you a little late. Still, it's a great way to notice that the trend has started to change. That's exactly why the teacher (this dashboard) never trusts this one friend alone — it always double-checks with the other two friends, RSI and volume.", "rsi_title": "② RSI Rebound — Bouncing Back From Oversold", "rsi_normal": "RSI (Relative Strength Index) is a number between 0 and 100 that measures whether a stock has recently been sold too much or bought too much. Readings of 30 or below are usually called 'oversold,' while 70 or above is 'overbought.' What this dashboard watches for is the moment RSI, after dropping into oversold territory (30 or below), climbs back above 30 — interpreted as a sign that selling pressure is fading and buying interest is starting to return. Keep in mind, though, that RSI can stay below 30 for a long stretch if the price keeps falling. That's exactly why RSI is never used alone here — it's always checked together with MACD and volume.", "rsi_eli5": "Think of a rubber band. If you pull it really hard with your hand (the price drops a lot), at some point it starts wanting to snap back on its own, even without letting go, right? RSI is exactly the ruler that measures how stretched that rubber band is right now. A number below 30 means the band is stretched a lot; above 70 means it's squished the opposite way instead. This dashboard sends a signal when the band stretches a lot (30 or below) and then starts shrinking back — that's the 'hey, it might snap back soon!' moment. But sometimes the band just keeps stretching and stretching — so this signal is never trusted alone. It always gets double-checked with the other friends, MACD and volume.", "volume_title": "③ Volume Spike — Sudden Crowd Interest", "volume_normal": "Volume is the number of shares of a stock that were bought and sold in a day. This dashboard compares today's volume to the 20-day average, and if today's volume is at least a certain multiple of that average (1.5x by default), it flags a 'volume spike.' A sudden jump in volume means a lot more people suddenly started paying attention to and trading that stock, which helps confirm whether signals from the other indicators (MACD, RSI) are the real deal. On the other hand, when price moves without volume behind it, that move often fizzles out quickly. That's why this dashboard always treats volume as a confirmation indicator, checked alongside the others.", "volume_eli5": "Imagine your school cafeteria. Usually only a few kids sneak in during break time, but one day a huge crowd suddenly rushes in — you'd instantly think, 'Something special must be happening today!' Stock volume works the same way: when way more people than usual are buying and selling a stock, it's a sign that everyone's attention just rushed toward it. This dashboard turns this signal on when today's volume is more than 1.5 times the recent 20-day average. But if barely anyone shows up and the price just wiggles a little, that's not very trustworthy — like a rumor spreading through an empty cafeteria. That's why, whenever the other friends (MACD, RSI) send a signal, this dashboard always double-checks with volume by asking, 'Is this for real?'", "combo_title": "So why look at all 3 together?", "combo_normal": "Relying on just one of these three indicators can be misleading. MACD alone might only fire after the price has already risen. RSI alone might fire too early while the price is still falling. Volume alone can be fooled by a random, one-off spike with no real reason behind it. That's why this dashboard only counts it as a real buy signal when three different angles — trend reversal (MACD), recovery from oversold (RSI), and volume confirmation — are all active within the last few bars (3, by default). Since it's rare for all three to line up on the exact same bar, the dashboard generously treats a signal as 'still valid' as long as it happened within that recent window.", "combo_eli5": "If you only listen to one friend, you might get it wrong sometimes. MACD-friend is a bit slow and sometimes only speaks up after the price has already climbed. RSI-friend is impatient and sometimes jumps in too early, while the price is still falling. Volume-friend occasionally gets excited and makes noise over nothing much. But when three friends with totally different personalities all say, \"Hey, this looks real!\" at once — that's a lot more convincing, right? This dashboard works exactly that way: it only counts it as a real 'buy signal' when all three indicators speak up within the same few recent days. Since it's hard for three friends to say it at the exact same instant, the dashboard is generous — as long as they all spoke up recently, it still counts as valid. Kind of a fun detail, honestly.", "back_home": "← Dashboard home", "back_table": "See it in action →", "disclaimer": "Investment decisions are your own responsibility. Reference indicators only — not a buy/sell recommendation."}};
-  var KEY = "sa_lang";
-
-  function apply(lang) {
-    document.documentElement.lang = lang;
-    document.querySelectorAll("[data-i18n]").forEach(function(el) {
-      var k = el.getAttribute("data-i18n");
-      var tpl = (DICT[lang] && DICT[lang][k]) || (DICT.ko && DICT.ko[k]) || "";
-      var n = el.getAttribute("data-i18n-n");
-      el.innerHTML = n !== null ? tpl.split("{n}").join("<b>" + n + "</b>") : tpl;
-    });
-    document.querySelectorAll("[data-i18n-ph]").forEach(function(el) {
-      var k = el.getAttribute("data-i18n-ph");
-      el.placeholder = (DICT[lang] && DICT[lang][k]) || "";
-    });
-    document.querySelectorAll("[data-i18n-title]").forEach(function(el) {
-      var k = el.getAttribute("data-i18n-title");
-      el.title = (DICT[lang] && DICT[lang][k]) || "";
-    });
-    document.querySelectorAll(".i18n-switch button").forEach(function(b) {
-      b.classList.toggle("active", b.dataset.lang === lang);
-    });
-    try { localStorage.setItem(KEY, lang); } catch (e) {}
-  }
-
-  document.querySelectorAll(".i18n-switch button").forEach(function(b) {
-    b.addEventListener("click", function() { apply(b.dataset.lang); });
-  });
-
-  var initial = "ko";
-  try { initial = localStorage.getItem(KEY) || "ko"; } catch (e) {}
-  apply(initial);
-})();
+(function(){
+var D={
+ko:{page_title:'매수 신호 지표 쉽게 알아보기',h1:'이 신호, 어떻게 나온 거예요?',sub:'대시보드가 매수 신호를 판단할 때 실제로 쓰는 3가지 지표예요. 그림으로 먼저 보고, 설명을 읽어보세요.',level_normal:'🎓 일반 설명',level_eli5:'🧒 초등학생도 이해하는 설명',macd_tab:'① MACD 크로스',rsi_tab:'② RSI 반등',volume_tab:'③ 거래량 급증',macd_title:'① MACD 크로스 — 추세 전환',macd_visual:'파란 MACD선이 주황 시그널선을 아래에서 위로 넘고, 히스토그램이 +로 바뀌는 순간',macd_normal:'MACD는 단기 흐름과 장기 흐름의 차이를 보는 지표예요. MACD선이 시그널선을 아래에서 위로 돌파하고 히스토그램이 음수에서 양수로 바뀌면 최근 가격 흐름이 상승 쪽으로 전환되는 신호로 봅니다. 다만 MACD는 후행지표라 실제 바닥보다 늦게 신호가 나올 수 있어 RSI와 거래량을 함께 확인합니다.',macd_eli5:'두 친구가 달리기를 하는데, 뒤에 있던 빠른 친구가 앞 친구를 딱 추월하는 순간을 생각해봐요. 그 순간이 MACD 크로스예요. 흐름이 바뀌기 시작했다는 뜻이지만 조금 늦게 알려줄 수 있어서 다른 신호도 같이 봐요.',rsi_title:'② RSI 반등 — 너무 많이 떨어졌다가 돌아오기',rsi_visual:'RSI가 30 아래까지 내려간 뒤 다시 30 위로 올라오는 순간',rsi_normal:'RSI는 0~100 사이 숫자로 최근 주식이 과하게 팔렸는지 또는 과하게 샀는지를 보여줘요. 보통 30 이하는 과매도, 70 이상은 과매수로 봅니다. 이 대시보드는 RSI가 30 이하까지 내려갔다가 다시 30 위로 올라오는 순간을 회복 신호로 봅니다. 다만 강한 하락장에서는 RSI가 오랫동안 30 아래에 머물 수 있어 단독으로 사용하지 않습니다.',rsi_eli5:'고무줄을 너무 세게 늘렸다가 다시 조금씩 돌아오는 모습을 생각해봐요. RSI가 30 아래까지 내려갔다가 다시 올라오면 “이제 다시 튕겨 올라오려나?” 하고 보는 거예요.',volume_title:'③ 거래량 급증 — 사람들이 갑자기 몰릴 때',volume_visual:'오늘 거래량이 최근 20일 평균보다 1.5배 이상 커지는 순간',volume_normal:'거래량은 하루 동안 얼마나 많이 사고팔렸는지를 보여줘요. 이 대시보드는 오늘 거래량을 최근 20일 평균과 비교해 기본 1.5배 이상이면 거래량 급증으로 판단합니다. 많은 참여자가 실제로 들어왔는지 확인하는 검증 역할이라 MACD와 RSI 신호의 신뢰도를 높여줍니다.',volume_eli5:'평소 한산하던 매점에 갑자기 친구들이 우르르 몰려오는 것과 같아요. 평소보다 사람이 훨씬 많아졌다면 “무슨 일이 있구나!”라고 볼 수 있죠.',combo_title:'그럼 왜 3개를 같이 봐요?',combo_normal:'MACD는 추세 전환, RSI는 과매도 회복, 거래량은 실제 참여 증가를 각각 확인합니다. 서로 성격이 다른 세 신호가 최근 몇 봉 안에 함께 나타나면 한 가지 지표만 볼 때보다 거짓 신호를 줄일 수 있습니다.',combo_eli5:'친구 한 명 말보다 서로 다른 세 친구가 모두 “이거 진짜 같아!”라고 말하면 더 믿을 만한 것과 같아요.',back_home:'← 대시보드 홈',back_table:'실제 신호 보러 가기 →',disclaimer:'투자 판단은 본인 책임입니다. 참고용 지표일 뿐 매수·매도 추천이 아닙니다.'},
+ja:{page_title:'買いシグナルの指標をやさしく解説',h1:'このシグナル、どうやって出るの？',sub:'ダッシュボードで使う3つの指標を、まず図で直感的に確認できます。',level_normal:'🎓 通常の説明',level_eli5:'🧒 小学生でもわかる説明',macd_tab:'① MACDクロス',rsi_tab:'② RSI反発',volume_tab:'③ 出来高急増',macd_title:'① MACDクロス — トレンド転換',macd_visual:'青いMACD線がオレンジのシグナル線を下から上へ抜け、ヒストグラムがプラスへ変わる瞬間',macd_normal:'MACDは短期と長期の値動きの差を見る指標です。MACD線がシグナル線を下から上へ抜け、ヒストグラムがマイナスからプラスに変わると、上昇方向への転換サインとみなします。ただし遅行指標なのでRSIと出来高も一緒に確認します。',macd_eli5:'後ろを走っていた速い友だちが、前の友だちを追い抜く瞬間を想像してください。それがMACDクロスです。流れが変わり始めた合図です。',rsi_title:'② RSI反発 — 売られすぎからの回復',rsi_visual:'RSIが30を下回ったあと、もう一度30を上回る瞬間',rsi_normal:'RSIは0〜100で売られすぎ・買われすぎを測る指標です。一般的に30以下は売られすぎ、70以上は買われすぎとされます。30以下から再び30を上回る瞬間を回復サインとして見ます。',rsi_eli5:'伸ばしすぎたゴムが少し戻り始めるイメージです。30より下から戻ってくると反発の可能性を見ます。',volume_title:'③ 出来高急増 — 人が急に集まるとき',volume_visual:'当日の出来高が直近20日平均の1.5倍以上になる瞬間',volume_normal:'出来高は1日にどれだけ売買されたかを示します。直近20日平均に対して当日の出来高が1.5倍以上なら急増と判断し、MACDやRSIのシグナルを裏付ける材料にします。',volume_eli5:'いつも空いている売店に急に大勢が集まるようなものです。いつもより人が多ければ「何か起きている」と考えます。',combo_title:'なぜ3つ一緒に見るの？',combo_normal:'MACDはトレンド転換、RSIは売られすぎからの回復、出来高は参加者の増加を確認します。性質の違う3つが最近の数本の足でそろうほど、単独指標よりだましを減らせます。',combo_eli5:'違う3人の友だちがみんな同じことを言えば、1人だけより信じやすいですよね。',back_home:'← ダッシュボードホーム',back_table:'実際のシグナルを見る →',disclaimer:'投資判断はご自身の責任で行ってください。本ページは参考指標であり、売買の推奨ではありません。'},
+en:{page_title:'Understanding the Buy-Signal Indicators',h1:'How Are These Signals Made?',sub:'See the 3 indicators the dashboard uses as simple visuals before reading the explanation.',level_normal:'🎓 Standard explanation',level_eli5:'🧒 Explain it like I’m a kid',macd_tab:'① MACD Cross',rsi_tab:'② RSI Rebound',volume_tab:'③ Volume Spike',macd_title:'① MACD Cross — Trend Reversal',macd_visual:'The blue MACD line crosses above the orange signal line as the histogram flips positive',macd_normal:'MACD compares short-term and long-term momentum. When the MACD line crosses above the signal line and the histogram flips from negative to positive, it can suggest the trend is turning upward. Because MACD is lagging, this dashboard confirms it with RSI and volume.',macd_eli5:'Imagine a faster runner coming from behind and passing the runner in front. That passing moment is the MACD cross — a simple sign that the direction may be changing.',rsi_title:'② RSI Rebound — Recovering From Oversold',rsi_visual:'RSI drops below 30, then climbs back above 30',rsi_normal:'RSI ranges from 0 to 100 and helps show whether a stock has been sold or bought too aggressively. Below 30 is commonly called oversold and above 70 overbought. This dashboard focuses on RSI recovering back above 30 after being oversold.',rsi_eli5:'Think of a rubber band stretched too far and then starting to spring back. Coming back above 30 is the “maybe it’s bouncing” moment.',volume_title:'③ Volume Spike — Sudden Crowd Interest',volume_visual:'Today’s volume rises to at least 1.5× the recent 20-day average',volume_normal:'Volume measures how many shares were traded. When today’s volume reaches at least 1.5 times the recent 20-day average, the dashboard treats it as a spike. It acts as confirmation that real participation is increasing behind the MACD and RSI signals.',volume_eli5:'It’s like a quiet cafeteria suddenly filling with people. A much bigger crowd tells you something unusual may be happening.',combo_title:'Why look at all 3 together?',combo_normal:'MACD checks trend reversal, RSI checks recovery from oversold conditions, and volume checks whether participation is really increasing. When all three appear within the recent few bars, false signals are less likely than when relying on only one indicator.',combo_eli5:'If three very different friends all say “this looks real,” that is usually more convincing than hearing it from just one.',back_home:'← Dashboard home',back_table:'See it in action →',disclaimer:'Investment decisions are your own responsibility. Reference indicators only — not a buy/sell recommendation.'}
+};var K='sa_lang';function apply(l){document.documentElement.lang=l;document.querySelectorAll('[data-i18n]').forEach(function(el){var k=el.dataset.i18n;el.innerHTML=(D[l]&&D[l][k])||(D.ko[k]||'')});document.querySelectorAll('.i18n-switch button').forEach(b=>b.classList.toggle('active',b.dataset.lang===l));try{localStorage.setItem(K,l)}catch(e){}}document.querySelectorAll('.i18n-switch button').forEach(b=>b.onclick=()=>apply(b.dataset.lang));var l='ko';try{l=localStorage.getItem(K)||l}catch(e){}apply(l)})();
 </script>
-
 </body>
 </html>
