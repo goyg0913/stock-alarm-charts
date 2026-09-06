@@ -9,14 +9,16 @@
 .break-section{padding:0;overflow:hidden;background:#fbf8f1;border-color:#eee5d5}.break-section figure{margin:0}.break-section img{display:block;width:100%;height:auto}.break-copy{padding:16px}.break-copy h2{color:#514638;margin-bottom:6px}.break-copy p{color:#615747;overflow-wrap:anywhere}
 .lesson h3{font-size:13.5px;line-height:1.6;margin:20px 0 6px;color:#26374c}.lesson h3:first-child{margin-top:0}.lesson p{overflow-wrap:anywhere}.lesson h3+p{margin-bottom:0}.example-note,.sources{font-size:12px;line-height:1.7;color:#666}.example-note{margin:0 0 16px}.sources{margin:18px 0 0;padding-top:14px;border-top:1px solid #eee}.sources p{margin:0 0 4px}.sources a{color:#1264a3}.nav{gap:12px;flex-wrap:wrap}
 </style>
+<link rel="stylesheet" href="assets/investment-warning.css">
 </head>
 <body>
 <div class="wrap">
+<aside class="site-investment-warning" role="note"><span class="site-investment-warning__icon" aria-hidden="true">⚠</span><span class="site-investment-warning__text" data-i18n="disclaimer">투자 경고: 실제 주식 투자는 본인의 선택과 책임입니다. 투자로 원금 손실이 발생할 수 있습니다. 이 사이트의 정보와 신호는 참고용이며, 매수·매도를 권유하거나 수익을 보장하지 않습니다.</span></aside>
+
 <div class="i18n-switch"><button data-lang="ko">한국어</button><button data-lang="ja">日本語</button><button data-lang="en">English</button></div>
 <h1 data-i18n="h1"></h1><div class="sub" data-i18n="sub"></div>
 <div class="level-switch"><button data-level="normal" data-i18n="level_normal"></button><button data-level="eli5" data-i18n="level_eli5"></button></div>
 <div class="ind-switch"><button data-ind="macd" data-i18n="macd_tab"></button><button data-ind="rsi" data-i18n="rsi_tab"></button><button data-ind="volume" data-i18n="volume_tab"></button></div>
-<div class="disclaimer"><span>⚠️</span><span data-i18n="disclaimer"></span></div>
 <p class="example-note" data-i18n="example_note"></p>
 <section class="ind-section ind-macd"><h2 data-i18n="macd_title"></h2>
 <div class="visual"><svg viewBox="0 0 420 190" role="img" aria-label="MACD crossover diagram"><line class="grid" x1="30" y1="90" x2="395" y2="90"/><text class="label" x="32" y="82">0</text><rect class="hist-neg" x="55" y="91" width="18" height="22" rx="3"/><rect class="hist-neg" x="82" y="91" width="18" height="16" rx="3"/><rect class="hist-neg" x="109" y="91" width="18" height="10" rx="3"/><rect class="hist-neg" x="136" y="91" width="18" height="5" rx="3"/><rect class="hist-pos" x="163" y="82" width="18" height="8" rx="3"/><rect class="hist-pos" x="190" y="75" width="18" height="15" rx="3"/><rect class="hist-pos" x="217" y="68" width="18" height="22" rx="3"/><path class="sig-line" d="M42 64 C92 50,130 54,166 63 S237 75,286 67 S350 55,390 49"/><path class="macd-line" d="M42 49 C88 56,127 70,166 65 S233 50,286 45 S349 40,390 31"/><circle class="marker" cx="166" cy="64" r="6"/><text class="label-strong" x="177" y="54">CROSS ↑</text><text class="label" x="302" y="28">MACD</text><text class="label" x="302" y="67">SIGNAL</text></svg><div class="visual-note"><span class="dot"></span><span data-i18n="macd_visual"></span></div></div>
@@ -72,7 +74,7 @@ var D={
     "combo_eli5": "<h3>세 가지 질문을 차례로 해봐요</h3><p>‘최근 흐름이 나아졌나?’는 MACD, ‘내리던 힘에서 돌아오나?’는 RSI, ‘거래가 평소보다 많나?’는 거래량으로 살펴봐요. 같은 장면을 서로 다른 도구로 관찰하는 느낌입니다.</p><h3>연습해 볼까요?</h3><p>RSI가 28에서 32로 올라오고, 파란 MACD선이 주황 선을 넘고, 거래량이 평소의 1.8배라고 해봐요. 세 가지 단서가 모였네요. 이제 실제 가격도 회복하는지 확인해요. 거래량만 많고 가격이 크게 떨어진다면 같은 이야기로 읽으면 안 됩니다.</p><h3>정답 도장은 아니에요</h3><p>세 도구가 모두 좋아 보여도 다음 날 가격이 떨어질 수 있어요. 점수를 더해서 ‘3개니까 무조건 성공’이라고 생각하지 말고, 각 숫자가 무엇을 말하는지 설명할 수 있는지를 목표로 해봐요.</p>",
     "back_home": "← 대시보드 홈",
     "back_table": "실제 신호 보러 가기 →",
-    "disclaimer": "투자 판단은 본인 책임입니다. 참고용 지표일 뿐 매수·매도 추천이 아닙니다.",
+    "disclaimer": "투자 경고: 실제 주식 투자는 본인의 선택과 책임입니다. 투자로 원금 손실이 발생할 수 있습니다. 이 사이트의 정보와 신호는 참고용이며, 매수·매도를 권유하거나 수익을 보장하지 않습니다.",
     "sources_title": "더 읽어보기 · Fidelity 지표 해설 (영문)",
     "example_note": "아래 숫자는 이해를 돕기 위한 가상 예시입니다. 실제 종목이나 수익률을 나타내지 않아요. 계산 기간과 신호 기준은 사용하는 화면의 설정을 확인하세요."
   },
@@ -105,7 +107,7 @@ var D={
     "combo_eli5": "<h3>3つの質問をしてみよう</h3><p>「最近の勢いはよくなった？」はMACD、「下がる力から戻ってきた？」はRSI、「普段より売買が多い？」は出来高で見ます。同じ場面を違う道具で観察する感じです。</p><h3>練習してみましょう</h3><p>RSIが28から32に戻り、青いMACD線がオレンジを超え、出来高が普段の1.8倍になったとします。3つの手がかりが集まりました。次は株価も回復しているかを見ます。売買が多くても株価が急落していたら、同じようには読めません。</p><h3>必ず当たる印ではありません</h3><p>3つともよく見えても、翌日に株価が下がることはあります。「3つそろったから絶対成功」と数えるより、それぞれの数字が何を表すか説明できることを目指しましょう。</p>",
     "back_home": "← ダッシュボードホーム",
     "back_table": "実際のシグナルを見る →",
-    "disclaimer": "投資判断はご自身の責任で行ってください。本ページは参考指標であり、売買の推奨ではありません。",
+    "disclaimer": "投資に関する警告：実際の株式投資は、ご自身の判断と責任で行ってください。元本を失う可能性があります。当サイトの情報やシグナルは参考用であり、売買を推奨したり、利益を保証したりするものではありません。",
     "sources_title": "さらに読む · Fidelityの指標解説（英語）",
     "example_note": "以下の数字は理解のための架空の例で、実際の銘柄や収益率ではありません。計算期間や判定基準は、利用する画面の設定を確認してください。"
   },
@@ -138,7 +140,7 @@ var D={
     "combo_eli5": "<h3>Ask three questions</h3><p>Is recent momentum improving? Look at MACD. Is it recovering from downward pressure? Look at RSI. Is trading busier than usual? Look at volume. Think of different tools for observing the same scene.</p><h3>Let’s practice</h3><p>Imagine RSI moves from 28 to 32, blue MACD crosses above orange, and volume reaches 1.8 times its average. Three clues have appeared. Now look at whether price is actually recovering. Heavy trading during a sharp fall tells a different story.</p><h3>There is no guaranteed answer</h3><p>Even if all three look encouraging, the price could fall tomorrow. Instead of adding up three clues and calling it a certain success, aim to explain what each clue tells you.</p>",
     "back_home": "← Dashboard home",
     "back_table": "See it in action →",
-    "disclaimer": "Investment decisions are your own responsibility. Reference indicators only — not a buy/sell recommendation.",
+    "disclaimer": "INVESTMENT WARNING: Investing in stocks is your own choice and responsibility. You may lose your invested capital. This site’s information and signals are for reference only, do not recommend buying or selling, and do not guarantee returns.",
     "sources_title": "Further reading · Fidelity indicator guides (English)",
     "example_note": "The numbers below are invented learning examples, not actual stocks or returns. Check the settings of the chart you use for calculation periods and signal thresholds."
   }

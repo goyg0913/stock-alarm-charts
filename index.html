@@ -43,9 +43,12 @@
   .disclaimer .ico { font-size:16px; line-height:1.4; flex-shrink:0; }
 
 </style>
+<link rel="stylesheet" href="assets/investment-warning.css">
 </head>
 <body>
   <div class="wrap">
+<aside class="site-investment-warning" role="note"><span class="site-investment-warning__icon" aria-hidden="true">⚠</span><span class="site-investment-warning__text" data-i18n="disclaimer">투자 경고: 실제 주식 투자는 본인의 선택과 책임입니다. 투자로 원금 손실이 발생할 수 있습니다. 이 사이트의 정보와 신호는 참고용이며, 매수·매도를 권유하거나 수익을 보장하지 않습니다.</span></aside>
+
     <div class="i18n-switch">
     <button type="button" data-lang="ko">한국어</button>
     <button type="button" data-lang="ja">日本語</button>
@@ -54,7 +57,6 @@
 
     <h1>📈 <span data-i18n="h1">미국 주식 스캔 대시보드</span></h1>
     <div class="sub" data-i18n="sub">두 가지 방식으로 S&amp;P 500을 스캔합니다</div>
-    <div class="disclaimer"><span class="ico">⚠️</span><span data-i18n="disclaimer"></span></div>
 
     <a class="card green" id="sp500-link" href="sp500_table.html">
       <span class="arrow">›</span>
@@ -95,7 +97,7 @@
 
 <script>
 (function() {
-  var DICT = {"ko": {"page_title": "미국 주식 스캔 대시보드", "h1": "미국 주식 스캔 대시보드", "sub": "두 가지 방식으로 S&P 500을 스캔합니다", "card1_title": "AND 신호 스캔", "card1_desc": "골든크로스·RSI·MACD·볼린저·거래량 중 필수 지표가 동시에 활성화되면 신호.", "card1_meta": "시총 상위 100종목 · 매시간", "card2_title": "예쁜 W패턴 스캔", "card2_desc": "Low1→Neckline→Low2 이중바닥 형태를 점수제로 판정 — 돌파 전 셋업까지 포착.", "card2_meta": "시총 상위 20종목 · 매일 오전 10시(KST)", "card3_title": "지표 쉽게 알아보기", "card3_desc": "매수 신호에 실제로 쓰는 3가지 지표를 쉬운 설명으로 풀어드려요.", "card3_meta": "초등학생도 이해하는 쉬운 설명 토글 포함", "ad_placeholder": "광고 영역 (애드센스 승인 전)", "disclaimer": "투자 판단은 본인 책임입니다. 참고용 지표일 뿐 매수·매도 추천이 아닙니다."}, "ja": {"page_title": "米国株スキャンダッシュボード", "h1": "米国株スキャンダッシュボード", "sub": "2つの方式でS&P 500をスキャンします", "card1_title": "AND シグナルスキャン", "card1_desc": "ゴールデンクロス・RSI・MACD・ボリンジャー・出来高のうち、必須指標が同時に点灯すればシグナル。", "card1_meta": "時価総額上位100銘柄 · 毎時", "card2_title": "きれいなWパターンスキャン", "card2_desc": "Low1→ネックライン→Low2のダブルボトム形状をスコア制で判定 — ブレイクアウト前のセットアップまで検知。", "card2_meta": "時価総額上位20銘柄 · 毎日午前10時(KST)", "card3_title": "指標をやさしく解説", "card3_desc": "買いシグナルに実際に使う3つの指標を、やさしい言葉で解説します。", "card3_meta": "小学生でもわかるやさしい説明モード付き", "ad_placeholder": "広告枠（アドセンス承認前）", "disclaimer": "投資判断はご自身の責任で行ってください。本ページは参考指標であり、売買の推奨ではありません。"}, "en": {"page_title": "US Stock Scan Dashboard", "h1": "US Stock Scan Dashboard", "sub": "Scanning the S&P 500 two different ways", "card1_title": "AND Signal Scan", "card1_desc": "Signals when the required indicators — golden cross, RSI, MACD, Bollinger, volume — are active at the same time.", "card1_meta": "Top 100 by market cap · Hourly", "card2_title": "Pretty W-Pattern Scan", "card2_desc": "Scores Low1→Neckline→Low2 double-bottom shapes — catches the setup before the breakout.", "card2_meta": "Top 20 by market cap · Daily 10AM (KST)", "card3_title": "Learn the Indicators", "card3_desc": "A plain-language walkthrough of the 3 indicators the signals rely on.", "card3_meta": "Includes an explain-it-simply toggle", "ad_placeholder": "Ad space (pending AdSense approval)", "disclaimer": "Investment decisions are your own responsibility. Reference indicators only — not a buy/sell recommendation."}};
+  var DICT = {"ko": {"page_title": "미국 주식 스캔 대시보드", "h1": "미국 주식 스캔 대시보드", "sub": "두 가지 방식으로 S&P 500을 스캔합니다", "card1_title": "AND 신호 스캔", "card1_desc": "골든크로스·RSI·MACD·볼린저·거래량 중 필수 지표가 동시에 활성화되면 신호.", "card1_meta": "시총 상위 100종목 · 매시간", "card2_title": "예쁜 W패턴 스캔", "card2_desc": "Low1→Neckline→Low2 이중바닥 형태를 점수제로 판정 — 돌파 전 셋업까지 포착.", "card2_meta": "시총 상위 20종목 · 매일 오전 10시(KST)", "card3_title": "지표 쉽게 알아보기", "card3_desc": "매수 신호에 실제로 쓰는 3가지 지표를 쉬운 설명으로 풀어드려요.", "card3_meta": "초등학생도 이해하는 쉬운 설명 토글 포함", "ad_placeholder": "광고 영역 (애드센스 승인 전)", "disclaimer": "투자 경고: 실제 주식 투자는 본인의 선택과 책임입니다. 투자로 원금 손실이 발생할 수 있습니다. 이 사이트의 정보와 신호는 참고용이며, 매수·매도를 권유하거나 수익을 보장하지 않습니다."}, "ja": {"page_title": "米国株スキャンダッシュボード", "h1": "米国株スキャンダッシュボード", "sub": "2つの方式でS&P 500をスキャンします", "card1_title": "AND シグナルスキャン", "card1_desc": "ゴールデンクロス・RSI・MACD・ボリンジャー・出来高のうち、必須指標が同時に点灯すればシグナル。", "card1_meta": "時価総額上位100銘柄 · 毎時", "card2_title": "きれいなWパターンスキャン", "card2_desc": "Low1→ネックライン→Low2のダブルボトム形状をスコア制で判定 — ブレイクアウト前のセットアップまで検知。", "card2_meta": "時価総額上位20銘柄 · 毎日午前10時(KST)", "card3_title": "指標をやさしく解説", "card3_desc": "買いシグナルに実際に使う3つの指標を、やさしい言葉で解説します。", "card3_meta": "小学生でもわかるやさしい説明モード付き", "ad_placeholder": "広告枠（アドセンス承認前）", "disclaimer": "投資に関する警告：実際の株式投資は、ご自身の判断と責任で行ってください。元本を失う可能性があります。当サイトの情報やシグナルは参考用であり、売買を推奨したり、利益を保証したりするものではありません。"}, "en": {"page_title": "US Stock Scan Dashboard", "h1": "US Stock Scan Dashboard", "sub": "Scanning the S&P 500 two different ways", "card1_title": "AND Signal Scan", "card1_desc": "Signals when the required indicators — golden cross, RSI, MACD, Bollinger, volume — are active at the same time.", "card1_meta": "Top 100 by market cap · Hourly", "card2_title": "Pretty W-Pattern Scan", "card2_desc": "Scores Low1→Neckline→Low2 double-bottom shapes — catches the setup before the breakout.", "card2_meta": "Top 20 by market cap · Daily 10AM (KST)", "card3_title": "Learn the Indicators", "card3_desc": "A plain-language walkthrough of the 3 indicators the signals rely on.", "card3_meta": "Includes an explain-it-simply toggle", "ad_placeholder": "Ad space (pending AdSense approval)", "disclaimer": "INVESTMENT WARNING: Investing in stocks is your own choice and responsibility. You may lose your invested capital. This site’s information and signals are for reference only, do not recommend buying or selling, and do not guarantee returns."}};
   var KEY = "sa_lang";
 
   function apply(lang) {
