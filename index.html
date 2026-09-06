@@ -21,6 +21,7 @@
   .card:active { transform:scale(.98); }
   .card.green { background:linear-gradient(135deg,#f2fbf4,#fff); }
   .card.pink { background:linear-gradient(135deg,#fff0f7,#fff); }
+  .card.blue { background:linear-gradient(135deg,#f0f6ff,#fff); }
   .card h2 { font-size:16px; margin:0 0 4px; display:flex; align-items:center; gap:6px; }
   .card p { font-size:12.5px; color:#666; margin:0 0 8px; line-height:1.5; }
   .card .meta { font-size:11.5px; color:#999; }
@@ -28,12 +29,17 @@
   .ad-placeholder { margin-top:24px; padding:24px; text-align:center;
                      font-size:12px; color:#bbb; border:1px dashed #ddd;
                      border-radius:12px; }
-  .foot { margin-top:26px; font-size:11px; color:#aaa; text-align:center; }
 
   .i18n-switch { display:flex; gap:4px; justify-content:flex-end; margin-bottom:8px; }
   .i18n-switch button { font-size:11px; padding:4px 9px; border-radius:999px;
     border:1px solid #e2e6eb; background:#f7f7f9; color:#888; cursor:pointer; }
   .i18n-switch button.active { background:#1a1a1a; color:#fff; border-color:#1a1a1a; }
+
+
+  .disclaimer { display:flex; align-items:flex-start; gap:8px; margin:4px 0 14px;
+    padding:11px 13px; border-radius:12px; background:#fff8e1; border:1.5px solid #ffd54f;
+    color:#7a5c00; font-size:12.5px; font-weight:700; line-height:1.5; }
+  .disclaimer .ico { font-size:16px; line-height:1.4; flex-shrink:0; }
 
 </style>
 </head>
@@ -47,6 +53,7 @@
 
     <h1>📈 <span data-i18n="h1">미국 주식 스캔 대시보드</span></h1>
     <div class="sub" data-i18n="sub">두 가지 방식으로 S&amp;P 500을 스캔합니다</div>
+    <div class="disclaimer"><span class="ico">⚠️</span><span data-i18n="disclaimer"></span></div>
 
     <a class="card green" id="sp500-link" href="sp500_table.html">
       <span class="arrow">›</span>
@@ -64,9 +71,15 @@
       <div class="meta" data-i18n="card2_meta">시총 상위 20종목 · 매일 오전 10시(KST)</div>
     </a>
 
-    <div class="ad-placeholder" data-i18n="ad_placeholder"></div>
+    <a class="card blue" href="guide.html">
+      <span class="arrow">›</span>
+      <h2>📚 <span data-i18n="card3_title">지표 쉽게 알아보기</span></h2>
+      <p data-i18n="card3_desc">매수 신호에 실제로 쓰는 3가지 지표를 쉬운 설명으로
+        풀어드려요.</p>
+      <div class="meta" data-i18n="card3_meta">초등학생도 이해하는 쉬운 설명 토글 포함</div>
+    </a>
 
-    <div class="foot" data-i18n="footer">참고용 지표 스캔입니다. 투자 판단은 본인 책임.</div>
+    <div class="ad-placeholder" data-i18n="ad_placeholder"></div>
   </div>
 
 <script>
@@ -81,7 +94,7 @@
 
 <script>
 (function() {
-  var DICT = {"ko": {"page_title": "미국 주식 스캔 대시보드", "h1": "미국 주식 스캔 대시보드", "sub": "두 가지 방식으로 S&P 500을 스캔합니다", "card1_title": "AND 신호 스캔", "card1_desc": "골든크로스·RSI·MACD·볼린저·거래량 중 필수 지표가 동시에 활성화되면 신호.", "card1_meta": "시총 상위 100종목 · 매시간", "card2_title": "예쁜 W패턴 스캔", "card2_desc": "Low1→Neckline→Low2 이중바닥 형태를 점수제로 판정 — 돌파 전 셋업까지 포착.", "card2_meta": "시총 상위 20종목 · 매일 오전 10시(KST)", "ad_placeholder": "광고 영역 (애드센스 승인 전)", "footer": "참고용 지표 스캔입니다. 투자 판단은 본인 책임."}, "ja": {"page_title": "米国株スキャンダッシュボード", "h1": "米国株スキャンダッシュボード", "sub": "2つの方式でS&P 500をスキャンします", "card1_title": "AND シグナルスキャン", "card1_desc": "ゴールデンクロス・RSI・MACD・ボリンジャー・出来高のうち、必須指標が同時に点灯すればシグナル。", "card1_meta": "時価総額上位100銘柄 · 毎時", "card2_title": "きれいなWパターンスキャン", "card2_desc": "Low1→ネックライン→Low2のダブルボトム形状をスコア制で判定 — ブレイクアウト前のセットアップまで検知。", "card2_meta": "時価総額上位20銘柄 · 毎日午前10時(KST)", "ad_placeholder": "広告枠（アドセンス承認前）", "footer": "参考用の指標スキャンです。投資判断は自己責任で。"}, "en": {"page_title": "US Stock Scan Dashboard", "h1": "US Stock Scan Dashboard", "sub": "Scanning the S&P 500 two different ways", "card1_title": "AND Signal Scan", "card1_desc": "Signals when the required indicators — golden cross, RSI, MACD, Bollinger, volume — are active at the same time.", "card1_meta": "Top 100 by market cap · Hourly", "card2_title": "Pretty W-Pattern Scan", "card2_desc": "Scores Low1→Neckline→Low2 double-bottom shapes — catches the setup before the breakout.", "card2_meta": "Top 20 by market cap · Daily 10AM (KST)", "ad_placeholder": "Ad space (pending AdSense approval)", "footer": "For reference only. Investment decisions are your own responsibility."}};
+  var DICT = {"ko": {"page_title": "미국 주식 스캔 대시보드", "h1": "미국 주식 스캔 대시보드", "sub": "두 가지 방식으로 S&P 500을 스캔합니다", "card1_title": "AND 신호 스캔", "card1_desc": "골든크로스·RSI·MACD·볼린저·거래량 중 필수 지표가 동시에 활성화되면 신호.", "card1_meta": "시총 상위 100종목 · 매시간", "card2_title": "예쁜 W패턴 스캔", "card2_desc": "Low1→Neckline→Low2 이중바닥 형태를 점수제로 판정 — 돌파 전 셋업까지 포착.", "card2_meta": "시총 상위 20종목 · 매일 오전 10시(KST)", "card3_title": "지표 쉽게 알아보기", "card3_desc": "매수 신호에 실제로 쓰는 3가지 지표를 쉬운 설명으로 풀어드려요.", "card3_meta": "초등학생도 이해하는 쉬운 설명 토글 포함", "ad_placeholder": "광고 영역 (애드센스 승인 전)", "disclaimer": "투자 판단은 본인 책임입니다. 참고용 지표일 뿐 매수·매도 추천이 아닙니다."}, "ja": {"page_title": "米国株スキャンダッシュボード", "h1": "米国株スキャンダッシュボード", "sub": "2つの方式でS&P 500をスキャンします", "card1_title": "AND シグナルスキャン", "card1_desc": "ゴールデンクロス・RSI・MACD・ボリンジャー・出来高のうち、必須指標が同時に点灯すればシグナル。", "card1_meta": "時価総額上位100銘柄 · 毎時", "card2_title": "きれいなWパターンスキャン", "card2_desc": "Low1→ネックライン→Low2のダブルボトム形状をスコア制で判定 — ブレイクアウト前のセットアップまで検知。", "card2_meta": "時価総額上位20銘柄 · 毎日午前10時(KST)", "card3_title": "指標をやさしく解説", "card3_desc": "買いシグナルに実際に使う3つの指標を、やさしい言葉で解説します。", "card3_meta": "小学生でもわかるやさしい説明モード付き", "ad_placeholder": "広告枠（アドセンス承認前）", "disclaimer": "投資判断はご自身の責任で行ってください。本ページは参考指標であり、売買の推奨ではありません。"}, "en": {"page_title": "US Stock Scan Dashboard", "h1": "US Stock Scan Dashboard", "sub": "Scanning the S&P 500 two different ways", "card1_title": "AND Signal Scan", "card1_desc": "Signals when the required indicators — golden cross, RSI, MACD, Bollinger, volume — are active at the same time.", "card1_meta": "Top 100 by market cap · Hourly", "card2_title": "Pretty W-Pattern Scan", "card2_desc": "Scores Low1→Neckline→Low2 double-bottom shapes — catches the setup before the breakout.", "card2_meta": "Top 20 by market cap · Daily 10AM (KST)", "card3_title": "Learn the Indicators", "card3_desc": "A plain-language walkthrough of the 3 indicators the signals rely on.", "card3_meta": "Includes an explain-it-simply toggle", "ad_placeholder": "Ad space (pending AdSense approval)", "disclaimer": "Investment decisions are your own responsibility. Reference indicators only — not a buy/sell recommendation."}};
   var KEY = "sa_lang";
 
   function apply(lang) {
