@@ -5,10 +5,10 @@
 <meta name="naver-site-verification" content="c204b5cba61b98e4cd03a49d8984156030f9a57d" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="index,follow">
-<title>配当金シミュレーター — ティッカーを入力して予想年間配当金(USD)を確認</title>
-<meta name="description" content="ティッカーと保有株数を入力すると、直近12か月の配当実績を1分ごとに自動取得し、予想年間配当金を米ドルで計算します。">
-<meta property="og:title" content="配当金シミュレーター — ティッカーを入力して予想年間配当金(USD)を確認">
-<meta property="og:description" content="ティッカーと保有株数を入力すると、直近12か月の配当実績を1分ごとに自動取得し、予想年間配当金を米ドルで計算します。">
+<title>配当ポートフォリオ・シミュレーター — 複数銘柄を追加して予想月間配当金(USD)を確認</title>
+<meta name="description" content="複数の銘柄に投資金額を振り分けると、1分ごとに配当データを自動取得してポートフォリオ全体の予想月間配当金を米ドルで計算します。">
+<meta property="og:title" content="配当ポートフォリオ・シミュレーター — 複数銘柄を追加して予想月間配当金(USD)を確認">
+<meta property="og:description" content="複数の銘柄に投資金額を振り分けると、1分ごとに配当データを自動取得してポートフォリオ全体の予想月間配当金を米ドルで計算します。">
 <link rel="canonical" href="dividend-simulator-ja.html">
 <link rel="alternate" hreflang="ko" href="dividend-simulator-ko.html">
 <link rel="alternate" hreflang="ja" href="dividend-simulator-ja.html">
@@ -26,50 +26,50 @@
   .disclaimer { display:flex; align-items:flex-start; gap:8px; margin:0 0 16px;
     padding:11px 13px; border-radius:12px; background:#fff8e1; border:1.5px solid #ffd54f;
     color:#7a5c00; font-size:12px; font-weight:700; line-height:1.5; }
-  label { display:block; font-size:11.5px; font-weight:700; color:#666; margin:0 0 4px; }
-  .field { margin-bottom:10px; }
-  input[type=text], input[type=number] {
-    width:100%; font-size:14px; padding:10px 12px; border-radius:10px;
-    border:1.5px solid #e2e6eb; font-family:inherit; }
-  input:focus { outline:none; border-color:#7ba9ff; }
-  .row2 { display:flex; gap:10px; }
-  .row2 .field { flex:1; }
-  .btn-row { display:flex; gap:8px; margin:12px 0 18px; }
-  button { font-family:inherit; cursor:pointer; border-radius:10px; font-weight:700; font-size:13.5px; padding:11px; }
-  button.primary { flex:1; border:none; background:#1a1a1a; color:#fff; }
-  button.primary.stop { background:#e5484d; }
-  button.secondary { flex:1; border:1.5px solid #e2e6eb; background:#fff; color:#555; }
-  button:disabled { opacity:.5; cursor:not-allowed; }
-  .result-card { border-radius:16px; padding:16px 18px; margin-bottom:14px;
+  .summary-card { border-radius:16px; padding:18px; margin-bottom:14px;
     border:1px solid #e9e9ee; box-shadow:0 2px 10px rgba(0,0,0,.04);
-    background:linear-gradient(135deg,#f2fbf4,#fff); }
-  .result-card .ticker-line { font-size:13.5px; font-weight:700; color:#444; margin-bottom:10px; }
-  .result-card .headline { font-size:11.5px; color:#999; margin-bottom:2px; }
-  .result-card .headline-value { font-size:26px; font-weight:800; font-variant-numeric:tabular-nums; margin-bottom:12px; }
-  table.detail { width:100%; border-collapse:collapse; font-size:12.5px; }
-  table.detail td { padding:5px 2px; border-bottom:1px solid #eef1f4; }
-  table.detail td.lbl { color:#888; width:55%; }
-  table.detail td.val { text-align:right; font-variant-numeric:tabular-nums; font-weight:600; }
-  .fx-note { font-size:11px; color:#aaa; margin-top:8px; }
+    background:linear-gradient(135deg,#f5f2ff,#fff); }
+  .summary-card .invested { font-size:12px; color:#888; margin-bottom:2px; }
+  .summary-card .invested b { color:#444; font-variant-numeric:tabular-nums; }
+  .summary-card .headline { font-size:12.5px; color:#666; margin:6px 0 2px; }
+  .summary-card .headline-value { font-size:30px; font-weight:800; font-variant-numeric:tabular-nums; color:#5b3df0; }
+  .summary-card .headline-value .per { font-size:14px; color:#999; font-weight:600; margin-left:4px; }
   .status-bar { display:flex; justify-content:space-between; align-items:center;
-                margin:12px 0 18px; font-size:11.5px; color:#999; }
+                margin:10px 0 18px; font-size:11.5px; color:#999; }
   .status-bar .dot { display:inline-block; width:7px; height:7px; border-radius:50%;
                       background:#2ea043; margin-right:5px; }
   .status-bar .dot.idle { background:#c8ccd2; }
   .status-bar .dot.loading { background:#ffb020; animation:pulse 1s infinite; }
   .status-bar .dot.error { background:#e5484d; }
   @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.35;} }
-  .history { margin-top:22px; }
-  .history h2 { font-size:14px; margin:0 0 10px; display:flex; justify-content:space-between; align-items:center; }
-  .history h2 button { font-size:11px; padding:5px 9px; border-radius:999px; border:1px solid #e2e6eb; background:#f7f7f9; color:#888; font-weight:600; }
-  .history-item { display:flex; justify-content:space-between; align-items:center;
-    padding:10px 12px; border:1px solid #eef1f4; border-radius:10px; margin-bottom:8px; }
-  .history-item .info { font-size:12.5px; }
-  .history-item .info .t { font-weight:700; }
-  .history-item .info .m { color:#999; font-size:11px; }
-  .history-item .amt { font-size:13.5px; font-weight:800; font-variant-numeric:tabular-nums; margin-right:10px; }
-  .history-item .del { color:#e5484d; background:none; border:none; font-size:17px; padding:2px 4px; }
-  .history-empty { font-size:12px; color:#aaa; padding:8px 0; }
+
+  label { display:block; font-size:11.5px; font-weight:700; color:#666; margin:0 0 4px; }
+  .field { margin-bottom:10px; }
+  .row2 { display:flex; gap:10px; }
+  .row2 .field { flex:1; }
+  input[type=text], input[type=number] {
+    width:100%; font-size:14px; padding:10px 12px; border-radius:10px;
+    border:1.5px solid #e2e6eb; font-family:inherit; }
+  input:focus { outline:none; border-color:#7ba9ff; }
+  button { font-family:inherit; cursor:pointer; border-radius:10px; font-weight:700; font-size:13.5px; padding:11px; }
+  button.primary { width:100%; border:none; background:#1a1a1a; color:#fff; margin-bottom:18px; }
+  button:disabled { opacity:.5; cursor:not-allowed; }
+
+  .holdings h2 { font-size:14px; margin:0 0 10px; display:flex; justify-content:space-between; align-items:center; }
+  .holdings h2 button { font-size:11px; padding:5px 9px; border-radius:999px; border:1px solid #e2e6eb; background:#f7f7f9; color:#888; font-weight:600; }
+  .holding-item { padding:12px 14px; border:1px solid #eef1f4; border-radius:12px; margin-bottom:10px; }
+  .holding-item .top-row { display:flex; justify-content:space-between; align-items:flex-start; }
+  .holding-item .ticker { font-size:14px; font-weight:800; }
+  .holding-item .del { color:#e5484d; background:none; border:none; font-size:17px; padding:2px 4px; }
+  .holding-item .monthly { font-size:18px; font-weight:800; color:#5b3df0; font-variant-numeric:tabular-nums; margin:4px 0 8px; }
+  .holding-item .monthly .per { font-size:11px; color:#999; font-weight:600; }
+  .holding-item table.detail { width:100%; border-collapse:collapse; font-size:12px; }
+  .holding-item table.detail td { padding:3px 0; color:#888; }
+  .holding-item table.detail td.val { text-align:right; font-variant-numeric:tabular-nums; font-weight:600; color:#333; }
+  .holding-item .err { font-size:12px; color:#e5484d; font-weight:600; margin-top:4px; }
+  .holding-item .loading-label { font-size:12px; color:#ffb020; font-weight:600; margin-top:4px; }
+  .holdings-empty { font-size:12px; color:#aaa; padding:10px 0 20px; text-align:center; }
+
   .credit { font-size:11px; color:#bbb; margin:14px 0 18px; }
   .credit a { color:#aaa; }
   .nav { margin-top:22px; font-size:12.5px; display:flex; justify-content:space-between; }
@@ -80,51 +80,40 @@
 </head>
 <body>
   <div class="wrap">
-    <h1>配当金シミュレーター</h1>
-    <div class="sub">ティッカーを入力すると1分ごとに配当データを自動取得し、予想年間配当金を米ドルで計算します</div>
+    <h1>配当ポートフォリオ・シミュレーター</h1>
+    <div class="sub">銘柄ごとに投資金額を追加すると1分ごとに配当データを自動取得し、予想月間配当金を米ドル（税引前）で計算します</div>
 
-    <div class="disclaimer"><span>⚠️</span><span>実際の配当金は企業の方針変更・為替変動・源泉徴収税などにより異なる場合があります。本計算は参考用シミュレーションであり、投資助言ではありません。</span></div>
+    <div class="disclaimer"><span>⚠️</span><span>すべての金額は税引前です。実際の受取額は源泉徴収税やご自身の税務状況により異なります。配当方針が変更される可能性もあり、本計算は参考用シミュレーションであり投資助言ではありません。</span></div>
 
-    <div class="field">
-      <label for="ticker">ティッカー（例: AAPL, KO, JEPI）</label>
-      <input type="text" id="ticker" placeholder="AAPL" autocomplete="off" autocapitalize="characters">
-    </div>
-    <div class="row2">
-      <div class="field">
-        <label for="shares">保有株数</label>
-        <input type="number" id="shares" value="1" min="0" step="0.0001">
-      </div>
-    </div>
-
-    <div class="btn-row">
-      <button type="button" class="primary" id="start-btn">開始（1分ごとに更新）</button>
-      <button type="button" class="secondary" id="save-btn" disabled>この記録を保存</button>
+    <div class="summary-card">
+      <div class="invested">総投資金額 <b id="total-invested">$0.00</b></div>
+      <div class="headline">予想月間配当金（税引前・ポートフォリオ合計）</div>
+      <div class="headline-value" id="total-monthly">$0.00</div>
     </div>
 
     <div class="status-bar">
-      <span><i class="dot idle" id="status-dot"></i><span id="status-text">ティッカーを入力して開始してください</span></span>
+      <span><i class="dot idle" id="status-dot"></i><span id="status-text">銘柄を追加すると自動取得が始まります</span></span>
       <span id="updated-at"></span>
     </div>
 
-    <div class="result-card" id="result-card" hidden>
-      <div class="ticker-line" id="result-ticker">—</div>
-      <div class="headline">予想年間配当金（保有株数ベース）</div>
-      <div class="headline-value" id="result-annual">$0.00</div>
-      <table class="detail">
-        <tr><td class="lbl">現在価格</td><td class="val" id="result-price">—</td></tr>
-        <tr><td class="lbl">1株あたり配当金（直近12か月合計）</td><td class="val" id="result-dps">—</td></tr>
-        <tr><td class="lbl">配当利回り（TTM）</td><td class="val" id="result-yield">—</td></tr>
-        <tr><td class="lbl">保有株数</td><td class="val" id="result-shares">—</td></tr>
-      </table>
-      <div class="fx-note" id="result-fx-note"></div>
+    <div class="field">
+      <label for="ticker">ティッカー（例: SCHD, AAPL, KO, JEPI）</label>
+      <input type="text" id="ticker" placeholder="SCHD" autocomplete="off" autocapitalize="characters">
+    </div>
+    <div class="row2">
+      <div class="field">
+        <label for="amount">投資金額（ドル $）</label>
+        <input type="number" id="amount" placeholder="1000" min="0" step="0.01">
+      </div>
+    </div>
+    <button type="button" class="primary" id="add-btn">銘柄を追加</button>
+
+    <div class="holdings">
+      <h2>構成銘柄<button type="button" id="clear-all-btn">全て削除</button></h2>
+      <div id="holdings-list"></div>
     </div>
 
-    <div class="credit">株価・配当データ: Yahoo Finance ・ 為替: <a href="https://www.exchangerate-api.com" target="_blank" rel="noopener">ExchangeRate-API</a></div>
-
-    <div class="history">
-      <h2>保存した記録<button type="button" id="clear-history-btn">全て削除</button></h2>
-      <div id="history-list"></div>
-    </div>
+    <div class="credit">株価・配当データ: Yahoo Finance</div>
 
     <div class="nav">
       <a href="index.html">← ダッシュボードホーム</a>
@@ -135,33 +124,29 @@
 
 <script>
 (function () {
-  var YF_CHART = "https://query1.finance.yahoo.com/v8/finance/chart/";
-  var FX_API = "https://open.er-api.com/v6/latest/";
+  var YF_HOSTS = [
+    "https://query1.finance.yahoo.com/v8/finance/chart/",
+    "https://query2.finance.yahoo.com/v8/finance/chart/"
+  ];
   var REFRESH_MS = 60000;
-  var STORAGE_KEY = "sa_dividend_records";
+  var STORAGE_KEY = "sa_dividend_portfolio";
 
   var tickerEl = document.getElementById("ticker");
-  var sharesEl = document.getElementById("shares");
-  var startBtn = document.getElementById("start-btn");
-  var saveBtn = document.getElementById("save-btn");
+  var amountEl = document.getElementById("amount");
+  var addBtn = document.getElementById("add-btn");
+  var clearAllBtn = document.getElementById("clear-all-btn");
   var dotEl = document.getElementById("status-dot");
   var statusEl = document.getElementById("status-text");
   var updatedEl = document.getElementById("updated-at");
-  var resultCard = document.getElementById("result-card");
-  var resultTicker = document.getElementById("result-ticker");
-  var resultAnnual = document.getElementById("result-annual");
-  var resultPrice = document.getElementById("result-price");
-  var resultDps = document.getElementById("result-dps");
-  var resultYield = document.getElementById("result-yield");
-  var resultShares = document.getElementById("result-shares");
-  var resultFxNote = document.getElementById("result-fx-note");
-  var historyList = document.getElementById("history-list");
-  var clearHistoryBtn = document.getElementById("clear-history-btn");
+  var totalInvestedEl = document.getElementById("total-invested");
+  var totalMonthlyEl = document.getElementById("total-monthly");
+  var holdingsList = document.getElementById("holdings-list");
 
+  var holdings = [];
   var timer = null;
-  var lastResult = null;
 
   function usd(n) {
+    if (!isFinite(n)) n = 0;
     return "$" + n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   }
 
@@ -170,171 +155,234 @@
     statusEl.textContent = text;
   }
 
-  function loadRecords() {
+  function loadPortfolio() {
     try {
       return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
     } catch (e) { return []; }
   }
 
-  function saveRecords(records) {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(records)); } catch (e) {}
+  function savePortfolio() {
+    try {
+      var slim = holdings.map(function (h) {
+        return { id: h.id, ticker: h.ticker, investedAmountUSD: h.investedAmountUSD };
+      });
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(slim));
+    } catch (e) {}
   }
 
-  function renderHistory() {
-    var records = loadRecords();
-    historyList.innerHTML = "";
-    if (records.length === 0) {
-      historyList.innerHTML = '<div class="history-empty">保存された記録はありません。</div>';
-      return;
+  function fetchQuote(ticker) {
+    function tryHost(i) {
+      if (i >= YF_HOSTS.length) {
+        return Promise.reject(new Error("データソースに接続できません（ネットワーク/CORS）"));
+      }
+      var url = YF_HOSTS[i] + encodeURIComponent(ticker) + "?range=1y&interval=1mo&events=div";
+      return fetch(url, { cache: "no-store" }).then(function (res) {
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        return res.json();
+      }).then(function (json) {
+        var chart = json.chart || {};
+        if (chart.error) throw new Error(chart.error.description || "ティッカーが見つかりません");
+        var result = chart.result && chart.result[0];
+        if (!result || !result.meta) throw new Error("データが見つかりません");
+        var meta = result.meta;
+        var events = (result.events && result.events.dividends) || {};
+        var oneYearAgo = Date.now() / 1000 - 365 * 24 * 3600;
+        var ttmDividend = 0;
+        Object.keys(events).forEach(function (key) {
+          var ev = events[key];
+          if (ev.date >= oneYearAgo) ttmDividend += ev.amount;
+        });
+        return {
+          symbol: (meta.symbol || ticker).toUpperCase(),
+          currency: meta.currency || "USD",
+          price: meta.regularMarketPrice || 0,
+          ttmDividend: ttmDividend
+        };
+      }).catch(function (err) {
+        if (i + 1 < YF_HOSTS.length) return tryHost(i + 1);
+        throw err;
+      });
     }
-    records.slice().reverse().forEach(function (r) {
-      var item = document.createElement("div");
-      item.className = "history-item";
-      var savedDate = new Date(r.savedAt).toLocaleString("ja-JP");
-      item.innerHTML =
-        '<div class="info"><span class="t"></span><br><span class="m"></span><br><span class="m"></span></div>' +
-        '<div style="display:flex;align-items:center;">' +
-        '<span class="amt"></span>' +
-        '<button type="button" class="del" aria-label="削除">✕</button></div>';
-      item.querySelector(".t").textContent = r.ticker + " × " + r.shares + "株";
-      item.querySelectorAll(".m")[0].textContent = "1株あたり " + usd(r.dividendPerShareUSD) + "/年";
-      item.querySelectorAll(".m")[1].textContent = savedDate;
-      item.querySelector(".amt").textContent = usd(r.annualDividendUSD);
-      item.querySelector(".del").addEventListener("click", function () {
-        var all = loadRecords();
-        all = all.filter(function (x) { return x.id !== r.id; });
-        saveRecords(all);
-        renderHistory();
-      });
-      historyList.appendChild(item);
-    });
-  }
-
-  clearHistoryBtn.addEventListener("click", function () {
-    if (!confirm("保存された記録を全て削除しますか？")) return;
-    saveRecords([]);
-    renderHistory();
-  });
-
-  function fetchDividendData(ticker) {
-    var url = YF_CHART + encodeURIComponent(ticker) + "?range=1y&interval=1mo&events=div";
-    return fetch(url, { cache: "no-store" }).then(function (res) {
-      if (!res.ok) throw new Error("HTTP " + res.status);
-      return res.json();
-    }).then(function (json) {
-      var result = json.chart && json.chart.result && json.chart.result[0];
-      if (!result || !result.meta) throw new Error("no data");
-      var meta = result.meta;
-      var events = (result.events && result.events.dividends) || {};
-      var oneYearAgo = Date.now() / 1000 - 365 * 24 * 3600;
-      var ttmDividend = 0;
-      Object.keys(events).forEach(function (key) {
-        var ev = events[key];
-        if (ev.date >= oneYearAgo) ttmDividend += ev.amount;
-      });
-      return {
-        symbol: meta.symbol || ticker.toUpperCase(),
-        currency: meta.currency || "USD",
-        price: meta.regularMarketPrice,
-        ttmDividend: ttmDividend
-      };
-    });
+    return tryHost(0);
   }
 
   function fxRateToUSD(currency) {
     if (currency === "USD") return Promise.resolve(1);
-    return fetch(FX_API + currency, { cache: "no-store" }).then(function (res) {
-      if (!res.ok) throw new Error("HTTP " + res.status);
-      return res.json();
-    }).then(function (json) {
-      if (json.result !== "success" || !json.rates || !json.rates.USD) throw new Error("fx error");
-      return json.rates.USD;
+    return fetch("https://open.er-api.com/v6/latest/" + currency, { cache: "no-store" })
+      .then(function (res) {
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        return res.json();
+      }).then(function (json) {
+        if (json.result !== "success" || !json.rates || !json.rates.USD) throw new Error("為替取得失敗");
+        return json.rates.USD;
+      });
+  }
+
+  function renderTotals() {
+    var totalInvested = 0, totalMonthly = 0;
+    holdings.forEach(function (h) {
+      totalInvested += h.investedAmountUSD || 0;
+      if (h.annualDividendUSD) totalMonthly += h.annualDividendUSD / 12;
+    });
+    totalInvestedEl.textContent = usd(totalInvested);
+    totalMonthlyEl.innerHTML = usd(totalMonthly);
+  }
+
+  function renderHoldings() {
+    holdingsList.innerHTML = "";
+    if (holdings.length === 0) {
+      holdingsList.innerHTML = '<div class="holdings-empty">まだ銘柄がありません。上でティッカーと金額を入力してください。</div>';
+      renderTotals();
+      return;
+    }
+    holdings.forEach(function (h) {
+      var item = document.createElement("div");
+      item.className = "holding-item";
+
+      var body = '<div class="top-row"><span class="ticker"></span>' +
+        '<button type="button" class="del" aria-label="削除">✕</button></div>';
+
+      if (h.error) {
+        body += '<div class="err"></div>';
+      } else if (h.loading && !h.hasData) {
+        body += '<div class="loading-label">読み込み中…</div>';
+      } else if (h.hasData) {
+        body += '<div class="monthly"><span class="monthly-val"></span><span class="per"> /月（税引前）</span></div>' +
+          '<table class="detail">' +
+          '<tr><td>投資金額</td><td class="val invested-val"></td></tr>' +
+          '<tr><td>推定保有株数</td><td class="val shares-val"></td></tr>' +
+          '<tr><td>1株配当金（直近12か月）</td><td class="val dps-val"></td></tr>' +
+          '<tr><td>予想年間配当金</td><td class="val annual-val"></td></tr>' +
+          '</table>';
+        if (h.error) body += '<div class="err"></div>';
+      }
+
+      item.innerHTML = body;
+      item.querySelector(".ticker").textContent = h.ticker;
+      item.querySelector(".del").addEventListener("click", function () {
+        holdings = holdings.filter(function (x) { return x.id !== h.id; });
+        savePortfolio();
+        renderHoldings();
+      });
+
+      if (h.hasData) {
+        item.querySelector(".monthly-val").textContent = usd(h.annualDividendUSD / 12);
+        item.querySelector(".invested-val").textContent = usd(h.investedAmountUSD);
+        item.querySelector(".shares-val").textContent = h.shares.toLocaleString("en-US", { maximumFractionDigits: 4 });
+        item.querySelector(".dps-val").textContent = usd(h.dividendPerShareUSD);
+        item.querySelector(".annual-val").textContent = usd(h.annualDividendUSD);
+      }
+      if (h.error) {
+        item.querySelector(".err").textContent = "⚠ " + h.error;
+      }
+
+      holdingsList.appendChild(item);
+    });
+    renderTotals();
+  }
+
+  function refreshHolding(h) {
+    h.loading = true;
+    return fetchQuote(h.ticker).then(function (data) {
+      return fxRateToUSD(data.currency).then(function (rate) {
+        var priceUSD = data.price * rate;
+        var dividendPerShareUSD = data.ttmDividend * rate;
+        if (!h.hasData) {
+          h.shares = priceUSD > 0 ? h.investedAmountUSD / priceUSD : 0;
+        }
+        h.dividendPerShareUSD = dividendPerShareUSD;
+        h.annualDividendUSD = dividendPerShareUSD * h.shares;
+        h.hasData = true;
+        h.error = null;
+        h.loading = false;
+      });
+    }).catch(function (err) {
+      h.loading = false;
+      h.error = (err && err.message) || "取得失敗";
     });
   }
 
-  function runSimulation() {
-    var ticker = tickerEl.value.trim();
-    var shares = parseFloat(sharesEl.value) || 0;
-    if (!ticker) return;
+  function refreshAll() {
+    if (holdings.length === 0) {
+      setStatus("idle", "銘柄を追加すると自動取得が始まります");
+      return;
+    }
+    setStatus("loading", "読み込み中…");
+    renderHoldings();
+    Promise.all(holdings.map(refreshHolding)).then(function () {
+      renderHoldings();
+      var anyError = holdings.some(function (h) { return h.error; });
+      updatedEl.textContent = "更新 " + new Date().toLocaleTimeString("ja-JP");
+      setStatus(anyError ? "error" : "", anyError ? "一部の銘柄の取得に失敗（下記参照）" : "リアルタイム更新中（1分間隔）");
+    });
+  }
+
+  function addHolding() {
+    var ticker = tickerEl.value.trim().toUpperCase();
+    var amount = parseFloat(amountEl.value);
+    if (!ticker) { tickerEl.focus(); return; }
+    if (!amount || amount <= 0) { amountEl.focus(); return; }
+
+    var h = {
+      id: Date.now() + "-" + Math.random().toString(36).slice(2, 8),
+      ticker: ticker,
+      investedAmountUSD: amount,
+      shares: 0,
+      hasData: false,
+      loading: false,
+      error: null
+    };
+    holdings.push(h);
+    savePortfolio();
+    tickerEl.value = "";
+    amountEl.value = "";
+    renderHoldings();
 
     setStatus("loading", "読み込み中…");
-    fetchDividendData(ticker).then(function (data) {
-      return fxRateToUSD(data.currency).then(function (rate) {
-        var dividendPerShareUSD = data.ttmDividend * rate;
-        var priceUSD = (data.price || 0) * rate;
-        var annualDividendUSD = dividendPerShareUSD * shares;
-        var yieldPct = data.price ? (data.ttmDividend / data.price) * 100 : 0;
-
-        lastResult = {
-          ticker: data.symbol,
-          shares: shares,
-          currency: data.currency,
-          dividendPerShareUSD: dividendPerShareUSD,
-          annualDividendUSD: annualDividendUSD,
-          priceUSD: priceUSD,
-          yieldPct: yieldPct
-        };
-
-        resultCard.hidden = false;
-        resultTicker.textContent = data.symbol;
-        resultAnnual.textContent = usd(annualDividendUSD);
-        resultPrice.textContent = usd(priceUSD);
-        resultDps.textContent = usd(dividendPerShareUSD);
-        resultYield.textContent = yieldPct.toFixed(2) + "%";
-        resultShares.textContent = shares.toLocaleString("ja-JP");
-        resultFxNote.textContent = data.currency !== "USD"
-          ? "現地通貨 " + data.currency + " → USD 換算適用（為替はリアルタイム変動）"
-          : "";
-
-        saveBtn.disabled = false;
-        updatedEl.textContent = "更新 " + new Date().toLocaleTimeString("ja-JP");
-        setStatus("", "リアルタイム更新中（1分間隔）");
-      });
-    }).catch(function () {
-      setStatus("error", "配当データを取得できませんでした。ティッカーをご確認いただくか、しばらくして再試行します。");
+    refreshHolding(h).then(function () {
+      renderHoldings();
+      updatedEl.textContent = "更新 " + new Date().toLocaleTimeString("ja-JP");
+      setStatus(h.error ? "error" : "", h.error ? "取得失敗（下記参照）" : "リアルタイム更新中（1分間隔）");
+      ensureTimer();
     });
   }
 
-  function startPolling() {
-    var ticker = tickerEl.value.trim();
-    if (!ticker) {
-      tickerEl.focus();
-      return;
-    }
-    if (timer) {
-      clearInterval(timer);
-      timer = null;
-      startBtn.textContent = "開始（1分ごとに更新）";
-      startBtn.classList.remove("stop");
-      setStatus("idle", "停止しました");
-      return;
-    }
-    runSimulation();
-    timer = setInterval(runSimulation, REFRESH_MS);
-    startBtn.textContent = "停止";
-    startBtn.classList.add("stop");
+  function ensureTimer() {
+    if (timer) return;
+    timer = setInterval(refreshAll, REFRESH_MS);
   }
 
-  startBtn.addEventListener("click", startPolling);
+  addBtn.addEventListener("click", addHolding);
+  tickerEl.addEventListener("keydown", function (e) { if (e.key === "Enter") amountEl.focus(); });
+  amountEl.addEventListener("keydown", function (e) { if (e.key === "Enter") addHolding(); });
 
-  saveBtn.addEventListener("click", function () {
-    if (!lastResult) return;
-    var records = loadRecords();
-    records.push({
-      id: Date.now() + "-" + Math.random().toString(36).slice(2, 8),
-      ticker: lastResult.ticker,
-      shares: lastResult.shares,
-      dividendPerShareUSD: lastResult.dividendPerShareUSD,
-      annualDividendUSD: lastResult.annualDividendUSD,
-      priceUSD: lastResult.priceUSD,
-      yieldPct: lastResult.yieldPct,
-      savedAt: Date.now()
-    });
-    saveRecords(records);
-    renderHistory();
+  clearAllBtn.addEventListener("click", function () {
+    if (holdings.length === 0) return;
+    if (!confirm("保有銘柄を全て削除しますか？")) return;
+    holdings = [];
+    savePortfolio();
+    renderHoldings();
+    setStatus("idle", "銘柄を追加すると自動取得が始まります");
   });
 
-  renderHistory();
+  // 保存済みポートフォリオを復元
+  var saved = loadPortfolio();
+  holdings = saved.map(function (s) {
+    return {
+      id: s.id,
+      ticker: s.ticker,
+      investedAmountUSD: s.investedAmountUSD,
+      shares: 0,
+      hasData: false,
+      loading: false,
+      error: null
+    };
+  });
+  renderHoldings();
+  if (holdings.length > 0) {
+    refreshAll();
+    ensureTimer();
+  }
 })();
 </script>
 </body>
