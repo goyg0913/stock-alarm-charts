@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index,follow">
+<title>Live Exchange Rates — US Dollar (USD) &amp; Japanese Yen (JPY)</title>
+<meta name="description" content="US Dollar (USD) and Japanese Yen (JPY) exchange rates, auto-refreshed every minute.">
+<meta property="og:title" content="Live Exchange Rates — US Dollar (USD) &amp; Japanese Yen (JPY)">
+<meta property="og:description" content="US Dollar (USD) and Japanese Yen (JPY) exchange rates, auto-refreshed every minute.">
+<link rel="canonical" href="exchange-rate-en.html">
+<link rel="alternate" hreflang="ko" href="exchange-rate-ko.html">
+<link rel="alternate" hreflang="ja" href="exchange-rate-ja.html">
+<link rel="alternate" hreflang="en" href="exchange-rate-en.html">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2563120083302883" crossorigin="anonymous"></script>
+<style>
+  * { box-sizing:border-box; }
+  body { margin:0; padding:18px 16px 40px; color:#1a1a1a; background:#fff;
+         font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',
+                     'Apple SD Gothic Neo','Malgun Gothic',
+                     'Hiragino Sans','Yu Gothic',sans-serif; }
+  .wrap { max-width:480px; margin:0 auto; }
+  h1 { font-size:20px; margin:0 0 2px; font-weight:800; }
+  .sub { font-size:12.5px; color:#888; margin-bottom:14px; }
+  .disclaimer { display:flex; align-items:flex-start; gap:8px; margin:0 0 16px;
+    padding:11px 13px; border-radius:12px; background:#fff8e1; border:1.5px solid #ffd54f;
+    color:#7a5c00; font-size:12px; font-weight:700; line-height:1.5; }
+  .rate-card { border-radius:16px; padding:16px 18px; margin-bottom:12px;
+               border:1px solid #e9e9ee; box-shadow:0 2px 10px rgba(0,0,0,.04); }
+  .rate-card.usd { background:linear-gradient(135deg,#f0f6ff,#fff); }
+  .rate-card.jpy { background:linear-gradient(135deg,#fff0f7,#fff); }
+  .rate-card .name { font-size:13.5px; font-weight:700; color:#444; display:flex; align-items:center; gap:6px; }
+  .rate-card .pair { font-size:11.5px; color:#999; margin:2px 0 8px; }
+  .rate-card .value-row { display:flex; align-items:baseline; gap:6px; }
+  .rate-card .value { font-size:28px; font-weight:800; font-variant-numeric:tabular-nums; }
+  .rate-card .unit { font-size:13px; color:#888; font-weight:600; }
+  .status-bar { display:flex; justify-content:space-between; align-items:center;
+                margin:14px 0 18px; font-size:11.5px; color:#999; }
+  .status-bar .dot { display:inline-block; width:7px; height:7px; border-radius:50%;
+                      background:#2ea043; margin-right:5px; }
+  .status-bar .dot.loading { background:#ffb020; animation:pulse 1s infinite; }
+  .status-bar .dot.error { background:#e5484d; }
+  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.35;} }
+  .credit { font-size:11px; color:#bbb; margin-bottom:18px; }
+  .credit a { color:#aaa; }
+  .nav { margin-top:22px; font-size:12.5px; display:flex; justify-content:space-between; }
+  .nav a { color:#1264a3; text-decoration:none; }
+  .other-langs { margin-top:8px; font-size:11.5px; color:#999; }
+  .other-langs a { color:#888; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Exchange Rates · Live Updates</h1>
+    <div class="sub">Auto-refreshes with the latest rates every minute</div>
+
+    <div class="disclaimer"><span>⚠️</span><span>These rates are a reference market indicator and may differ from the rate quoted by your bank or exchange. Always confirm with a financial institution before transacting.</span></div>
+
+    <div class="rate-card usd">
+      <div class="name">🇺🇸 US Dollar</div>
+      <div class="pair">USD → KRW · per 1 USD</div>
+      <div class="value-row"><span class="value" id="usd-krw">—</span><span class="unit">KRW</span></div>
+    </div>
+
+    <div class="rate-card jpy">
+      <div class="name">🇯🇵 Japanese Yen</div>
+      <div class="pair">JPY → KRW · per 100 JPY</div>
+      <div class="value-row"><span class="value" id="jpy-krw">—</span><span class="unit">KRW</span></div>
+    </div>
+
+    <div class="status-bar">
+      <span><i class="dot loading" id="status-dot"></i><span id="status-text">Loading…</span></span>
+      <span id="updated-at"></span>
+    </div>
+
+    <div class="credit">Rates by <a href="https://www.exchangerate-api.com" target="_blank" rel="noopener">ExchangeRate-API</a></div>
+
+    <div class="nav">
+      <a href="index.html">← Dashboard home</a>
+      <a href="sp500_table.html">See full ticker table →</a>
+    </div>
+    <div class="other-langs">View in another language: <a href="exchange-rate-ko.html">한국어</a> · <a href="exchange-rate-ja.html">日本語</a></div>
+  </div>
+
+<script>
+(function () {
+  var API_URL = "https://open.er-api.com/v6/latest/USD";
+  var REFRESH_MS = 60000;
+
+  var usdEl = document.getElementById("usd-krw");
+  var jpyEl = document.getElementById("jpy-krw");
+  var dotEl = document.getElementById("status-dot");
+  var statusEl = document.getElementById("status-text");
+  var updatedEl = document.getElementById("updated-at");
+
+  function fmt(n) {
+    return n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  function setStatus(kind, text) {
+    dotEl.className = "dot" + (kind ? " " + kind : "");
+    statusEl.textContent = text;
+  }
+
+  function load() {
+    setStatus("loading", "Loading…");
+    fetch(API_URL, { cache: "no-store" })
+      .then(function (res) {
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        return res.json();
+      })
+      .then(function (data) {
+        if (data.result !== "success" || !data.rates || !data.rates.KRW || !data.rates.JPY) {
+          throw new Error("bad payload");
+        }
+        var krwPerUsd = data.rates.KRW;
+        var krwPer100Jpy = (data.rates.KRW / data.rates.JPY) * 100;
+        usdEl.textContent = fmt(krwPerUsd);
+        jpyEl.textContent = fmt(krwPer100Jpy);
+        updatedEl.textContent = "Updated " + new Date().toLocaleTimeString("en-US");
+        setStatus("", "Live · refreshing every minute");
+      })
+      .catch(function () {
+        setStatus("error", "Couldn't load rates. Retrying shortly.");
+      });
+  }
+
+  load();
+  setInterval(load, REFRESH_MS);
+})();
+</script>
+</body>
+</html>
