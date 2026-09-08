@@ -32,6 +32,24 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://goyg0913.github.io/stock-alarm-charts/exchange-rate-en.html"/>
   </url>
   <url>
+    <loc>https://goyg0913.github.io/stock-alarm-charts/dividend-simulator-ko.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://goyg0913.github.io/stock-alarm-charts/dividend-simulator-ko.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://goyg0913.github.io/stock-alarm-charts/dividend-simulator-ja.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://goyg0913.github.io/stock-alarm-charts/dividend-simulator-en.html"/>
+  </url>
+  <url>
+    <loc>https://goyg0913.github.io/stock-alarm-charts/dividend-simulator-ja.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://goyg0913.github.io/stock-alarm-charts/dividend-simulator-ko.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://goyg0913.github.io/stock-alarm-charts/dividend-simulator-ja.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://goyg0913.github.io/stock-alarm-charts/dividend-simulator-en.html"/>
+  </url>
+  <url>
+    <loc>https://goyg0913.github.io/stock-alarm-charts/dividend-simulator-en.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://goyg0913.github.io/stock-alarm-charts/dividend-simulator-ko.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://goyg0913.github.io/stock-alarm-charts/dividend-simulator-ja.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://goyg0913.github.io/stock-alarm-charts/dividend-simulator-en.html"/>
+  </url>
+  <url>
     <loc>https://goyg0913.github.io/stock-alarm-charts/stock-aapl-ko.html</loc>
     <xhtml:link rel="alternate" hreflang="ko" href="https://goyg0913.github.io/stock-alarm-charts/stock-aapl-ko.html"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://goyg0913.github.io/stock-alarm-charts/stock-aapl-ja.html"/>

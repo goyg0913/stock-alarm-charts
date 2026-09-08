@@ -25,6 +25,7 @@
   .card.pink { background:linear-gradient(135deg,#fff0f7,#fff); }
   .card.blue { background:linear-gradient(135deg,#f0f6ff,#fff); }
   .card.fx { background:linear-gradient(135deg,#fff8ee,#fff); }
+  .card.div { background:linear-gradient(135deg,#f5f2ff,#fff); }
   .card h2 { font-size:16px; margin:0 0 4px; display:flex; align-items:center; gap:6px; }
   .card p { font-size:12.5px; color:#666; margin:0 0 8px; line-height:1.5; }
   .card .meta { font-size:11.5px; color:#999; }
@@ -90,6 +91,14 @@
       <div class="meta" data-i18n="card4_meta">USD·JPY · 1분 간격 자동 갱신</div>
     </a>
 
+    <a class="card div" id="dividend-link" href="dividend-simulator-ko.html">
+      <span class="arrow">›</span>
+      <h2>💰 <span data-i18n="card5_title">배당금 시뮬레이터</span></h2>
+      <p data-i18n="card5_desc">티커와 보유 주식 수를 입력하면 1분마다 배당 데이터를
+        불러와 예상 연간 배당금을 달러로 계산해요.</p>
+      <div class="meta" data-i18n="card5_meta">기록은 내 브라우저에 저장</div>
+    </a>
+
     <div class="ad-placeholder" data-i18n="ad_placeholder"></div>
   </div>
 
@@ -105,7 +114,7 @@
 
 <script>
 (function() {
-  var DICT = {"ko": {"page_title": "미국 주식 스캔 대시보드", "h1": "미국 주식 스캔 대시보드", "sub": "두 가지 방식으로 S&P 500을 스캔합니다", "card1_title": "AND 신호 스캔", "card1_desc": "골든크로스·RSI·MACD·볼린저·거래량 중 필수 지표가 동시에 활성화되면 신호.", "card1_meta": "시총 상위 100종목 · 매시간", "card2_title": "예쁜 W패턴 스캔", "card2_desc": "Low1→Neckline→Low2 이중바닥 형태를 점수제로 판정 — 돌파 전 셋업까지 포착.", "card2_meta": "시총 상위 20종목 · 매일 오전 10시(KST)", "card3_title": "지표 쉽게 알아보기", "card3_desc": "매수 신호에 실제로 쓰는 3가지 지표를 쉬운 설명으로 풀어드려요.", "card3_meta": "초등학생도 이해하는 쉬운 설명 토글 포함", "card4_title": "실시간 환율", "card4_desc": "미국 달러(USD)·일본 엔(JPY) 환율을 1분마다 자동으로 불러와 보여드려요.", "card4_meta": "USD·JPY · 1분 간격 자동 갱신", "ad_placeholder": "광고 영역 (애드센스 승인 전)", "disclaimer": "투자 판단은 본인 책임입니다. 참고용 지표일 뿐 매수·매도 추천이 아닙니다."}, "ja": {"page_title": "米国株スキャンダッシュボード", "h1": "米国株スキャンダッシュボード", "sub": "2つの方式でS&P 500をスキャンします", "card1_title": "AND シグナルスキャン", "card1_desc": "ゴールデンクロス・RSI・MACD・ボリンジャー・出来高のうち、必須指標が同時に点灯すればシグナル。", "card1_meta": "時価総額上位100銘柄 · 毎時", "card2_title": "きれいなWパターンスキャン", "card2_desc": "Low1→ネックライン→Low2のダブルボトム形状をスコア制で判定 — ブレイクアウト前のセットアップまで検知。", "card2_meta": "時価総額上位20銘柄 · 毎日午前10時(KST)", "card3_title": "指標をやさしく解説", "card3_desc": "買いシグナルに実際に使う3つの指標を、やさしい言葉で解説します。", "card3_meta": "小学生でもわかるやさしい説明モード付き", "card4_title": "リアルタイム為替", "card4_desc": "米ドル(USD)・日本円(JPY)の為替レートを1分ごとに自動取得して表示します。", "card4_meta": "USD・JPY · 1分間隔で自動更新", "ad_placeholder": "広告枠（アドセンス承認前）", "disclaimer": "投資判断はご自身の責任で行ってください。本ページは参考指標であり、売買の推奨ではありません。"}, "en": {"page_title": "US Stock Scan Dashboard", "h1": "US Stock Scan Dashboard", "sub": "Scanning the S&P 500 two different ways", "card1_title": "AND Signal Scan", "card1_desc": "Signals when the required indicators — golden cross, RSI, MACD, Bollinger, volume — are active at the same time.", "card1_meta": "Top 100 by market cap · Hourly", "card2_title": "Pretty W-Pattern Scan", "card2_desc": "Scores Low1→Neckline→Low2 double-bottom shapes — catches the setup before the breakout.", "card2_meta": "Top 20 by market cap · Daily 10AM (KST)", "card3_title": "Learn the Indicators", "card3_desc": "A plain-language walkthrough of the 3 indicators the signals rely on.", "card3_meta": "Includes an explain-it-simply toggle", "card4_title": "Live Exchange Rates", "card4_desc": "USD and JPY exchange rates, auto-refreshed every minute.", "card4_meta": "USD · JPY · Auto-refresh every minute", "ad_placeholder": "Ad space (pending AdSense approval)", "disclaimer": "Investment decisions are your own responsibility. Reference indicators only — not a buy/sell recommendation."}};
+  var DICT = {"ko": {"page_title": "미국 주식 스캔 대시보드", "h1": "미국 주식 스캔 대시보드", "sub": "두 가지 방식으로 S&P 500을 스캔합니다", "card1_title": "AND 신호 스캔", "card1_desc": "골든크로스·RSI·MACD·볼린저·거래량 중 필수 지표가 동시에 활성화되면 신호.", "card1_meta": "시총 상위 100종목 · 매시간", "card2_title": "예쁜 W패턴 스캔", "card2_desc": "Low1→Neckline→Low2 이중바닥 형태를 점수제로 판정 — 돌파 전 셋업까지 포착.", "card2_meta": "시총 상위 20종목 · 매일 오전 10시(KST)", "card3_title": "지표 쉽게 알아보기", "card3_desc": "매수 신호에 실제로 쓰는 3가지 지표를 쉬운 설명으로 풀어드려요.", "card3_meta": "초등학생도 이해하는 쉬운 설명 토글 포함", "card4_title": "실시간 환율", "card4_desc": "미국 달러(USD)·일본 엔(JPY) 환율을 1분마다 자동으로 불러와 보여드려요.", "card4_meta": "USD·JPY · 1분 간격 자동 갱신", "card5_title": "배당금 시뮬레이터", "card5_desc": "티커와 보유 주식 수를 입력하면 1분마다 배당 데이터를 불러와 예상 연간 배당금을 달러로 계산해요.", "card5_meta": "기록은 내 브라우저에 저장", "ad_placeholder": "광고 영역 (애드센스 승인 전)", "disclaimer": "투자 판단은 본인 책임입니다. 참고용 지표일 뿐 매수·매도 추천이 아닙니다."}, "ja": {"page_title": "米国株スキャンダッシュボード", "h1": "米国株スキャンダッシュボード", "sub": "2つの方式でS&P 500をスキャンします", "card1_title": "AND シグナルスキャン", "card1_desc": "ゴールデンクロス・RSI・MACD・ボリンジャー・出来高のうち、必須指標が同時に点灯すればシグナル。", "card1_meta": "時価総額上位100銘柄 · 毎時", "card2_title": "きれいなWパターンスキャン", "card2_desc": "Low1→ネックライン→Low2のダブルボトム形状をスコア制で判定 — ブレイクアウト前のセットアップまで検知。", "card2_meta": "時価総額上位20銘柄 · 毎日午前10時(KST)", "card3_title": "指標をやさしく解説", "card3_desc": "買いシグナルに実際に使う3つの指標を、やさしい言葉で解説します。", "card3_meta": "小学生でもわかるやさしい説明モード付き", "card4_title": "リアルタイム為替", "card4_desc": "米ドル(USD)・日本円(JPY)の為替レートを1分ごとに自動取得して表示します。", "card4_meta": "USD・JPY · 1分間隔で自動更新", "card5_title": "配当金シミュレーター", "card5_desc": "ティッカーと保有株数を入力すると1分ごとに配当データを取得し、予想年間配当金を米ドルで計算します。", "card5_meta": "記録はブラウザに保存", "ad_placeholder": "広告枠（アドセンス承認前）", "disclaimer": "投資判断はご自身の責任で行ってください。本ページは参考指標であり、売買の推奨ではありません。"}, "en": {"page_title": "US Stock Scan Dashboard", "h1": "US Stock Scan Dashboard", "sub": "Scanning the S&P 500 two different ways", "card1_title": "AND Signal Scan", "card1_desc": "Signals when the required indicators — golden cross, RSI, MACD, Bollinger, volume — are active at the same time.", "card1_meta": "Top 100 by market cap · Hourly", "card2_title": "Pretty W-Pattern Scan", "card2_desc": "Scores Low1→Neckline→Low2 double-bottom shapes — catches the setup before the breakout.", "card2_meta": "Top 20 by market cap · Daily 10AM (KST)", "card3_title": "Learn the Indicators", "card3_desc": "A plain-language walkthrough of the 3 indicators the signals rely on.", "card3_meta": "Includes an explain-it-simply toggle", "card4_title": "Live Exchange Rates", "card4_desc": "USD and JPY exchange rates, auto-refreshed every minute.", "card4_meta": "USD · JPY · Auto-refresh every minute", "card5_title": "Dividend Simulator", "card5_desc": "Enter a ticker and share count to auto-refresh dividend data every minute and estimate annual dividends in USD.", "card5_meta": "Records saved in your browser", "ad_placeholder": "Ad space (pending AdSense approval)", "disclaimer": "Investment decisions are your own responsibility. Reference indicators only — not a buy/sell recommendation."}};
   var KEY = "sa_lang";
 
   function apply(lang) {
@@ -129,6 +138,8 @@
     });
     var fxLink = document.getElementById("exchange-rate-link");
     if (fxLink) { fxLink.href = "exchange-rate-" + lang + ".html"; }
+    var divLink = document.getElementById("dividend-link");
+    if (divLink) { divLink.href = "dividend-simulator-" + lang + ".html"; }
     try { localStorage.setItem(KEY, lang); } catch (e) {}
   }
 
