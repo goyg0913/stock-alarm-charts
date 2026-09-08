@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-08T12:08:38Z",
+  "generatedAt": "2026-09-08T12:10:06Z",
   "tickers": {
     "A": {
       "symbol": "A",
@@ -1200,6 +1200,606 @@
       "currency": "USD",
       "price": 63.52,
       "ttmDividend": 3.44
+    },
+    "CNC": {
+      "symbol": "CNC",
+      "currency": "USD",
+      "price": 67.04,
+      "ttmDividend": 0
+    },
+    "CNP": {
+      "symbol": "CNP",
+      "currency": "USD",
+      "price": 39.67,
+      "ttmDividend": 0.92
+    },
+    "COF": {
+      "symbol": "COF",
+      "currency": "USD",
+      "price": 219.6,
+      "ttmDividend": 3.2
+    },
+    "COHR": {
+      "symbol": "COHR",
+      "currency": "USD",
+      "price": 281.86,
+      "ttmDividend": 0
+    },
+    "COIN": {
+      "symbol": "COIN",
+      "currency": "USD",
+      "price": 184.64,
+      "ttmDividend": 0
+    },
+    "COO": {
+      "symbol": "COO",
+      "currency": "USD",
+      "price": 69.59,
+      "ttmDividend": 0
+    },
+    "COP": {
+      "symbol": "COP",
+      "currency": "USD",
+      "price": 134.26,
+      "ttmDividend": 3.36
+    },
+    "COR": {
+      "symbol": "COR",
+      "currency": "USD",
+      "price": 330.95,
+      "ttmDividend": 2.4
+    },
+    "COST": {
+      "symbol": "COST",
+      "currency": "USD",
+      "price": 915.74,
+      "ttmDividend": 5.54
+    },
+    "CPAY": {
+      "symbol": "CPAY",
+      "currency": "USD",
+      "price": 416.37,
+      "ttmDividend": 0
+    },
+    "CPRT": {
+      "symbol": "CPRT",
+      "currency": "USD",
+      "price": 33.72,
+      "ttmDividend": 0
+    },
+    "CPT": {
+      "symbol": "CPT",
+      "currency": "USD",
+      "price": 105.69,
+      "ttmDividend": 4.22
+    },
+    "CRH": {
+      "symbol": "CRH",
+      "currency": "USD",
+      "price": 94.26,
+      "ttmDividend": 1.17
+    },
+    "CRL": {
+      "symbol": "CRL",
+      "currency": "USD",
+      "price": 288.5,
+      "ttmDividend": 0
+    },
+    "CRM": {
+      "symbol": "CRM",
+      "currency": "USD",
+      "price": 259.23,
+      "ttmDividend": 1.712
+    },
+    "CRWD": {
+      "symbol": "CRWD",
+      "currency": "USD",
+      "price": 213.1,
+      "ttmDividend": 0
+    },
+    "CSCO": {
+      "symbol": "CSCO",
+      "currency": "USD",
+      "price": 109.2,
+      "ttmDividend": 1.66
+    },
+    "CSGP": {
+      "symbol": "CSGP",
+      "currency": "USD",
+      "price": 30.91,
+      "ttmDividend": 0
+    },
+    "CSX": {
+      "symbol": "CSX",
+      "currency": "USD",
+      "price": 49.41,
+      "ttmDividend": 0.55
+    },
+    "CTAS": {
+      "symbol": "CTAS",
+      "currency": "USD",
+      "price": 200.47,
+      "ttmDividend": 1.87
+    },
+    "CTSH": {
+      "symbol": "CTSH",
+      "currency": "USD",
+      "price": 62.31,
+      "ttmDividend": 1.3
+    },
+    "CTVA": {
+      "symbol": "CTVA",
+      "currency": "USD",
+      "price": 87.86,
+      "ttmDividend": 0.72
+    },
+    "CVNA": {
+      "symbol": "CVNA",
+      "currency": "USD",
+      "price": 74.59,
+      "ttmDividend": 0
+    },
+    "CVS": {
+      "symbol": "CVS",
+      "currency": "USD",
+      "price": 96.74,
+      "ttmDividend": 2.66
+    },
+    "CVX": {
+      "symbol": "CVX",
+      "currency": "USD",
+      "price": 208.6,
+      "ttmDividend": 7.05
+    },
+    "D": {
+      "symbol": "D",
+      "currency": "USD",
+      "price": 65.84,
+      "ttmDividend": 2.672
+    },
+    "DAL": {
+      "symbol": "DAL",
+      "currency": "USD",
+      "price": 80.17,
+      "ttmDividend": 0.779
+    },
+    "DASH": {
+      "symbol": "DASH",
+      "currency": "USD",
+      "price": 211.73,
+      "ttmDividend": 0
+    },
+    "DD": {
+      "symbol": "DD",
+      "currency": "USD",
+      "price": 131.59,
+      "ttmDividend": 2.4
+    },
+    "DDOG": {
+      "symbol": "DDOG",
+      "currency": "USD",
+      "price": 212.93,
+      "ttmDividend": 0
+    },
+    "DE": {
+      "symbol": "DE",
+      "currency": "USD",
+      "price": 693.53,
+      "ttmDividend": 6.48
+    },
+    "DECK": {
+      "symbol": "DECK",
+      "currency": "USD",
+      "price": 85.81,
+      "ttmDividend": 0
+    },
+    "DELL": {
+      "symbol": "DELL",
+      "currency": "USD",
+      "price": 524.14,
+      "ttmDividend": 2.31
+    },
+    "DG": {
+      "symbol": "DG",
+      "currency": "USD",
+      "price": 133.21,
+      "ttmDividend": 2.36
+    },
+    "DGRO": {
+      "symbol": "DGRO",
+      "currency": "USD",
+      "price": 79.13,
+      "ttmDividend": 1.478
+    },
+    "DGX": {
+      "symbol": "DGX",
+      "currency": "USD",
+      "price": 237.14,
+      "ttmDividend": 3.32
+    },
+    "DHI": {
+      "symbol": "DHI",
+      "currency": "USD",
+      "price": 142.75,
+      "ttmDividend": 1.8
+    },
+    "DHR": {
+      "symbol": "DHR",
+      "currency": "USD",
+      "price": 207.66,
+      "ttmDividend": 1.44
+    },
+    "DHS": {
+      "symbol": "DHS",
+      "currency": "USD",
+      "price": 118.48,
+      "ttmDividend": 3.39
+    },
+    "DIA": {
+      "symbol": "DIA",
+      "currency": "USD",
+      "price": 534.08,
+      "ttmDividend": 6.034
+    },
+    "DIS": {
+      "symbol": "DIS",
+      "currency": "USD",
+      "price": 105.31,
+      "ttmDividend": 1.5
+    },
+    "DIVO": {
+      "symbol": "DIVO",
+      "currency": "USD",
+      "price": 48.39,
+      "ttmDividend": 2.828
+    },
+    "DLR": {
+      "symbol": "DLR",
+      "currency": "USD",
+      "price": 188.39,
+      "ttmDividend": 4.88
+    },
+    "DLTR": {
+      "symbol": "DLTR",
+      "currency": "USD",
+      "price": 131.42,
+      "ttmDividend": 0
+    },
+    "DOC": {
+      "symbol": "DOC",
+      "currency": "USD",
+      "price": 20.65,
+      "ttmDividend": 1.122
+    },
+    "DOV": {
+      "symbol": "DOV",
+      "currency": "USD",
+      "price": 192.88,
+      "ttmDividend": 2.085
+    },
+    "DOW": {
+      "symbol": "DOW",
+      "currency": "USD",
+      "price": 29.44,
+      "ttmDividend": 1.4
+    },
+    "DPZ": {
+      "symbol": "DPZ",
+      "currency": "USD",
+      "price": 341.08,
+      "ttmDividend": 7.46
+    },
+    "DRI": {
+      "symbol": "DRI",
+      "currency": "USD",
+      "price": 216.88,
+      "ttmDividend": 6.12
+    },
+    "DTE": {
+      "symbol": "DTE",
+      "currency": "USD",
+      "price": 136.08,
+      "ttmDividend": 4.585
+    },
+    "DUK": {
+      "symbol": "DUK",
+      "currency": "USD",
+      "price": 120.22,
+      "ttmDividend": 4.28
+    },
+    "DVA": {
+      "symbol": "DVA",
+      "currency": "USD",
+      "price": 183.99,
+      "ttmDividend": 0
+    },
+    "DVN": {
+      "symbol": "DVN",
+      "currency": "USD",
+      "price": 48.06,
+      "ttmDividend": 1.04
+    },
+    "DVY": {
+      "symbol": "DVY",
+      "currency": "USD",
+      "price": 164.25,
+      "ttmDividend": 5.258
+    },
+    "DXCM": {
+      "symbol": "DXCM",
+      "currency": "USD",
+      "price": 87.9,
+      "ttmDividend": 0
+    },
+    "EBAY": {
+      "symbol": "EBAY",
+      "currency": "USD",
+      "price": 103.41,
+      "ttmDividend": 1.22
+    },
+    "ECHO": {
+      "symbol": "ECHO",
+      "currency": "USD",
+      "price": 89.8,
+      "ttmDividend": 0
+    },
+    "ECL": {
+      "symbol": "ECL",
+      "currency": "USD",
+      "price": 279.28,
+      "ttmDividend": 2.84
+    },
+    "ED": {
+      "symbol": "ED",
+      "currency": "USD",
+      "price": 107.29,
+      "ttmDividend": 3.514
+    },
+    "EFX": {
+      "symbol": "EFX",
+      "currency": "USD",
+      "price": 177.05,
+      "ttmDividend": 2.18
+    },
+    "EG": {
+      "symbol": "EG",
+      "currency": "USD",
+      "price": 380.87,
+      "ttmDividend": 4.0
+    },
+    "EIX": {
+      "symbol": "EIX",
+      "currency": "USD",
+      "price": 56.77,
+      "ttmDividend": 3.462
+    },
+    "EL": {
+      "symbol": "EL",
+      "currency": "USD",
+      "price": 103.86,
+      "ttmDividend": 1.4
+    },
+    "ELV": {
+      "symbol": "ELV",
+      "currency": "USD",
+      "price": 407.5,
+      "ttmDividend": 6.86
+    },
+    "EME": {
+      "symbol": "EME",
+      "currency": "USD",
+      "price": 754.16,
+      "ttmDividend": 1.45
+    },
+    "EMR": {
+      "symbol": "EMR",
+      "currency": "USD",
+      "price": 152.82,
+      "ttmDividend": 2.22
+    },
+    "EOG": {
+      "symbol": "EOG",
+      "currency": "USD",
+      "price": 145.19,
+      "ttmDividend": 4.08
+    },
+    "EQIX": {
+      "symbol": "EQIX",
+      "currency": "USD",
+      "price": 1035.98,
+      "ttmDividend": 20.17
+    },
+    "EQT": {
+      "symbol": "EQT",
+      "currency": "USD",
+      "price": 55.17,
+      "ttmDividend": 0.66
+    },
+    "ERIE": {
+      "symbol": "ERIE",
+      "currency": "USD",
+      "price": 252.8,
+      "ttmDividend": 5.754
+    },
+    "ES": {
+      "symbol": "ES",
+      "currency": "USD",
+      "price": 71.05,
+      "ttmDividend": 3.082
+    },
+    "ESS": {
+      "symbol": "ESS",
+      "currency": "USD",
+      "price": 278.61,
+      "ttmDividend": 10.32
+    },
+    "ETN": {
+      "symbol": "ETN",
+      "currency": "USD",
+      "price": 410.85,
+      "ttmDividend": 4.34
+    },
+    "ETR": {
+      "symbol": "ETR",
+      "currency": "USD",
+      "price": 107.27,
+      "ttmDividend": 2.56
+    },
+    "EVRG": {
+      "symbol": "EVRG",
+      "currency": "USD",
+      "price": 81.54,
+      "ttmDividend": 2.78
+    },
+    "EW": {
+      "symbol": "EW",
+      "currency": "USD",
+      "price": 89.9,
+      "ttmDividend": 0
+    },
+    "EXC": {
+      "symbol": "EXC",
+      "currency": "USD",
+      "price": 43.64,
+      "ttmDividend": 1.66
+    },
+    "EXE": {
+      "symbol": "EXE",
+      "currency": "USD",
+      "price": 97.91,
+      "ttmDividend": 2.3
+    },
+    "EXPD": {
+      "symbol": "EXPD",
+      "currency": "USD",
+      "price": 188.8,
+      "ttmDividend": 1.58
+    },
+    "EXPE": {
+      "symbol": "EXPE",
+      "currency": "USD",
+      "price": 298.04,
+      "ttmDividend": 1.84
+    },
+    "EXR": {
+      "symbol": "EXR",
+      "currency": "USD",
+      "price": 139.25,
+      "ttmDividend": 6.48
+    },
+    "F": {
+      "symbol": "F",
+      "currency": "USD",
+      "price": 14.62,
+      "ttmDividend": 0.6
+    },
+    "FANG": {
+      "symbol": "FANG",
+      "currency": "USD",
+      "price": 199.22,
+      "ttmDividend": 4.25
+    },
+    "FAST": {
+      "symbol": "FAST",
+      "currency": "USD",
+      "price": 49.6,
+      "ttmDividend": 0.96
+    },
+    "FCX": {
+      "symbol": "FCX",
+      "currency": "USD",
+      "price": 72.73,
+      "ttmDividend": 0.6
+    },
+    "FDS": {
+      "symbol": "FDS",
+      "currency": "USD",
+      "price": 301.96,
+      "ttmDividend": 4.52
+    },
+    "FDVV": {
+      "symbol": "FDVV",
+      "currency": "USD",
+      "price": 63.44,
+      "ttmDividend": 1.729
+    },
+    "FDX": {
+      "symbol": "FDX",
+      "currency": "USD",
+      "price": 322.52,
+      "ttmDividend": 4.725239
+    },
+    "FDXF": {
+      "symbol": "FDXF",
+      "currency": "USD",
+      "price": 129.45,
+      "ttmDividend": 0
+    },
+    "FE": {
+      "symbol": "FE",
+      "currency": "USD",
+      "price": 46.77,
+      "ttmDividend": 1.82
+    },
+    "FERG": {
+      "symbol": "FERG",
+      "currency": "USD",
+      "price": 228.41,
+      "ttmDividend": 4.39
+    },
+    "FFIV": {
+      "symbol": "FFIV",
+      "currency": "USD",
+      "price": 390.47,
+      "ttmDividend": 0
+    },
+    "FICO": {
+      "symbol": "FICO",
+      "currency": "USD",
+      "price": 932.26,
+      "ttmDividend": 0
+    },
+    "FIS": {
+      "symbol": "FIS",
+      "currency": "USD",
+      "price": 41.89,
+      "ttmDividend": 1.68
+    },
+    "FISV": {
+      "symbol": "FISV",
+      "currency": "USD",
+      "price": 53.0,
+      "ttmDividend": 0
+    },
+    "FITB": {
+      "symbol": "FITB",
+      "currency": "USD",
+      "price": 54.87,
+      "ttmDividend": 1.6
+    },
+    "FIX": {
+      "symbol": "FIX",
+      "currency": "USD",
+      "price": 1610.34,
+      "ttmDividend": 3.0
+    },
+    "FLEX": {
+      "symbol": "FLEX",
+      "currency": "USD",
+      "price": 109.51,
+      "ttmDividend": 0
+    },
+    "FOX": {
+      "symbol": "FOX",
+      "currency": "USD",
+      "price": 58.42,
+      "ttmDividend": 0.57
+    },
+    "FOXA": {
+      "symbol": "FOXA",
+      "currency": "USD",
+      "price": 65.42,
+      "ttmDividend": 0.57
     }
   }
 }
