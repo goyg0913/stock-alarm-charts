@@ -124,9 +124,13 @@
 
 <script>
 (function () {
-  var YF_HOSTS = [
-    "https://query1.finance.yahoo.com/v8/finance/chart/",
-    "https://query2.finance.yahoo.com/v8/finance/chart/"
+  var YF_BASE = "https://query1.finance.yahoo.com/v8/finance/chart/";
+  // Yahoo Finance는 이 페이지가 실행되는 도메인에서의 직접 브라우저 요청에
+  // CORS 헤더를 내려주지 않아, CORS 프록시를 거쳐 우회 호출한다.
+  var PROXIES = [
+    function (target) { return "https://api.allorigins.win/raw?url=" + encodeURIComponent(target); },
+    function (target) { return "https://corsproxy.io/?url=" + encodeURIComponent(target); },
+    function (target) { return target; }
   ];
   var REFRESH_MS = 60000;
   var STORAGE_KEY = "sa_dividend_portfolio";
@@ -171,11 +175,12 @@
   }
 
   function fetchQuote(ticker) {
-    function tryHost(i) {
-      if (i >= YF_HOSTS.length) {
+    var target = YF_BASE + encodeURIComponent(ticker) + "?range=1y&interval=1mo&events=div";
+    function tryProxy(i) {
+      if (i >= PROXIES.length) {
         return Promise.reject(new Error("데이터 소스에 연결할 수 없습니다 (네트워크/CORS)"));
       }
-      var url = YF_HOSTS[i] + encodeURIComponent(ticker) + "?range=1y&interval=1mo&events=div";
+      var url = PROXIES[i](target);
       return fetch(url, { cache: "no-store" }).then(function (res) {
         if (!res.ok) throw new Error("HTTP " + res.status);
         return res.json();
@@ -199,11 +204,12 @@
           ttmDividend: ttmDividend
         };
       }).catch(function (err) {
-        if (i + 1 < YF_HOSTS.length) return tryHost(i + 1);
+        console.error("[dividend-simulator] proxy " + i + " failed for " + ticker + ":", err);
+        if (i + 1 < PROXIES.length) return tryProxy(i + 1);
         throw err;
       });
     }
-    return tryHost(0);
+    return tryProxy(0);
   }
 
   function fxRateToUSD(currency) {
