@@ -180,7 +180,17 @@
   function savePortfolio() {
     try {
       var slim = holdings.map(function (h) {
-        return { id: h.id, ticker: h.ticker, shares: h.shares };
+        return {
+          id: h.id,
+          ticker: h.ticker,
+          shares: h.shares,
+          hasData: h.hasData,
+          priceUSD: h.priceUSD,
+          dividendPerShareUSD: h.dividendPerShareUSD,
+          marketValueUSD: h.marketValueUSD,
+          annualDividendUSD: h.annualDividendUSD,
+          cachedAt: h.hasData ? Date.now() : null
+        };
       });
       localStorage.setItem(STORAGE_KEY, JSON.stringify(slim));
     } catch (e) {}
@@ -365,6 +375,7 @@
         h.error = null;
         h.loading = false;
         h.loadingSource = null;
+        savePortfolio();
       });
     }).catch(function (err) {
       h.loading = false;
@@ -436,15 +447,21 @@
     setStatus("idle", "Add a ticker to start auto-refreshing");
   });
 
-  // Restore saved portfolio
+  // Restore saved portfolio — if the last computed values were cached too,
+  // show them immediately instead of waiting for a refresh.
   var saved = loadPortfolio();
   holdings = saved.map(function (s) {
     return {
       id: s.id,
       ticker: s.ticker,
       shares: s.shares || 0,
-      hasData: false,
+      hasData: !!s.hasData,
+      priceUSD: s.priceUSD || 0,
+      dividendPerShareUSD: s.dividendPerShareUSD || 0,
+      marketValueUSD: s.marketValueUSD || 0,
+      annualDividendUSD: s.annualDividendUSD || 0,
       loading: false,
+      loadingSource: null,
       error: null
     };
   });
