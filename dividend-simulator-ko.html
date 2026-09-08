@@ -43,6 +43,13 @@
   .status-bar .dot.error { background:#e5484d; }
   @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.35;} }
 
+  .progress-track { height:3px; border-radius:2px; background:#eef1f4; overflow:hidden; }
+  .progress-track .bar { height:100%; width:35%; border-radius:2px; background:#5b3df0;
+                          animation:indeterminate 1.1s ease-in-out infinite; }
+  @keyframes indeterminate { 0% { transform:translateX(-100%); } 100% { transform:translateX(280%); } }
+  .status-bar + .progress-track { margin:-8px 0 16px; }
+  .holding-item .progress-track { margin-top:6px; }
+
   label { display:block; font-size:11.5px; font-weight:700; color:#666; margin:0 0 4px; }
   .field { margin-bottom:10px; }
   .row2 { display:flex; gap:10px; }
@@ -95,6 +102,7 @@
       <span><i class="dot idle" id="status-dot"></i><span id="status-text">종목을 추가하면 자동으로 조회를 시작합니다</span></span>
       <span id="updated-at"></span>
     </div>
+    <div class="progress-track" id="global-progress" hidden><div class="bar"></div></div>
 
     <div class="field">
       <label for="ticker">티커 (예: SCHD, AAPL, KO, JEPI)</label>
@@ -113,7 +121,7 @@
       <div id="holdings-list"></div>
     </div>
 
-    <div class="credit">주가·배당 데이터: Yahoo Finance</div>
+    <div class="credit">주가·배당 데이터: Yahoo Finance (매일 갱신되는 자체 DB 우선 조회, 없거나 오래되면 실시간 조회)</div>
 
     <div class="nav">
       <a href="index.html">← 대시보드 홈</a>
@@ -132,6 +140,8 @@
     function (target) { return "https://corsproxy.io/?url=" + encodeURIComponent(target); },
     function (target) { return target; }
   ];
+  var DIVIDEND_DB_URL = "dividends.json";
+  var DB_MAX_AGE_MS = 2 * 24 * 60 * 60 * 1000; // 2일
   var REFRESH_MS = 60000;
   var STORAGE_KEY = "sa_dividend_portfolio";
 
@@ -145,9 +155,11 @@
   var totalInvestedEl = document.getElementById("total-invested");
   var totalMonthlyEl = document.getElementById("total-monthly");
   var holdingsList = document.getElementById("holdings-list");
+  var globalProgressEl = document.getElementById("global-progress");
 
   var holdings = [];
   var timer = null;
+  var dbPromise = null;
 
   function usd(n) {
     if (!isFinite(n)) n = 0;
@@ -174,7 +186,7 @@
     } catch (e) {}
   }
 
-  function fetchQuote(ticker) {
+  function fetchQuoteLive(ticker) {
     var target = YF_BASE + encodeURIComponent(ticker) + "?range=1y&interval=1mo&events=div";
     function tryProxy(i) {
       if (i >= PROXIES.length) {
@@ -212,6 +224,41 @@
     return tryProxy(0);
   }
 
+  function loadDb(forceRefresh) {
+    if (!dbPromise || forceRefresh) {
+      dbPromise = fetch(DIVIDEND_DB_URL + "?v=" + Date.now(), { cache: "no-store" })
+        .then(function (res) {
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          return res.json();
+        })
+        .catch(function (err) {
+          console.warn("[dividend-simulator] local DB fetch failed, falling back to live for all tickers", err);
+          return null;
+        });
+    }
+    return dbPromise;
+  }
+
+  // 로컬 DB(매일 배치로 갱신되는 dividends.json)를 먼저 확인하고,
+  // 없거나 오래됐으면(2일 이상) 기존 방식대로 실시간 조회로 폴백한다.
+  function fetchQuote(ticker, onSourceKnown) {
+    return loadDb().then(function (db) {
+      var entry = db && db.tickers && db.tickers[ticker.toUpperCase()];
+      var isFresh = !!(db && db.generatedAt && (Date.now() - new Date(db.generatedAt).getTime() < DB_MAX_AGE_MS));
+      if (entry && isFresh) {
+        if (onSourceKnown) onSourceKnown("db");
+        return {
+          symbol: entry.symbol || ticker.toUpperCase(),
+          currency: entry.currency || "USD",
+          price: entry.price || 0,
+          ttmDividend: entry.ttmDividend || 0
+        };
+      }
+      if (onSourceKnown) onSourceKnown("live");
+      return fetchQuoteLive(ticker);
+    });
+  }
+
   function fxRateToUSD(currency) {
     if (currency === "USD") return Promise.resolve(1);
     return fetch("https://open.er-api.com/v6/latest/" + currency, { cache: "no-store" })
@@ -234,8 +281,14 @@
     totalMonthlyEl.innerHTML = usd(totalMonthly);
   }
 
+  function updateGlobalProgress() {
+    var anyLive = holdings.some(function (h) { return h.loading && h.loadingSource === "live"; });
+    globalProgressEl.hidden = !anyLive;
+  }
+
   function renderHoldings() {
     holdingsList.innerHTML = "";
+    updateGlobalProgress();
     if (holdings.length === 0) {
       holdingsList.innerHTML = '<div class="holdings-empty">담긴 종목이 없습니다. 위에서 티커와 보유 주식 수를 입력해보세요.</div>';
       renderTotals();
@@ -251,7 +304,12 @@
       if (h.error) {
         body += '<div class="err"></div>';
       } else if (h.loading && !h.hasData) {
-        body += '<div class="loading-label">불러오는 중…</div>';
+        if (h.loadingSource === "live") {
+          body += '<div class="loading-label">실시간 조회 중… (다소 시간이 걸릴 수 있어요)</div>' +
+            '<div class="progress-track"><div class="bar"></div></div>';
+        } else {
+          body += '<div class="loading-label">불러오는 중…</div>';
+        }
       } else if (h.hasData) {
         body += '<div class="monthly"><span class="monthly-val"></span><span class="per"> /월 (세전)</span></div>' +
           '<table class="detail">' +
@@ -291,7 +349,11 @@
 
   function refreshHolding(h) {
     h.loading = true;
-    return fetchQuote(h.ticker).then(function (data) {
+    h.loadingSource = null;
+    return fetchQuote(h.ticker, function (source) {
+      h.loadingSource = source;
+      if (source === "live") renderHoldings();
+    }).then(function (data) {
       return fxRateToUSD(data.currency).then(function (rate) {
         var priceUSD = data.price * rate;
         var dividendPerShareUSD = data.ttmDividend * rate;
@@ -302,9 +364,11 @@
         h.hasData = true;
         h.error = null;
         h.loading = false;
+        h.loadingSource = null;
       });
     }).catch(function (err) {
       h.loading = false;
+      h.loadingSource = null;
       h.error = (err && err.message) || "조회 실패";
     });
   }
@@ -315,6 +379,7 @@
       return;
     }
     setStatus("loading", "불러오는 중…");
+    loadDb(true);
     renderHoldings();
     Promise.all(holdings.map(refreshHolding)).then(function () {
       renderHoldings();
