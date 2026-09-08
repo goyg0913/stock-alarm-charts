@@ -6,9 +6,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="index,follow">
 <title>Dividend Portfolio Simulator — Add Tickers, See Estimated Monthly Income (USD)</title>
-<meta name="description" content="Split an investment amount across multiple tickers and this auto-refreshes dividend data every minute to estimate your portfolio's monthly dividend income in USD.">
+<meta name="description" content="Add each ticker's share count and this auto-refreshes dividend data every minute to estimate your portfolio's monthly dividend income in USD.">
 <meta property="og:title" content="Dividend Portfolio Simulator — Add Tickers, See Estimated Monthly Income (USD)">
-<meta property="og:description" content="Split an investment amount across multiple tickers and this auto-refreshes dividend data every minute to estimate your portfolio's monthly dividend income in USD.">
+<meta property="og:description" content="Add each ticker's share count and this auto-refreshes dividend data every minute to estimate your portfolio's monthly dividend income in USD.">
 <link rel="canonical" href="dividend-simulator-en.html">
 <link rel="alternate" hreflang="ko" href="dividend-simulator-ko.html">
 <link rel="alternate" hreflang="ja" href="dividend-simulator-ja.html">
@@ -81,12 +81,12 @@
 <body>
   <div class="wrap">
     <h1>Dividend Portfolio Simulator</h1>
-    <div class="sub">Add tickers with an investment amount and this auto-refreshes dividend data every minute to estimate monthly income in USD (pre-tax)</div>
+    <div class="sub">Add tickers with a share count and this auto-refreshes dividend data every minute to estimate monthly income in USD (pre-tax)</div>
 
     <div class="disclaimer"><span>⚠️</span><span>All amounts are pre-tax; actual payouts depend on withholding tax and your own tax situation. Dividend policy can also change — this is a reference simulation only, not investment advice.</span></div>
 
     <div class="summary-card">
-      <div class="invested">Total invested <b id="total-invested">$0.00</b></div>
+      <div class="invested">Total market value <b id="total-invested">$0.00</b></div>
       <div class="headline">Estimated monthly dividend (pre-tax, portfolio total)</div>
       <div class="headline-value" id="total-monthly">$0.00</div>
     </div>
@@ -102,8 +102,8 @@
     </div>
     <div class="row2">
       <div class="field">
-        <label for="amount">Investment amount ($)</label>
-        <input type="number" id="amount" placeholder="1000" min="0" step="0.01">
+        <label for="shares">Shares held</label>
+        <input type="number" id="shares" placeholder="10" min="0" step="0.0001">
       </div>
     </div>
     <button type="button" class="primary" id="add-btn">Add ticker</button>
@@ -136,7 +136,7 @@
   var STORAGE_KEY = "sa_dividend_portfolio";
 
   var tickerEl = document.getElementById("ticker");
-  var amountEl = document.getElementById("amount");
+  var sharesEl = document.getElementById("shares");
   var addBtn = document.getElementById("add-btn");
   var clearAllBtn = document.getElementById("clear-all-btn");
   var dotEl = document.getElementById("status-dot");
@@ -168,7 +168,7 @@
   function savePortfolio() {
     try {
       var slim = holdings.map(function (h) {
-        return { id: h.id, ticker: h.ticker, investedAmountUSD: h.investedAmountUSD };
+        return { id: h.id, ticker: h.ticker, shares: h.shares };
       });
       localStorage.setItem(STORAGE_KEY, JSON.stringify(slim));
     } catch (e) {}
@@ -227,7 +227,7 @@
   function renderTotals() {
     var totalInvested = 0, totalMonthly = 0;
     holdings.forEach(function (h) {
-      totalInvested += h.investedAmountUSD || 0;
+      if (h.hasData) totalInvested += h.marketValueUSD || 0;
       if (h.annualDividendUSD) totalMonthly += h.annualDividendUSD / 12;
     });
     totalInvestedEl.textContent = usd(totalInvested);
@@ -237,7 +237,7 @@
   function renderHoldings() {
     holdingsList.innerHTML = "";
     if (holdings.length === 0) {
-      holdingsList.innerHTML = '<div class="holdings-empty">No holdings yet. Add a ticker and amount above.</div>';
+      holdingsList.innerHTML = '<div class="holdings-empty">No holdings yet. Add a ticker and share count above.</div>';
       renderTotals();
       return;
     }
@@ -255,8 +255,9 @@
       } else if (h.hasData) {
         body += '<div class="monthly"><span class="monthly-val"></span><span class="per"> /mo (pre-tax)</span></div>' +
           '<table class="detail">' +
-          '<tr><td>Invested</td><td class="val invested-val"></td></tr>' +
-          '<tr><td>Est. shares held</td><td class="val shares-val"></td></tr>' +
+          '<tr><td>Shares held</td><td class="val shares-val"></td></tr>' +
+          '<tr><td>Current price</td><td class="val price-val"></td></tr>' +
+          '<tr><td>Market value</td><td class="val invested-val"></td></tr>' +
           '<tr><td>Dividend/share (trailing 12mo)</td><td class="val dps-val"></td></tr>' +
           '<tr><td>Estimated annual dividend</td><td class="val annual-val"></td></tr>' +
           '</table>';
@@ -273,8 +274,9 @@
 
       if (h.hasData) {
         item.querySelector(".monthly-val").textContent = usd(h.annualDividendUSD / 12);
-        item.querySelector(".invested-val").textContent = usd(h.investedAmountUSD);
         item.querySelector(".shares-val").textContent = h.shares.toLocaleString("en-US", { maximumFractionDigits: 4 });
+        item.querySelector(".price-val").textContent = usd(h.priceUSD);
+        item.querySelector(".invested-val").textContent = usd(h.marketValueUSD);
         item.querySelector(".dps-val").textContent = usd(h.dividendPerShareUSD);
         item.querySelector(".annual-val").textContent = usd(h.annualDividendUSD);
       }
@@ -293,10 +295,9 @@
       return fxRateToUSD(data.currency).then(function (rate) {
         var priceUSD = data.price * rate;
         var dividendPerShareUSD = data.ttmDividend * rate;
-        if (!h.hasData) {
-          h.shares = priceUSD > 0 ? h.investedAmountUSD / priceUSD : 0;
-        }
+        h.priceUSD = priceUSD;
         h.dividendPerShareUSD = dividendPerShareUSD;
+        h.marketValueUSD = priceUSD * h.shares;
         h.annualDividendUSD = dividendPerShareUSD * h.shares;
         h.hasData = true;
         h.error = null;
@@ -325,15 +326,14 @@
 
   function addHolding() {
     var ticker = tickerEl.value.trim().toUpperCase();
-    var amount = parseFloat(amountEl.value);
+    var shares = parseFloat(sharesEl.value);
     if (!ticker) { tickerEl.focus(); return; }
-    if (!amount || amount <= 0) { amountEl.focus(); return; }
+    if (!shares || shares <= 0) { sharesEl.focus(); return; }
 
     var h = {
       id: Date.now() + "-" + Math.random().toString(36).slice(2, 8),
       ticker: ticker,
-      investedAmountUSD: amount,
-      shares: 0,
+      shares: shares,
       hasData: false,
       loading: false,
       error: null
@@ -341,7 +341,7 @@
     holdings.push(h);
     savePortfolio();
     tickerEl.value = "";
-    amountEl.value = "";
+    sharesEl.value = "";
     renderHoldings();
 
     setStatus("loading", "Loading…");
@@ -359,8 +359,8 @@
   }
 
   addBtn.addEventListener("click", addHolding);
-  tickerEl.addEventListener("keydown", function (e) { if (e.key === "Enter") amountEl.focus(); });
-  amountEl.addEventListener("keydown", function (e) { if (e.key === "Enter") addHolding(); });
+  tickerEl.addEventListener("keydown", function (e) { if (e.key === "Enter") sharesEl.focus(); });
+  sharesEl.addEventListener("keydown", function (e) { if (e.key === "Enter") addHolding(); });
 
   clearAllBtn.addEventListener("click", function () {
     if (holdings.length === 0) return;
@@ -377,8 +377,7 @@
     return {
       id: s.id,
       ticker: s.ticker,
-      investedAmountUSD: s.investedAmountUSD,
-      shares: 0,
+      shares: s.shares || 0,
       hasData: false,
       loading: false,
       error: null

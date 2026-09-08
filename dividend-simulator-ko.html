@@ -6,9 +6,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="index,follow">
 <title>배당 포트폴리오 시뮬레이터 — 여러 종목 담아 예상 월 배당금(USD) 확인</title>
-<meta name="description" content="여러 종목에 투자금액을 나눠 담으면 1분마다 배당 데이터를 자동으로 불러와 포트폴리오 전체의 예상 월 배당금을 달러로 계산해드립니다.">
+<meta name="description" content="여러 종목에 보유 주식 수를 담으면 1분마다 배당 데이터를 자동으로 불러와 포트폴리오 전체의 예상 월 배당금을 달러로 계산해드립니다.">
 <meta property="og:title" content="배당 포트폴리오 시뮬레이터 — 여러 종목 담아 예상 월 배당금(USD) 확인">
-<meta property="og:description" content="여러 종목에 투자금액을 나눠 담으면 1분마다 배당 데이터를 자동으로 불러와 포트폴리오 전체의 예상 월 배당금을 달러로 계산해드립니다.">
+<meta property="og:description" content="여러 종목에 보유 주식 수를 담으면 1분마다 배당 데이터를 자동으로 불러와 포트폴리오 전체의 예상 월 배당금을 달러로 계산해드립니다.">
 <link rel="canonical" href="dividend-simulator-ko.html">
 <link rel="alternate" hreflang="ko" href="dividend-simulator-ko.html">
 <link rel="alternate" hreflang="ja" href="dividend-simulator-ja.html">
@@ -81,12 +81,12 @@
 <body>
   <div class="wrap">
     <h1>배당 포트폴리오 시뮬레이터</h1>
-    <div class="sub">종목마다 투자금액을 담으면 1분마다 배당 데이터를 불러와 예상 월 배당금을 달러(세전)로 계산합니다</div>
+    <div class="sub">종목마다 보유 주식 수를 담으면 1분마다 배당 데이터를 불러와 예상 월 배당금을 달러(세전)로 계산합니다</div>
 
     <div class="disclaimer"><span>⚠️</span><span>모든 금액은 세전 기준이며, 실제 수령액은 배당소득세·원천징수 등에 따라 달라집니다. 배당 정책 변경 가능성도 있어 참고용 시뮬레이션일 뿐 투자 조언이 아닙니다.</span></div>
 
     <div class="summary-card">
-      <div class="invested">총 투자금액 <b id="total-invested">$0.00</b></div>
+      <div class="invested">평가금액 합계 <b id="total-invested">$0.00</b></div>
       <div class="headline">예상 월 배당금 (세전, 포트폴리오 합계)</div>
       <div class="headline-value" id="total-monthly">$0.00</div>
     </div>
@@ -102,8 +102,8 @@
     </div>
     <div class="row2">
       <div class="field">
-        <label for="amount">투자금액 (달러 $)</label>
-        <input type="number" id="amount" placeholder="1000" min="0" step="0.01">
+        <label for="shares">보유 주식 수</label>
+        <input type="number" id="shares" placeholder="10" min="0" step="0.0001">
       </div>
     </div>
     <button type="button" class="primary" id="add-btn">종목 추가하기</button>
@@ -136,7 +136,7 @@
   var STORAGE_KEY = "sa_dividend_portfolio";
 
   var tickerEl = document.getElementById("ticker");
-  var amountEl = document.getElementById("amount");
+  var sharesEl = document.getElementById("shares");
   var addBtn = document.getElementById("add-btn");
   var clearAllBtn = document.getElementById("clear-all-btn");
   var dotEl = document.getElementById("status-dot");
@@ -168,7 +168,7 @@
   function savePortfolio() {
     try {
       var slim = holdings.map(function (h) {
-        return { id: h.id, ticker: h.ticker, investedAmountUSD: h.investedAmountUSD };
+        return { id: h.id, ticker: h.ticker, shares: h.shares };
       });
       localStorage.setItem(STORAGE_KEY, JSON.stringify(slim));
     } catch (e) {}
@@ -227,7 +227,7 @@
   function renderTotals() {
     var totalInvested = 0, totalMonthly = 0;
     holdings.forEach(function (h) {
-      totalInvested += h.investedAmountUSD || 0;
+      if (h.hasData) totalInvested += h.marketValueUSD || 0;
       if (h.annualDividendUSD) totalMonthly += h.annualDividendUSD / 12;
     });
     totalInvestedEl.textContent = usd(totalInvested);
@@ -237,7 +237,7 @@
   function renderHoldings() {
     holdingsList.innerHTML = "";
     if (holdings.length === 0) {
-      holdingsList.innerHTML = '<div class="holdings-empty">담긴 종목이 없습니다. 위에서 티커와 투자금액을 입력해보세요.</div>';
+      holdingsList.innerHTML = '<div class="holdings-empty">담긴 종목이 없습니다. 위에서 티커와 보유 주식 수를 입력해보세요.</div>';
       renderTotals();
       return;
     }
@@ -255,8 +255,9 @@
       } else if (h.hasData) {
         body += '<div class="monthly"><span class="monthly-val"></span><span class="per"> /월 (세전)</span></div>' +
           '<table class="detail">' +
-          '<tr><td>투자금액</td><td class="val invested-val"></td></tr>' +
-          '<tr><td>보유 주식 수 (추정)</td><td class="val shares-val"></td></tr>' +
+          '<tr><td>보유 주식 수</td><td class="val shares-val"></td></tr>' +
+          '<tr><td>현재가</td><td class="val price-val"></td></tr>' +
+          '<tr><td>평가금액</td><td class="val invested-val"></td></tr>' +
           '<tr><td>주당 배당금 (최근 12개월)</td><td class="val dps-val"></td></tr>' +
           '<tr><td>예상 연간 배당금</td><td class="val annual-val"></td></tr>' +
           '</table>';
@@ -273,8 +274,9 @@
 
       if (h.hasData) {
         item.querySelector(".monthly-val").textContent = usd(h.annualDividendUSD / 12);
-        item.querySelector(".invested-val").textContent = usd(h.investedAmountUSD);
         item.querySelector(".shares-val").textContent = h.shares.toLocaleString("en-US", { maximumFractionDigits: 4 });
+        item.querySelector(".price-val").textContent = usd(h.priceUSD);
+        item.querySelector(".invested-val").textContent = usd(h.marketValueUSD);
         item.querySelector(".dps-val").textContent = usd(h.dividendPerShareUSD);
         item.querySelector(".annual-val").textContent = usd(h.annualDividendUSD);
       }
@@ -293,10 +295,9 @@
       return fxRateToUSD(data.currency).then(function (rate) {
         var priceUSD = data.price * rate;
         var dividendPerShareUSD = data.ttmDividend * rate;
-        if (!h.hasData) {
-          h.shares = priceUSD > 0 ? h.investedAmountUSD / priceUSD : 0;
-        }
+        h.priceUSD = priceUSD;
         h.dividendPerShareUSD = dividendPerShareUSD;
+        h.marketValueUSD = priceUSD * h.shares;
         h.annualDividendUSD = dividendPerShareUSD * h.shares;
         h.hasData = true;
         h.error = null;
@@ -325,15 +326,14 @@
 
   function addHolding() {
     var ticker = tickerEl.value.trim().toUpperCase();
-    var amount = parseFloat(amountEl.value);
+    var shares = parseFloat(sharesEl.value);
     if (!ticker) { tickerEl.focus(); return; }
-    if (!amount || amount <= 0) { amountEl.focus(); return; }
+    if (!shares || shares <= 0) { sharesEl.focus(); return; }
 
     var h = {
       id: Date.now() + "-" + Math.random().toString(36).slice(2, 8),
       ticker: ticker,
-      investedAmountUSD: amount,
-      shares: 0,
+      shares: shares,
       hasData: false,
       loading: false,
       error: null
@@ -341,7 +341,7 @@
     holdings.push(h);
     savePortfolio();
     tickerEl.value = "";
-    amountEl.value = "";
+    sharesEl.value = "";
     renderHoldings();
 
     setStatus("loading", "불러오는 중…");
@@ -359,8 +359,8 @@
   }
 
   addBtn.addEventListener("click", addHolding);
-  tickerEl.addEventListener("keydown", function (e) { if (e.key === "Enter") amountEl.focus(); });
-  amountEl.addEventListener("keydown", function (e) { if (e.key === "Enter") addHolding(); });
+  tickerEl.addEventListener("keydown", function (e) { if (e.key === "Enter") sharesEl.focus(); });
+  sharesEl.addEventListener("keydown", function (e) { if (e.key === "Enter") addHolding(); });
 
   clearAllBtn.addEventListener("click", function () {
     if (holdings.length === 0) return;
@@ -377,8 +377,7 @@
     return {
       id: s.id,
       ticker: s.ticker,
-      investedAmountUSD: s.investedAmountUSD,
-      shares: 0,
+      shares: s.shares || 0,
       hasData: false,
       loading: false,
       error: null

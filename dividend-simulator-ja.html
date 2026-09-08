@@ -6,9 +6,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="index,follow">
 <title>配当ポートフォリオ・シミュレーター — 複数銘柄を追加して予想月間配当金(USD)を確認</title>
-<meta name="description" content="複数の銘柄に投資金額を振り分けると、1分ごとに配当データを自動取得してポートフォリオ全体の予想月間配当金を米ドルで計算します。">
+<meta name="description" content="複数の銘柄の保有株数を追加すると、1分ごとに配当データを自動取得してポートフォリオ全体の予想月間配当金を米ドルで計算します。">
 <meta property="og:title" content="配当ポートフォリオ・シミュレーター — 複数銘柄を追加して予想月間配当金(USD)を確認">
-<meta property="og:description" content="複数の銘柄に投資金額を振り分けると、1分ごとに配当データを自動取得してポートフォリオ全体の予想月間配当金を米ドルで計算します。">
+<meta property="og:description" content="複数の銘柄の保有株数を追加すると、1分ごとに配当データを自動取得してポートフォリオ全体の予想月間配当金を米ドルで計算します。">
 <link rel="canonical" href="dividend-simulator-ja.html">
 <link rel="alternate" hreflang="ko" href="dividend-simulator-ko.html">
 <link rel="alternate" hreflang="ja" href="dividend-simulator-ja.html">
@@ -81,12 +81,12 @@
 <body>
   <div class="wrap">
     <h1>配当ポートフォリオ・シミュレーター</h1>
-    <div class="sub">銘柄ごとに投資金額を追加すると1分ごとに配当データを自動取得し、予想月間配当金を米ドル（税引前）で計算します</div>
+    <div class="sub">銘柄ごとに保有株数を追加すると1分ごとに配当データを自動取得し、予想月間配当金を米ドル（税引前）で計算します</div>
 
     <div class="disclaimer"><span>⚠️</span><span>すべての金額は税引前です。実際の受取額は源泉徴収税やご自身の税務状況により異なります。配当方針が変更される可能性もあり、本計算は参考用シミュレーションであり投資助言ではありません。</span></div>
 
     <div class="summary-card">
-      <div class="invested">総投資金額 <b id="total-invested">$0.00</b></div>
+      <div class="invested">評価金額合計 <b id="total-invested">$0.00</b></div>
       <div class="headline">予想月間配当金（税引前・ポートフォリオ合計）</div>
       <div class="headline-value" id="total-monthly">$0.00</div>
     </div>
@@ -102,8 +102,8 @@
     </div>
     <div class="row2">
       <div class="field">
-        <label for="amount">投資金額（ドル $）</label>
-        <input type="number" id="amount" placeholder="1000" min="0" step="0.01">
+        <label for="shares">保有株数</label>
+        <input type="number" id="shares" placeholder="10" min="0" step="0.0001">
       </div>
     </div>
     <button type="button" class="primary" id="add-btn">銘柄を追加</button>
@@ -136,7 +136,7 @@
   var STORAGE_KEY = "sa_dividend_portfolio";
 
   var tickerEl = document.getElementById("ticker");
-  var amountEl = document.getElementById("amount");
+  var sharesEl = document.getElementById("shares");
   var addBtn = document.getElementById("add-btn");
   var clearAllBtn = document.getElementById("clear-all-btn");
   var dotEl = document.getElementById("status-dot");
@@ -168,7 +168,7 @@
   function savePortfolio() {
     try {
       var slim = holdings.map(function (h) {
-        return { id: h.id, ticker: h.ticker, investedAmountUSD: h.investedAmountUSD };
+        return { id: h.id, ticker: h.ticker, shares: h.shares };
       });
       localStorage.setItem(STORAGE_KEY, JSON.stringify(slim));
     } catch (e) {}
@@ -227,7 +227,7 @@
   function renderTotals() {
     var totalInvested = 0, totalMonthly = 0;
     holdings.forEach(function (h) {
-      totalInvested += h.investedAmountUSD || 0;
+      if (h.hasData) totalInvested += h.marketValueUSD || 0;
       if (h.annualDividendUSD) totalMonthly += h.annualDividendUSD / 12;
     });
     totalInvestedEl.textContent = usd(totalInvested);
@@ -237,7 +237,7 @@
   function renderHoldings() {
     holdingsList.innerHTML = "";
     if (holdings.length === 0) {
-      holdingsList.innerHTML = '<div class="holdings-empty">まだ銘柄がありません。上でティッカーと金額を入力してください。</div>';
+      holdingsList.innerHTML = '<div class="holdings-empty">まだ銘柄がありません。上でティッカーと保有株数を入力してください。</div>';
       renderTotals();
       return;
     }
@@ -255,8 +255,9 @@
       } else if (h.hasData) {
         body += '<div class="monthly"><span class="monthly-val"></span><span class="per"> /月（税引前）</span></div>' +
           '<table class="detail">' +
-          '<tr><td>投資金額</td><td class="val invested-val"></td></tr>' +
-          '<tr><td>推定保有株数</td><td class="val shares-val"></td></tr>' +
+          '<tr><td>保有株数</td><td class="val shares-val"></td></tr>' +
+          '<tr><td>現在価格</td><td class="val price-val"></td></tr>' +
+          '<tr><td>評価金額</td><td class="val invested-val"></td></tr>' +
           '<tr><td>1株配当金（直近12か月）</td><td class="val dps-val"></td></tr>' +
           '<tr><td>予想年間配当金</td><td class="val annual-val"></td></tr>' +
           '</table>';
@@ -273,8 +274,9 @@
 
       if (h.hasData) {
         item.querySelector(".monthly-val").textContent = usd(h.annualDividendUSD / 12);
-        item.querySelector(".invested-val").textContent = usd(h.investedAmountUSD);
         item.querySelector(".shares-val").textContent = h.shares.toLocaleString("en-US", { maximumFractionDigits: 4 });
+        item.querySelector(".price-val").textContent = usd(h.priceUSD);
+        item.querySelector(".invested-val").textContent = usd(h.marketValueUSD);
         item.querySelector(".dps-val").textContent = usd(h.dividendPerShareUSD);
         item.querySelector(".annual-val").textContent = usd(h.annualDividendUSD);
       }
@@ -293,10 +295,9 @@
       return fxRateToUSD(data.currency).then(function (rate) {
         var priceUSD = data.price * rate;
         var dividendPerShareUSD = data.ttmDividend * rate;
-        if (!h.hasData) {
-          h.shares = priceUSD > 0 ? h.investedAmountUSD / priceUSD : 0;
-        }
+        h.priceUSD = priceUSD;
         h.dividendPerShareUSD = dividendPerShareUSD;
+        h.marketValueUSD = priceUSD * h.shares;
         h.annualDividendUSD = dividendPerShareUSD * h.shares;
         h.hasData = true;
         h.error = null;
@@ -325,15 +326,14 @@
 
   function addHolding() {
     var ticker = tickerEl.value.trim().toUpperCase();
-    var amount = parseFloat(amountEl.value);
+    var shares = parseFloat(sharesEl.value);
     if (!ticker) { tickerEl.focus(); return; }
-    if (!amount || amount <= 0) { amountEl.focus(); return; }
+    if (!shares || shares <= 0) { sharesEl.focus(); return; }
 
     var h = {
       id: Date.now() + "-" + Math.random().toString(36).slice(2, 8),
       ticker: ticker,
-      investedAmountUSD: amount,
-      shares: 0,
+      shares: shares,
       hasData: false,
       loading: false,
       error: null
@@ -341,7 +341,7 @@
     holdings.push(h);
     savePortfolio();
     tickerEl.value = "";
-    amountEl.value = "";
+    sharesEl.value = "";
     renderHoldings();
 
     setStatus("loading", "読み込み中…");
@@ -359,8 +359,8 @@
   }
 
   addBtn.addEventListener("click", addHolding);
-  tickerEl.addEventListener("keydown", function (e) { if (e.key === "Enter") amountEl.focus(); });
-  amountEl.addEventListener("keydown", function (e) { if (e.key === "Enter") addHolding(); });
+  tickerEl.addEventListener("keydown", function (e) { if (e.key === "Enter") sharesEl.focus(); });
+  sharesEl.addEventListener("keydown", function (e) { if (e.key === "Enter") addHolding(); });
 
   clearAllBtn.addEventListener("click", function () {
     if (holdings.length === 0) return;
@@ -377,8 +377,7 @@
     return {
       id: s.id,
       ticker: s.ticker,
-      investedAmountUSD: s.investedAmountUSD,
-      shares: 0,
+      shares: s.shares || 0,
       hasData: false,
       loading: false,
       error: null
