@@ -188,11 +188,16 @@
     return loadDb().then(function (db) {
       var entry = db && db.tickers && db.tickers[ticker.toUpperCase()];
       if (!entry) throw new Error("not_in_db");
+      // stock-api's JSON contract is snake_case (ttm_dividend); a handful of
+      // older entries in dividends.json still carry the previous camelCase
+      // key until the daily batch cycles through and rewrites them, so both
+      // are checked here.
+      var ttm = entry.ttm_dividend != null ? entry.ttm_dividend : entry.ttmDividend;
       return {
         symbol: entry.symbol || ticker.toUpperCase(),
         currency: entry.currency || "USD",
         price: entry.price || 0,
-        ttmDividend: entry.ttmDividend || 0
+        ttmDividend: ttm || 0
       };
     });
   }
