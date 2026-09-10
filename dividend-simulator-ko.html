@@ -186,11 +186,15 @@
     return loadDb().then(function (db) {
       var entry = db && db.tickers && db.tickers[ticker.toUpperCase()];
       if (!entry) throw new Error("not_in_db");
+      // stock-api의 JSON 계약은 snake_case(ttm_dividend)다. 일부 종목은
+      // 배치가 아직 새 스키마로 덮어쓰지 않아 예전 camelCase 키로 남아있을
+      // 수 있어 둘 다 확인한다.
+      var ttm = entry.ttm_dividend != null ? entry.ttm_dividend : entry.ttmDividend;
       return {
         symbol: entry.symbol || ticker.toUpperCase(),
         currency: entry.currency || "USD",
         price: entry.price || 0,
-        ttmDividend: entry.ttmDividend || 0
+        ttmDividend: ttm || 0
       };
     });
   }
