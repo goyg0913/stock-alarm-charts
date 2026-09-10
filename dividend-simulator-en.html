@@ -43,13 +43,6 @@
   .status-bar .dot.error { background:#e5484d; }
   @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.35;} }
 
-  .progress-track { height:3px; border-radius:2px; background:#eef1f4; overflow:hidden; }
-  .progress-track .bar { height:100%; width:35%; border-radius:2px; background:#5b3df0;
-                          animation:indeterminate 1.1s ease-in-out infinite; }
-  @keyframes indeterminate { 0% { transform:translateX(-100%); } 100% { transform:translateX(280%); } }
-  .status-bar + .progress-track { margin:-8px 0 16px; }
-  .holding-item .progress-track { margin-top:6px; }
-
   label { display:block; font-size:11.5px; font-weight:700; color:#666; margin:0 0 4px; }
   .field { margin-bottom:10px; }
   .row2 { display:flex; gap:10px; }
@@ -102,7 +95,6 @@
       <span><i class="dot idle" id="status-dot"></i><span id="status-text">Add your holdings to see their dividends</span></span>
       <span id="updated-at"></span>
     </div>
-    <div class="progress-track" id="global-progress" hidden><div class="bar"></div></div>
 
     <div class="field">
       <label for="ticker">Ticker (e.g. SCHD, AAPL, KO, JEPI)</label>
@@ -132,17 +124,7 @@
 
 <script>
 (function () {
-  var YF_BASE = "https://query1.finance.yahoo.com/v8/finance/chart/";
-  // Yahoo Finance doesn't send CORS headers for direct browser requests from
-  // this page's domain, so route through a CORS proxy instead.
-  var PROXIES = [
-    function (target) { return "https://api.allorigins.win/raw?url=" + encodeURIComponent(target); },
-    function (target) { return "https://corsproxy.io/?url=" + encodeURIComponent(target); },
-    function (target) { return target; }
-  ];
   var DIVIDEND_DB_URL = "dividends.json";
-  var DB_MAX_AGE_MS = 2 * 24 * 60 * 60 * 1000; // 2 days
-  var REFRESH_MS = 60000;
   var STORAGE_KEY = "sa_dividend_portfolio";
 
   var tickerEl = document.getElementById("ticker");
@@ -155,10 +137,8 @@
   var totalInvestedEl = document.getElementById("total-invested");
   var totalMonthlyEl = document.getElementById("total-monthly");
   var holdingsList = document.getElementById("holdings-list");
-  var globalProgressEl = document.getElementById("global-progress");
 
   var holdings = [];
-  var timer = null;
   var dbPromise = null;
 
   function usd(n) {
@@ -177,95 +157,43 @@
     } catch (e) { return []; }
   }
 
+  // Only the raw ticker/shares you typed are saved. Price and dividend
+  // figures are never cached locally — they're recomputed from the DB
+  // fetched fresh on this visit, every time.
   function savePortfolio() {
     try {
       var slim = holdings.map(function (h) {
-        return {
-          id: h.id,
-          ticker: h.ticker,
-          shares: h.shares,
-          hasData: h.hasData,
-          priceUSD: h.priceUSD,
-          dividendPerShareUSD: h.dividendPerShareUSD,
-          marketValueUSD: h.marketValueUSD,
-          annualDividendUSD: h.annualDividendUSD,
-          cachedAt: h.hasData ? Date.now() : null
-        };
+        return { id: h.id, ticker: h.ticker, shares: h.shares };
       });
       localStorage.setItem(STORAGE_KEY, JSON.stringify(slim));
     } catch (e) {}
   }
 
-  function fetchQuoteLive(ticker) {
-    var target = YF_BASE + encodeURIComponent(ticker) + "?range=1y&interval=1mo&events=div";
-    function tryProxy(i) {
-      if (i >= PROXIES.length) {
-        return Promise.reject(new Error("Couldn't reach the data source (network/CORS)"));
-      }
-      var url = PROXIES[i](target);
-      return fetch(url, { cache: "no-store" }).then(function (res) {
+  // dividends.json is fetched exactly once per page visit and reused for
+  // every ticker lookup below — no per-minute refresh, and no live
+  // Yahoo Finance fallback through a public CORS proxy. If a ticker isn't
+  // in today's snapshot, it's reported as not found rather than falling
+  // back to a live lookup.
+  function loadDb() {
+    if (!dbPromise) {
+      dbPromise = fetch(DIVIDEND_DB_URL, { cache: "no-store" }).then(function (res) {
         if (!res.ok) throw new Error("HTTP " + res.status);
         return res.json();
-      }).then(function (json) {
-        var chart = json.chart || {};
-        if (chart.error) throw new Error(chart.error.description || "Ticker not found");
-        var result = chart.result && chart.result[0];
-        if (!result || !result.meta) throw new Error("No data found");
-        var meta = result.meta;
-        var events = (result.events && result.events.dividends) || {};
-        var oneYearAgo = Date.now() / 1000 - 365 * 24 * 3600;
-        var ttmDividend = 0;
-        Object.keys(events).forEach(function (key) {
-          var ev = events[key];
-          if (ev.date >= oneYearAgo) ttmDividend += ev.amount;
-        });
-        return {
-          symbol: (meta.symbol || ticker).toUpperCase(),
-          currency: meta.currency || "USD",
-          price: meta.regularMarketPrice || 0,
-          ttmDividend: ttmDividend
-        };
-      }).catch(function (err) {
-        console.error("[dividend-simulator] proxy " + i + " failed for " + ticker + ":", err);
-        if (i + 1 < PROXIES.length) return tryProxy(i + 1);
-        throw err;
       });
-    }
-    return tryProxy(0);
-  }
-
-  function loadDb(forceRefresh) {
-    if (!dbPromise || forceRefresh) {
-      dbPromise = fetch(DIVIDEND_DB_URL + "?v=" + Date.now(), { cache: "no-store" })
-        .then(function (res) {
-          if (!res.ok) throw new Error("HTTP " + res.status);
-          return res.json();
-        })
-        .catch(function (err) {
-          console.warn("[dividend-simulator] local DB fetch failed, falling back to live for all tickers", err);
-          return null;
-        });
     }
     return dbPromise;
   }
 
-  // Check the local DB (dividends.json, refreshed daily by a batch job) first,
-  // and fall back to a live lookup if it's missing the ticker or stale (2+ days).
-  function fetchQuote(ticker, onSourceKnown) {
+  function fetchQuote(ticker) {
     return loadDb().then(function (db) {
       var entry = db && db.tickers && db.tickers[ticker.toUpperCase()];
-      var isFresh = !!(db && db.generatedAt && (Date.now() - new Date(db.generatedAt).getTime() < DB_MAX_AGE_MS));
-      if (entry && isFresh) {
-        if (onSourceKnown) onSourceKnown("db");
-        return {
-          symbol: entry.symbol || ticker.toUpperCase(),
-          currency: entry.currency || "USD",
-          price: entry.price || 0,
-          ttmDividend: entry.ttmDividend || 0
-        };
-      }
-      if (onSourceKnown) onSourceKnown("live");
-      return fetchQuoteLive(ticker);
+      if (!entry) throw new Error("not_in_db");
+      return {
+        symbol: entry.symbol || ticker.toUpperCase(),
+        currency: entry.currency || "USD",
+        price: entry.price || 0,
+        ttmDividend: entry.ttmDividend || 0
+      };
     });
   }
 
@@ -291,14 +219,8 @@
     totalMonthlyEl.innerHTML = usd(totalMonthly);
   }
 
-  function updateGlobalProgress() {
-    var anyLive = holdings.some(function (h) { return h.loading && h.loadingSource === "live"; });
-    globalProgressEl.hidden = !anyLive;
-  }
-
   function renderHoldings() {
     holdingsList.innerHTML = "";
-    updateGlobalProgress();
     if (holdings.length === 0) {
       holdingsList.innerHTML = '<div class="holdings-empty">No holdings yet. Add a ticker and share count above.</div>';
       renderTotals();
@@ -314,12 +236,7 @@
       if (h.error && !h.hasData) {
         body += '<div class="err"></div>';
       } else if (h.loading && !h.hasData) {
-        if (h.loadingSource === "live") {
-          body += '<div class="loading-label">Checking dividend data…</div>' +
-            '<div class="progress-track"><div class="bar"></div></div>';
-        } else {
-          body += '<div class="loading-label">Loading…</div>';
-        }
+        body += '<div class="loading-label">Loading…</div>';
       } else if (h.hasData) {
         body += '<div class="monthly"><span class="monthly-val"></span><span class="per"> /mo average (pre-tax)</span></div>' +
           '<table class="detail">' +
@@ -359,11 +276,7 @@
 
   function refreshHolding(h) {
     h.loading = true;
-    h.loadingSource = null;
-    return fetchQuote(h.ticker, function (source) {
-      h.loadingSource = source;
-      if (source === "live") renderHoldings();
-    }).then(function (data) {
+    return fetchQuote(h.ticker).then(function (data) {
       return fxRateToUSD(data.currency).then(function (rate) {
         var priceUSD = data.price * rate;
         var dividendPerShareUSD = data.ttmDividend * rate;
@@ -374,13 +287,12 @@
         h.hasData = true;
         h.error = null;
         h.loading = false;
-        h.loadingSource = null;
-        savePortfolio();
       });
     }).catch(function (err) {
       h.loading = false;
-      h.loadingSource = null;
-      h.error = "Could not load this stock. Check the ticker or try again shortly.";
+      h.error = (err && err.message === "not_in_db")
+        ? "This ticker isn't in today's dividend list. Check the symbol."
+        : "Could not load this stock. Check the ticker or try again shortly.";
     });
   }
 
@@ -390,7 +302,6 @@
       return;
     }
     setStatus("loading", "Loading…");
-    loadDb(true);
     renderHoldings();
     Promise.all(holdings.map(refreshHolding)).then(function () {
       renderHoldings();
@@ -425,13 +336,7 @@
       renderHoldings();
       updatedEl.textContent = "Checked " + new Date().toLocaleTimeString("en-US");
       setStatus(h.error ? "error" : "", h.error ? "Lookup failed (see below)" : "Dividend calculation complete");
-      ensureTimer();
     });
-  }
-
-  function ensureTimer() {
-    if (timer) return;
-    timer = setInterval(refreshAll, REFRESH_MS);
   }
 
   addBtn.addEventListener("click", addHolding);
@@ -447,31 +352,22 @@
     setStatus("idle", "Add your holdings to see their dividends");
   });
 
-  // Restore saved portfolio — if the last computed values were cached too,
-  // show them immediately instead of waiting for a refresh.
+  // Restore the saved ticker/share list, then compute everything fresh
+  // from the DB fetched this visit — nothing computed is kept from before.
   var saved = loadPortfolio();
   holdings = saved.map(function (s) {
     return {
       id: s.id,
       ticker: s.ticker,
       shares: s.shares || 0,
-      hasData: !!s.hasData,
-      priceUSD: s.priceUSD || 0,
-      dividendPerShareUSD: s.dividendPerShareUSD || 0,
-      marketValueUSD: s.marketValueUSD || 0,
-      annualDividendUSD: s.annualDividendUSD || 0,
+      hasData: false,
       loading: false,
-      loadingSource: null,
       error: null
     };
   });
   renderHoldings();
-  if (holdings.length > 0) {
-    refreshAll();
-    ensureTimer();
-  }
+  if (holdings.length > 0) refreshAll();
 })();
 </script>
 </body>
 </html>
-

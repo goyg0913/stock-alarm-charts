@@ -43,13 +43,6 @@
   .status-bar .dot.error { background:#e5484d; }
   @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.35;} }
 
-  .progress-track { height:3px; border-radius:2px; background:#eef1f4; overflow:hidden; }
-  .progress-track .bar { height:100%; width:35%; border-radius:2px; background:#5b3df0;
-                          animation:indeterminate 1.1s ease-in-out infinite; }
-  @keyframes indeterminate { 0% { transform:translateX(-100%); } 100% { transform:translateX(280%); } }
-  .status-bar + .progress-track { margin:-8px 0 16px; }
-  .holding-item .progress-track { margin-top:6px; }
-
   label { display:block; font-size:11.5px; font-weight:700; color:#666; margin:0 0 4px; }
   .field { margin-bottom:10px; }
   .row2 { display:flex; gap:10px; }
@@ -102,7 +95,6 @@
       <span><i class="dot idle" id="status-dot"></i><span id="status-text">保有銘柄を追加して配当金を確認できます</span></span>
       <span id="updated-at"></span>
     </div>
-    <div class="progress-track" id="global-progress" hidden><div class="bar"></div></div>
 
     <div class="field">
       <label for="ticker">ティッカー（例: SCHD, AAPL, KO, JEPI）</label>
@@ -132,17 +124,7 @@
 
 <script>
 (function () {
-  var YF_BASE = "https://query1.finance.yahoo.com/v8/finance/chart/";
-  // Yahoo Financeはこのページのドメインからの直接ブラウザリクエストに
-  // CORSヘッダーを返さないため、CORSプロキシ経由で呼び出す。
-  var PROXIES = [
-    function (target) { return "https://api.allorigins.win/raw?url=" + encodeURIComponent(target); },
-    function (target) { return "https://corsproxy.io/?url=" + encodeURIComponent(target); },
-    function (target) { return target; }
-  ];
   var DIVIDEND_DB_URL = "dividends.json";
-  var DB_MAX_AGE_MS = 2 * 24 * 60 * 60 * 1000; // 2日
-  var REFRESH_MS = 60000;
   var STORAGE_KEY = "sa_dividend_portfolio";
 
   var tickerEl = document.getElementById("ticker");
@@ -155,10 +137,8 @@
   var totalInvestedEl = document.getElementById("total-invested");
   var totalMonthlyEl = document.getElementById("total-monthly");
   var holdingsList = document.getElementById("holdings-list");
-  var globalProgressEl = document.getElementById("global-progress");
 
   var holdings = [];
-  var timer = null;
   var dbPromise = null;
 
   function usd(n) {
@@ -177,95 +157,41 @@
     } catch (e) { return []; }
   }
 
+  // 入力したティッカー・株数だけを保存する。価格・配当の値はローカルに
+  // キャッシュせず、毎回この訪問で新しく取得したDBから再計算する。
   function savePortfolio() {
     try {
       var slim = holdings.map(function (h) {
-        return {
-          id: h.id,
-          ticker: h.ticker,
-          shares: h.shares,
-          hasData: h.hasData,
-          priceUSD: h.priceUSD,
-          dividendPerShareUSD: h.dividendPerShareUSD,
-          marketValueUSD: h.marketValueUSD,
-          annualDividendUSD: h.annualDividendUSD,
-          cachedAt: h.hasData ? Date.now() : null
-        };
+        return { id: h.id, ticker: h.ticker, shares: h.shares };
       });
       localStorage.setItem(STORAGE_KEY, JSON.stringify(slim));
     } catch (e) {}
   }
 
-  function fetchQuoteLive(ticker) {
-    var target = YF_BASE + encodeURIComponent(ticker) + "?range=1y&interval=1mo&events=div";
-    function tryProxy(i) {
-      if (i >= PROXIES.length) {
-        return Promise.reject(new Error("データソースに接続できません（ネットワーク/CORS）"));
-      }
-      var url = PROXIES[i](target);
-      return fetch(url, { cache: "no-store" }).then(function (res) {
+  // dividends.jsonはページ訪問時に1回だけ取得し、以降の全銘柄照会に
+  // 再利用する — 1分ごとの再取得はせず、Yahoo Financeを公開CORSプロキシ
+  // 経由で呼び出すライブフォールバックも行わない。本日分のDBに無い銘柄は
+  // 「見つかりません」として扱う。
+  function loadDb() {
+    if (!dbPromise) {
+      dbPromise = fetch(DIVIDEND_DB_URL, { cache: "no-store" }).then(function (res) {
         if (!res.ok) throw new Error("HTTP " + res.status);
         return res.json();
-      }).then(function (json) {
-        var chart = json.chart || {};
-        if (chart.error) throw new Error(chart.error.description || "ティッカーが見つかりません");
-        var result = chart.result && chart.result[0];
-        if (!result || !result.meta) throw new Error("データが見つかりません");
-        var meta = result.meta;
-        var events = (result.events && result.events.dividends) || {};
-        var oneYearAgo = Date.now() / 1000 - 365 * 24 * 3600;
-        var ttmDividend = 0;
-        Object.keys(events).forEach(function (key) {
-          var ev = events[key];
-          if (ev.date >= oneYearAgo) ttmDividend += ev.amount;
-        });
-        return {
-          symbol: (meta.symbol || ticker).toUpperCase(),
-          currency: meta.currency || "USD",
-          price: meta.regularMarketPrice || 0,
-          ttmDividend: ttmDividend
-        };
-      }).catch(function (err) {
-        console.error("[dividend-simulator] proxy " + i + " failed for " + ticker + ":", err);
-        if (i + 1 < PROXIES.length) return tryProxy(i + 1);
-        throw err;
       });
-    }
-    return tryProxy(0);
-  }
-
-  function loadDb(forceRefresh) {
-    if (!dbPromise || forceRefresh) {
-      dbPromise = fetch(DIVIDEND_DB_URL + "?v=" + Date.now(), { cache: "no-store" })
-        .then(function (res) {
-          if (!res.ok) throw new Error("HTTP " + res.status);
-          return res.json();
-        })
-        .catch(function (err) {
-          console.warn("[dividend-simulator] local DB fetch failed, falling back to live for all tickers", err);
-          return null;
-        });
     }
     return dbPromise;
   }
 
-  // ローカルDB（バッチで毎日更新されるdividends.json）を先に確認し、
-  // ティッカーが無い、または古い（2日以上）場合はリアルタイム取得にフォールバックする。
-  function fetchQuote(ticker, onSourceKnown) {
+  function fetchQuote(ticker) {
     return loadDb().then(function (db) {
       var entry = db && db.tickers && db.tickers[ticker.toUpperCase()];
-      var isFresh = !!(db && db.generatedAt && (Date.now() - new Date(db.generatedAt).getTime() < DB_MAX_AGE_MS));
-      if (entry && isFresh) {
-        if (onSourceKnown) onSourceKnown("db");
-        return {
-          symbol: entry.symbol || ticker.toUpperCase(),
-          currency: entry.currency || "USD",
-          price: entry.price || 0,
-          ttmDividend: entry.ttmDividend || 0
-        };
-      }
-      if (onSourceKnown) onSourceKnown("live");
-      return fetchQuoteLive(ticker);
+      if (!entry) throw new Error("not_in_db");
+      return {
+        symbol: entry.symbol || ticker.toUpperCase(),
+        currency: entry.currency || "USD",
+        price: entry.price || 0,
+        ttmDividend: entry.ttmDividend || 0
+      };
     });
   }
 
@@ -291,14 +217,8 @@
     totalMonthlyEl.innerHTML = usd(totalMonthly);
   }
 
-  function updateGlobalProgress() {
-    var anyLive = holdings.some(function (h) { return h.loading && h.loadingSource === "live"; });
-    globalProgressEl.hidden = !anyLive;
-  }
-
   function renderHoldings() {
     holdingsList.innerHTML = "";
-    updateGlobalProgress();
     if (holdings.length === 0) {
       holdingsList.innerHTML = '<div class="holdings-empty">まだ銘柄がありません。上でティッカーと保有株数を入力してください。</div>';
       renderTotals();
@@ -314,12 +234,7 @@
       if (h.error && !h.hasData) {
         body += '<div class="err"></div>';
       } else if (h.loading && !h.hasData) {
-        if (h.loadingSource === "live") {
-          body += '<div class="loading-label">配当情報を確認しています…</div>' +
-            '<div class="progress-track"><div class="bar"></div></div>';
-        } else {
-          body += '<div class="loading-label">読み込み中…</div>';
-        }
+        body += '<div class="loading-label">読み込み中…</div>';
       } else if (h.hasData) {
         body += '<div class="monthly"><span class="monthly-val"></span><span class="per"> /月平均（税引前）</span></div>' +
           '<table class="detail">' +
@@ -359,11 +274,7 @@
 
   function refreshHolding(h) {
     h.loading = true;
-    h.loadingSource = null;
-    return fetchQuote(h.ticker, function (source) {
-      h.loadingSource = source;
-      if (source === "live") renderHoldings();
-    }).then(function (data) {
+    return fetchQuote(h.ticker).then(function (data) {
       return fxRateToUSD(data.currency).then(function (rate) {
         var priceUSD = data.price * rate;
         var dividendPerShareUSD = data.ttmDividend * rate;
@@ -374,13 +285,12 @@
         h.hasData = true;
         h.error = null;
         h.loading = false;
-        h.loadingSource = null;
-        savePortfolio();
       });
     }).catch(function (err) {
       h.loading = false;
-      h.loadingSource = null;
-      h.error = "銘柄情報を取得できませんでした。銘柄コードを確認するか、しばらくしてから再度お試しください。";
+      h.error = (err && err.message === "not_in_db")
+        ? "この銘柄は本日の配当データにありません。銘柄コードをご確認ください。"
+        : "銘柄情報を取得できませんでした。銘柄コードを確認するか、しばらくしてから再度お試しください。";
     });
   }
 
@@ -390,7 +300,6 @@
       return;
     }
     setStatus("loading", "読み込み中…");
-    loadDb(true);
     renderHoldings();
     Promise.all(holdings.map(refreshHolding)).then(function () {
       renderHoldings();
@@ -425,13 +334,7 @@
       renderHoldings();
       updatedEl.textContent = "確認時刻 " + new Date().toLocaleTimeString("ja-JP");
       setStatus(h.error ? "error" : "", h.error ? "取得失敗（下記参照）" : "配当金の計算が完了しました");
-      ensureTimer();
     });
-  }
-
-  function ensureTimer() {
-    if (timer) return;
-    timer = setInterval(refreshAll, REFRESH_MS);
   }
 
   addBtn.addEventListener("click", addHolding);
@@ -447,31 +350,22 @@
     setStatus("idle", "保有銘柄を追加して配当金を確認できます");
   });
 
-  // 保存済みポートフォリオを復元 — 直近の計算結果もキャッシュされていれば
-  // 再取得を待たずにその値をすぐ表示する。
+  // 保存されたティッカー・株数だけを復元し、値はこの訪問で取得したDBから
+  // 全て再計算する — 以前計算した値をそのまま残すことはしない。
   var saved = loadPortfolio();
   holdings = saved.map(function (s) {
     return {
       id: s.id,
       ticker: s.ticker,
       shares: s.shares || 0,
-      hasData: !!s.hasData,
-      priceUSD: s.priceUSD || 0,
-      dividendPerShareUSD: s.dividendPerShareUSD || 0,
-      marketValueUSD: s.marketValueUSD || 0,
-      annualDividendUSD: s.annualDividendUSD || 0,
+      hasData: false,
       loading: false,
-      loadingSource: null,
       error: null
     };
   });
   renderHoldings();
-  if (holdings.length > 0) {
-    refreshAll();
-    ensureTimer();
-  }
+  if (holdings.length > 0) refreshAll();
 })();
 </script>
 </body>
 </html>
-
