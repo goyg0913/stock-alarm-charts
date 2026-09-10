@@ -43,13 +43,6 @@
   .status-bar .dot.error { background:#e5484d; }
   @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.35;} }
 
-  .progress-track { height:3px; border-radius:2px; background:#eef1f4; overflow:hidden; }
-  .progress-track .bar { height:100%; width:35%; border-radius:2px; background:#5b3df0;
-                          animation:indeterminate 1.1s ease-in-out infinite; }
-  @keyframes indeterminate { 0% { transform:translateX(-100%); } 100% { transform:translateX(280%); } }
-  .status-bar + .progress-track { margin:-8px 0 16px; }
-  .holding-item .progress-track { margin-top:6px; }
-
   label { display:block; font-size:11.5px; font-weight:700; color:#666; margin:0 0 4px; }
   .field { margin-bottom:10px; }
   .row2 { display:flex; gap:10px; }
@@ -102,7 +95,6 @@
       <span><i class="dot idle" id="status-dot"></i><span id="status-text">보유 종목을 추가해 배당금을 확인하세요</span></span>
       <span id="updated-at"></span>
     </div>
-    <div class="progress-track" id="global-progress" hidden><div class="bar"></div></div>
 
     <div class="field">
       <label for="ticker">종목 코드 (예: SCHD, AAPL)</label>
@@ -132,17 +124,7 @@
 
 <script>
 (function () {
-  var YF_BASE = "https://query1.finance.yahoo.com/v8/finance/chart/";
-  // Yahoo Finance는 이 페이지가 실행되는 도메인에서의 직접 브라우저 요청에
-  // CORS 헤더를 내려주지 않아, CORS 프록시를 거쳐 우회 호출한다.
-  var PROXIES = [
-    function (target) { return "https://api.allorigins.win/raw?url=" + encodeURIComponent(target); },
-    function (target) { return "https://corsproxy.io/?url=" + encodeURIComponent(target); },
-    function (target) { return target; }
-  ];
   var DIVIDEND_DB_URL = "dividends.json";
-  var DB_MAX_AGE_MS = 2 * 24 * 60 * 60 * 1000; // 2일
-  var REFRESH_MS = 60000;
   var STORAGE_KEY = "sa_dividend_portfolio";
 
   var tickerEl = document.getElementById("ticker");
@@ -155,10 +137,8 @@
   var totalInvestedEl = document.getElementById("total-invested");
   var totalMonthlyEl = document.getElementById("total-monthly");
   var holdingsList = document.getElementById("holdings-list");
-  var globalProgressEl = document.getElementById("global-progress");
 
   var holdings = [];
-  var timer = null;
   var dbPromise = null;
 
   function usd(n) {
@@ -177,95 +157,41 @@
     } catch (e) { return []; }
   }
 
+  // 입력한 종목코드·주식수만 저장한다. 가격·배당 값은 로컬에 캐시하지 않고
+  // 매번 이번 방문에서 새로 받은 DB로부터 다시 계산한다.
   function savePortfolio() {
     try {
       var slim = holdings.map(function (h) {
-        return {
-          id: h.id,
-          ticker: h.ticker,
-          shares: h.shares,
-          hasData: h.hasData,
-          priceUSD: h.priceUSD,
-          dividendPerShareUSD: h.dividendPerShareUSD,
-          marketValueUSD: h.marketValueUSD,
-          annualDividendUSD: h.annualDividendUSD,
-          cachedAt: h.hasData ? Date.now() : null
-        };
+        return { id: h.id, ticker: h.ticker, shares: h.shares };
       });
       localStorage.setItem(STORAGE_KEY, JSON.stringify(slim));
     } catch (e) {}
   }
 
-  function fetchQuoteLive(ticker) {
-    var target = YF_BASE + encodeURIComponent(ticker) + "?range=1y&interval=1mo&events=div";
-    function tryProxy(i) {
-      if (i >= PROXIES.length) {
-        return Promise.reject(new Error("데이터 소스에 연결할 수 없습니다 (네트워크/CORS)"));
-      }
-      var url = PROXIES[i](target);
-      return fetch(url, { cache: "no-store" }).then(function (res) {
+  // dividends.json은 페이지 진입 시 딱 한 번만 받아서 이후 모든 종목 조회에
+  // 재사용한다 — 1분마다 다시 받지 않고, Yahoo Finance를 공개 CORS 프록시로
+  // 우회 호출하는 실시간 폴백도 하지 않는다. 오늘자 DB에 없는 종목은
+  // "찾을 수 없음"으로 안내한다.
+  function loadDb() {
+    if (!dbPromise) {
+      dbPromise = fetch(DIVIDEND_DB_URL, { cache: "no-store" }).then(function (res) {
         if (!res.ok) throw new Error("HTTP " + res.status);
         return res.json();
-      }).then(function (json) {
-        var chart = json.chart || {};
-        if (chart.error) throw new Error(chart.error.description || "티커를 찾을 수 없습니다");
-        var result = chart.result && chart.result[0];
-        if (!result || !result.meta) throw new Error("데이터를 찾을 수 없습니다");
-        var meta = result.meta;
-        var events = (result.events && result.events.dividends) || {};
-        var oneYearAgo = Date.now() / 1000 - 365 * 24 * 3600;
-        var ttmDividend = 0;
-        Object.keys(events).forEach(function (key) {
-          var ev = events[key];
-          if (ev.date >= oneYearAgo) ttmDividend += ev.amount;
-        });
-        return {
-          symbol: (meta.symbol || ticker).toUpperCase(),
-          currency: meta.currency || "USD",
-          price: meta.regularMarketPrice || 0,
-          ttmDividend: ttmDividend
-        };
-      }).catch(function (err) {
-        console.error("[dividend-simulator] proxy " + i + " failed for " + ticker + ":", err);
-        if (i + 1 < PROXIES.length) return tryProxy(i + 1);
-        throw err;
       });
-    }
-    return tryProxy(0);
-  }
-
-  function loadDb(forceRefresh) {
-    if (!dbPromise || forceRefresh) {
-      dbPromise = fetch(DIVIDEND_DB_URL + "?v=" + Date.now(), { cache: "no-store" })
-        .then(function (res) {
-          if (!res.ok) throw new Error("HTTP " + res.status);
-          return res.json();
-        })
-        .catch(function (err) {
-          console.warn("[dividend-simulator] local DB fetch failed, falling back to live for all tickers", err);
-          return null;
-        });
     }
     return dbPromise;
   }
 
-  // 로컬 DB(매일 배치로 갱신되는 dividends.json)를 먼저 확인하고,
-  // 없거나 오래됐으면(2일 이상) 기존 방식대로 실시간 조회로 폴백한다.
-  function fetchQuote(ticker, onSourceKnown) {
+  function fetchQuote(ticker) {
     return loadDb().then(function (db) {
       var entry = db && db.tickers && db.tickers[ticker.toUpperCase()];
-      var isFresh = !!(db && db.generatedAt && (Date.now() - new Date(db.generatedAt).getTime() < DB_MAX_AGE_MS));
-      if (entry && isFresh) {
-        if (onSourceKnown) onSourceKnown("db");
-        return {
-          symbol: entry.symbol || ticker.toUpperCase(),
-          currency: entry.currency || "USD",
-          price: entry.price || 0,
-          ttmDividend: entry.ttmDividend || 0
-        };
-      }
-      if (onSourceKnown) onSourceKnown("live");
-      return fetchQuoteLive(ticker);
+      if (!entry) throw new Error("not_in_db");
+      return {
+        symbol: entry.symbol || ticker.toUpperCase(),
+        currency: entry.currency || "USD",
+        price: entry.price || 0,
+        ttmDividend: entry.ttmDividend || 0
+      };
     });
   }
 
@@ -291,14 +217,8 @@
     totalMonthlyEl.innerHTML = usd(totalMonthly);
   }
 
-  function updateGlobalProgress() {
-    var anyLive = holdings.some(function (h) { return h.loading && h.loadingSource === "live"; });
-    globalProgressEl.hidden = !anyLive;
-  }
-
   function renderHoldings() {
     holdingsList.innerHTML = "";
-    updateGlobalProgress();
     if (holdings.length === 0) {
       holdingsList.innerHTML = '<div class="holdings-empty">아직 추가한 종목이 없어요. 종목 코드와 보유 주식 수를 입력해주세요.</div>';
       renderTotals();
@@ -314,12 +234,7 @@
       if (h.error && !h.hasData) {
         body += '<div class="err"></div>';
       } else if (h.loading && !h.hasData) {
-        if (h.loadingSource === "live") {
-          body += '<div class="loading-label">배당 정보를 확인하고 있어요…</div>' +
-            '<div class="progress-track"><div class="bar"></div></div>';
-        } else {
-          body += '<div class="loading-label">불러오는 중…</div>';
-        }
+        body += '<div class="loading-label">불러오는 중…</div>';
       } else if (h.hasData) {
         body += '<div class="monthly"><span class="monthly-val"></span><span class="per"> /월 평균 (세전)</span></div>' +
           '<table class="detail">' +
@@ -359,11 +274,7 @@
 
   function refreshHolding(h) {
     h.loading = true;
-    h.loadingSource = null;
-    return fetchQuote(h.ticker, function (source) {
-      h.loadingSource = source;
-      if (source === "live") renderHoldings();
-    }).then(function (data) {
+    return fetchQuote(h.ticker).then(function (data) {
       return fxRateToUSD(data.currency).then(function (rate) {
         var priceUSD = data.price * rate;
         var dividendPerShareUSD = data.ttmDividend * rate;
@@ -374,13 +285,12 @@
         h.hasData = true;
         h.error = null;
         h.loading = false;
-        h.loadingSource = null;
-        savePortfolio();
       });
     }).catch(function (err) {
       h.loading = false;
-      h.loadingSource = null;
-      h.error = "종목 정보를 불러오지 못했어요. 종목 코드를 확인하거나 잠시 후 다시 시도해주세요.";
+      h.error = (err && err.message === "not_in_db")
+        ? "이 종목은 오늘자 배당 데이터에 없어요. 종목 코드를 확인해주세요."
+        : "종목 정보를 불러오지 못했어요. 종목 코드를 확인하거나 잠시 후 다시 시도해주세요.";
     });
   }
 
@@ -390,7 +300,6 @@
       return;
     }
     setStatus("loading", "불러오는 중…");
-    loadDb(true);
     renderHoldings();
     Promise.all(holdings.map(refreshHolding)).then(function () {
       renderHoldings();
@@ -425,13 +334,7 @@
       renderHoldings();
       updatedEl.textContent = "조회 시각 " + new Date().toLocaleTimeString("ko-KR");
       setStatus(h.error ? "error" : "", h.error ? "종목을 확인하지 못했어요" : "배당금 계산 완료");
-      ensureTimer();
     });
-  }
-
-  function ensureTimer() {
-    if (timer) return;
-    timer = setInterval(refreshAll, REFRESH_MS);
   }
 
   addBtn.addEventListener("click", addHolding);
@@ -447,31 +350,22 @@
     setStatus("idle", "보유 종목을 추가해 배당금을 확인하세요");
   });
 
-  // 저장된 포트폴리오 복원 — 마지막으로 계산된 값도 같이 저장돼 있으면
-  // 새로고침을 기다리지 않고 그 값부터 바로 보여준다.
+  // 저장된 종목코드·주식수 목록만 복원하고, 값은 이번 방문에서 새로 받은
+  // DB로 전부 다시 계산한다 — 이전에 계산된 값은 그대로 남겨두지 않는다.
   var saved = loadPortfolio();
   holdings = saved.map(function (s) {
     return {
       id: s.id,
       ticker: s.ticker,
       shares: s.shares || 0,
-      hasData: !!s.hasData,
-      priceUSD: s.priceUSD || 0,
-      dividendPerShareUSD: s.dividendPerShareUSD || 0,
-      marketValueUSD: s.marketValueUSD || 0,
-      annualDividendUSD: s.annualDividendUSD || 0,
+      hasData: false,
       loading: false,
-      loadingSource: null,
       error: null
     };
   });
   renderHoldings();
-  if (holdings.length > 0) {
-    refreshAll();
-    ensureTimer();
-  }
+  if (holdings.length > 0) refreshAll();
 })();
 </script>
 </body>
 </html>
-
