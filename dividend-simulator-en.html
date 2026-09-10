@@ -15,67 +15,75 @@
 <link rel="alternate" hreflang="en" href="dividend-simulator-en.html">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2563120083302883" crossorigin="anonymous"></script>
 <style>
+  :root {
+    --blue:#3E6AE1; --white:#FFFFFF; --carbon:#171A20; --graphite:#393C41;
+    --pewter:#5C5E62; --silver-fog:#8E8E8E; --pale-silver:#D0D1D2; --light-ash:#F4F4F4;
+  }
   * { box-sizing:border-box; }
-  body { margin:0; padding:18px 16px 40px; color:#1a1a1a; background:#fff;
-         font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',
+  body { margin:0; padding:18px 16px 40px; color:var(--graphite); background:var(--white);
+         font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,
                      'Apple SD Gothic Neo','Malgun Gothic',
                      'Hiragino Sans','Yu Gothic',sans-serif; }
   .wrap { max-width:480px; margin:0 auto; }
-  h1 { font-size:20px; margin:0 0 2px; font-weight:800; }
-  .sub { font-size:12.5px; color:#888; margin-bottom:14px; }
+  h1 { font-size:22px; margin:0 0 2px; font-weight:500; color:var(--carbon); }
+  .sub { font-size:12.5px; color:var(--pewter); margin-bottom:14px; }
   .disclaimer { display:flex; align-items:flex-start; gap:8px; margin:0 0 16px;
-    padding:11px 13px; border-radius:12px; background:#fff8e1; border:1.5px solid #ffd54f;
-    color:#7a5c00; font-size:12px; font-weight:700; line-height:1.5; }
-  .summary-card { border-radius:16px; padding:18px; margin-bottom:14px;
-    border:1px solid #e9e9ee; box-shadow:0 2px 10px rgba(0,0,0,.04);
-    background:linear-gradient(135deg,#f5f2ff,#fff); }
-  .summary-card .invested { font-size:12px; color:#888; margin-bottom:2px; }
-  .summary-card .invested b { color:#444; font-variant-numeric:tabular-nums; }
-  .summary-card .headline { font-size:12.5px; color:#666; margin:6px 0 2px; }
-  .summary-card .headline-value { font-size:30px; font-weight:800; font-variant-numeric:tabular-nums; color:#5b3df0; }
-  .summary-card .headline-value .per { font-size:14px; color:#999; font-weight:600; margin-left:4px; }
+    padding:12px 14px; border-radius:12px; background:var(--light-ash);
+    color:var(--carbon); font-size:12px; font-weight:500; line-height:1.5; }
+  .summary-card { border-radius:12px; padding:20px; margin-bottom:14px; background:var(--light-ash); }
+  .summary-card .invested { font-size:12px; color:var(--pewter); margin-bottom:2px; }
+  .summary-card .invested b { color:var(--carbon); font-weight:500; font-variant-numeric:tabular-nums; }
+  .summary-card .headline { font-size:12.5px; color:var(--pewter); margin:6px 0 2px; }
+  .summary-card .headline-value { font-size:28px; font-weight:500; font-variant-numeric:tabular-nums; color:var(--blue); }
+  .summary-card .headline-value .per { font-size:13px; color:var(--pewter); font-weight:400; margin-left:4px; }
   .status-bar { display:flex; justify-content:space-between; align-items:center;
-                margin:10px 0 18px; font-size:11.5px; color:#999; }
+                margin:10px 0 18px; font-size:11.5px; color:var(--pewter); }
   .status-bar .dot { display:inline-block; width:7px; height:7px; border-radius:50%;
                       background:#2ea043; margin-right:5px; }
-  .status-bar .dot.idle { background:#c8ccd2; }
+  .status-bar .dot.idle { background:var(--pale-silver); }
   .status-bar .dot.loading { background:#ffb020; animation:pulse 1s infinite; }
   .status-bar .dot.error { background:#e5484d; }
   @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.35;} }
 
-  label { display:block; font-size:11.5px; font-weight:700; color:#666; margin:0 0 4px; }
+  label { display:block; font-size:11.5px; font-weight:500; color:var(--pewter); margin:0 0 4px; }
   .field { margin-bottom:10px; }
   .row2 { display:flex; gap:10px; }
   .row2 .field { flex:1; }
   input[type=text], input[type=number] {
-    width:100%; font-size:14px; padding:10px 12px; border-radius:10px;
-    border:1.5px solid #e2e6eb; font-family:inherit; }
-  input:focus { outline:none; border-color:#7ba9ff; }
-  button { font-family:inherit; cursor:pointer; border-radius:10px; font-weight:700; font-size:13.5px; padding:11px; }
-  button.primary { width:100%; border:none; background:#1a1a1a; color:#fff; margin-bottom:18px; }
+    width:100%; font-size:14px; padding:10px 12px; border-radius:4px;
+    border:1px solid var(--pale-silver); font-family:inherit; color:var(--carbon); }
+  input::placeholder { color:var(--silver-fog); }
+  input:focus { outline:none; border-color:var(--blue); }
+  button { font-family:inherit; cursor:pointer; border-radius:4px; font-weight:500; font-size:13.5px; padding:11px;
+           border:3px solid transparent; box-shadow:rgba(0,0,0,0) 0 0 0 2px inset;
+           transition:border-color .33s,background-color .33s,color .33s,box-shadow .25s; }
+  button.primary { width:100%; background:var(--blue); color:var(--white); margin-bottom:18px; }
+  button.primary:hover { background:#3459c4; }
   button:disabled { opacity:.5; cursor:not-allowed; }
 
-  .holdings h2 { font-size:14px; margin:0 0 10px; display:flex; justify-content:space-between; align-items:center; }
-  .holdings h2 button { font-size:11px; padding:5px 9px; border-radius:999px; border:1px solid #e2e6eb; background:#f7f7f9; color:#888; font-weight:600; }
-  .holding-item { padding:12px 14px; border:1px solid #eef1f4; border-radius:12px; margin-bottom:10px; }
+  .holdings h2 { font-size:14px; margin:0 0 10px; font-weight:500; color:var(--carbon);
+                 display:flex; justify-content:space-between; align-items:center; }
+  .holdings h2 button { font-size:11px; padding:6px 12px; border-radius:4px; border:1px solid var(--pale-silver);
+                         background:var(--white); color:var(--pewter); font-weight:500; }
+  .holding-item { padding:16px 18px; border-radius:12px; margin-bottom:10px; background:var(--light-ash); }
   .holding-item .top-row { display:flex; justify-content:space-between; align-items:flex-start; }
-  .holding-item .ticker { font-size:14px; font-weight:800; }
-  .holding-item .del { color:#e5484d; background:none; border:none; font-size:17px; padding:2px 4px; }
-  .holding-item .monthly { font-size:18px; font-weight:800; color:#5b3df0; font-variant-numeric:tabular-nums; margin:4px 0 8px; }
-  .holding-item .monthly .per { font-size:11px; color:#999; font-weight:600; }
+  .holding-item .ticker { font-size:14px; font-weight:500; color:var(--carbon); }
+  .holding-item .del { color:var(--pewter); background:none; border:none; font-size:17px; padding:2px 4px; box-shadow:none; }
+  .holding-item .monthly { font-size:18px; font-weight:500; color:var(--blue); font-variant-numeric:tabular-nums; margin:4px 0 8px; }
+  .holding-item .monthly .per { font-size:11px; color:var(--pewter); font-weight:400; }
   .holding-item table.detail { width:100%; border-collapse:collapse; font-size:12px; }
-  .holding-item table.detail td { padding:3px 0; color:#888; }
-  .holding-item table.detail td.val { text-align:right; font-variant-numeric:tabular-nums; font-weight:600; color:#333; }
-  .holding-item .err { font-size:12px; color:#e5484d; font-weight:600; margin-top:4px; }
-  .holding-item .loading-label { font-size:12px; color:#ffb020; font-weight:600; margin-top:4px; }
-  .holdings-empty { font-size:12px; color:#aaa; padding:10px 0 20px; text-align:center; }
+  .holding-item table.detail td { padding:3px 0; color:var(--pewter); }
+  .holding-item table.detail td.val { text-align:right; font-variant-numeric:tabular-nums; font-weight:500; color:var(--carbon); }
+  .holding-item .err { font-size:12px; color:#c0392b; font-weight:500; margin-top:4px; }
+  .holding-item .loading-label { font-size:12px; color:var(--pewter); font-weight:500; margin-top:4px; }
+  .holdings-empty { font-size:12px; color:var(--silver-fog); padding:10px 0 20px; text-align:center; }
 
-  .credit { font-size:11px; color:#bbb; margin:14px 0 18px; }
-  .credit a { color:#aaa; }
+  .credit { font-size:11px; color:var(--silver-fog); margin:14px 0 18px; }
+  .credit a { color:var(--pewter); }
   .nav { margin-top:22px; font-size:12.5px; display:flex; justify-content:space-between; }
-  .nav a { color:#1264a3; text-decoration:none; }
-  .other-langs { margin-top:8px; font-size:11.5px; color:#999; }
-  .other-langs a { color:#888; }
+  .nav a { color:var(--blue); text-decoration:none; }
+  .other-langs { margin-top:8px; font-size:11.5px; color:var(--silver-fog); }
+  .other-langs a { color:var(--pewter); }
 </style>
 </head>
 <body>
