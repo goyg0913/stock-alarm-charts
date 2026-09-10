@@ -16,30 +16,31 @@
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2563120083302883" crossorigin="anonymous"></script>
 <style>
   :root {
-    --blue:#3E6AE1; --white:#FFFFFF; --carbon:#171A20; --graphite:#393C41;
-    --pewter:#5C5E62; --silver-fog:#8E8E8E; --pale-silver:#D0D1D2; --light-ash:#F4F4F4;
+    --blue:#0052FF; --white:#FFFFFF; --carbon:#0A0B0D; --graphite:#5B616E;
+    --pewter:#8A919E; --silver-fog:#C3C7CF; --pale-silver:#E3E6EA; --light-ash:#F7F8FA;
   }
   * { box-sizing:border-box; }
-  body { margin:0; padding:18px 16px 40px; color:var(--graphite); background:var(--white);
+  body { margin:0; padding:18px 16px 40px; color:var(--graphite); background:var(--light-ash);
          font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,
                      'Apple SD Gothic Neo','Malgun Gothic',
                      'Hiragino Sans','Yu Gothic',sans-serif; }
   .wrap { max-width:480px; margin:0 auto; }
-  h1 { font-size:22px; margin:0 0 2px; font-weight:500; color:var(--carbon); }
+  h1 { font-size:22px; margin:0 0 2px; font-weight:600; color:var(--carbon); }
   .sub { font-size:12.5px; color:var(--pewter); margin-bottom:14px; }
   .disclaimer { display:flex; align-items:flex-start; gap:8px; margin:0 0 16px;
-    padding:12px 0; background:var(--white);
+    padding:12px 14px; border-radius:12px; background:var(--white); border:1px solid var(--pale-silver);
     color:var(--carbon); font-size:12px; font-weight:500; line-height:1.5; }
-  .rate-card { border-radius:0; padding:20px; margin-bottom:24px; background:var(--light-ash); }
-  .rate-card .name { font-size:13.5px; font-weight:500; color:var(--carbon); display:flex; align-items:center; gap:6px; }
+  .rate-card { border-radius:12px; padding:20px; margin-bottom:14px; background:var(--white);
+    border:1px solid var(--pale-silver); box-shadow:0 1px 2px rgba(10,11,13,0.04); }
+  .rate-card .name { font-size:13.5px; font-weight:600; color:var(--carbon); display:flex; align-items:center; gap:6px; }
   .rate-card .pair { font-size:11.5px; color:var(--pewter); margin:2px 0 8px; }
   .rate-card .value-row { display:flex; align-items:baseline; gap:6px; }
-  .rate-card .value { font-size:28px; font-weight:500; font-variant-numeric:tabular-nums; color:var(--blue); }
+  .rate-card .value { font-size:28px; font-weight:600; font-variant-numeric:tabular-nums; color:var(--blue); }
   .rate-card .unit { font-size:13px; color:var(--pewter); font-weight:500; }
   .status-bar { display:flex; justify-content:space-between; align-items:center;
                 margin:14px 0 18px; font-size:11.5px; color:var(--pewter); }
   .status-bar .dot { display:inline-block; width:7px; height:7px; border-radius:50%;
-                      background:var(--carbon); margin-right:5px; }
+                      background:var(--blue); margin-right:5px; }
   .status-bar .dot.loading { background:var(--silver-fog); animation:pulse 1s infinite; }
   .status-bar .dot.error { background:var(--pewter); }
   @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.35;} }

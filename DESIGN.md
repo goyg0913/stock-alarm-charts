@@ -1,238 +1,267 @@
-# Design System Inspired by Tesla
+# Design System Inspired by Coinbase
 
 ## 1. Visual Theme & Atmosphere
 
-Tesla's website is an exercise in radical subtraction — a digital showroom where the product is everything and the interface is almost nothing. There are no decorative borders, no gradients, no patterns, no shadows. The UI exists only to provide just enough navigational structure to get out of the way. Every pixel that isn't product imagery is white space, and that restraint is the design system's most powerful statement.
+Coinbase's interface solves a hard problem: make raw financial numbers feel
+safe. The site is built on an almost clinical white canvas — no photography,
+no hero video, no atmospheric imagery — because the product itself (prices,
+charts, balances) is the content. Trust is manufactured through restraint:
+generous whitespace, a single confident blue, soft rounded corners, and a
+neutral gray type hierarchy that never shouts. Where Tesla uses photography
+to carry emotional weight, Coinbase uses *cleanliness* — every card, table
+row, and button looks like it was designed by someone who understands that
+people are looking at numbers that affect their money, and any visual noise
+reads as risk.
 
-The color philosophy is almost ascetic: a single blue (`#3E6AE1`) for primary calls to action, three shades of dark gray for text hierarchy, and white for everything else. This project has no product photography, so whitespace and typographic restraint — not imagery — carry the "gallery silence" that Tesla achieves with cinematic photography. Discipline in what is *not* shown is the design statement.
-
-Typography uses a single Universal Sans family — a custom family split into "Display" for headlines and "Text" for body/UI elements. There are no text shadows, no text gradients, no decorative type treatments. Every letterform earns its place through clarity alone.
+This maps directly onto this project: `index.html`/`stock-*.html` are not a
+product showroom, they're a scanning tool that tells a stranger "here is a
+buy signal, here is why, here is the risk." The Coinbase language — soft
+cards on a white/near-white ground, one blue accent, semantic green/red for
+gains and losses, no drama — communicates "this is a serious data tool, not
+a hype page," which is exactly the credibility this dashboard needs given
+the mandatory disclaimer language already used across pages ("투자 판단은
+본인 책임입니다").
 
 **Key Characteristics:**
-- Near-zero UI decoration: no shadows, no gradients, no borders, no patterns anywhere on the page
-- Single accent color — Electric Blue (`#3E6AE1`) — used exclusively for primary CTA buttons and interactive elements
-- Universal Sans font family (Display + Text) as the only typeface, everywhere
-- Whitespace-first presentation — restraint carries the emotional/trust weight that photography would on a product site
-- 0.33s cubic-bezier transitions as the universal timing for all interactive state changes (color/background only — no transform, no scale)
-- lowercase, normal-tracking typography throughout — no uppercase transforms, no letter-spacing tricks
-- One narrow, explicitly-scoped exception exists for this project's core function: signal/gain-loss color (§2.6) — everything else in the system stays strictly monochrome + Electric Blue
+- Pure white / near-white page background — content and cards provide all structure
+- Soft, friendly rounding (12–16px) on cards, vs. sharp 4px Tesla buttons — approachable, not austere
+- Single confident blue accent (`#0052FF`) for primary actions and links, used sparingly
+- Semantic red/green reserved exclusively for price/percentage movement — never decorative
+- Subtle card elevation (soft shadow or 1px hairline border) instead of Tesla's pure flatness — cards need to read as distinct "modules" of data
+- Numeric data set in tabular/monospaced-feel alignment so columns of prices/percentages scan cleanly
+- Calm, low-drama motion — 0.15–0.2s ease transitions, no scale/bounce effects
+- Dense information tolerated, but always inside a card or table row — never floating loose on the page
 
 ## 2. Color Palette & Roles
 
 ### Primary
-- **Electric Blue** (`#3E6AE1`): Primary CTA button background, links, active/interactive states — a confident, mid-saturation blue (rgb 62, 106, 225) that stands alone as the primary chromatic color in the interface. Used for "primary action" buttons and any element the user should act on
-- **Pure White** (`#FFFFFF`): Dominant background color for all surfaces, panels, navigation
+- **Coinbase Blue** (`#0052FF`): Primary CTA background, active nav state, links, and focus rings — the one chromatic anchor of the system (rgb 0, 82, 255)
+- **Pure White** (`#FFFFFF`): Primary page and card background
+
+### Secondary & Accent
+- **Blue Tint** (`#EAF0FF`): Light blue background for selected states, info callouts, hover backgrounds on nav/menu items
+- **Blue Hover** (`#0040CC`): Darkened blue for button/link hover and active-press states
 
 ### Surface & Background
-- **White Canvas** (`#FFFFFF`): Page background and all surface containers
-- **Light Ash** (`#F4F4F4`): Subtle alternate surface for section differentiation and table zebra rows — barely perceptible shift from pure white (rgb 244, 244, 244). This is the *only* mechanism allowed for separating rows/sections when borders are forbidden (§4, Data Table)
-- **Carbon Dark** (`#171A20`): Dark surface color for any dark-mode/overlay contexts (rgb 23, 26, 32)
+- **Page Ground** (`#F7F8FA`): Very light neutral gray used behind card grids and table zones so white cards visibly separate from the page
+- **Card Surface** (`#FFFFFF`): All cards, table containers, modals
+- **Hairline Surface** (`#F0F1F3`): Alternating table row background / subtle section dividers
 
 ### Neutrals & Text
-- **Carbon Dark** (`#171A20`): Primary heading and navigation text (rgb 23, 26, 32)
-- **Graphite** (`#393C41`): Body text and secondary content (rgb 57, 60, 65)
-- **Pewter** (`#5C5E62`): Tertiary text for sub-links, secondary labels (rgb 92, 94, 98)
-- **Silver Fog** (`#8E8E8E`): Placeholder text, metadata, disabled states (rgb 142, 142, 142)
-- **Cloud Gray** (`#EEEEEE`): Light dividers where absolutely unavoidable (prefer spacing instead — see §7)
-- **Pale Silver** (`#D0D1D2`): Subtle UI delineation, same caveat as above
+- **Ink** (`#0A0B0D`): Headings, primary numeric values (prices, tickers) — near-black, not pure black
+- **Slate** (`#5B616E`): Body copy, descriptions, card subtext
+- **Steel** (`#8A919E`): Metadata, timestamps, secondary labels ("시총 상위 100종목 · 매시간")
+- **Fog** (`#C3C7CF`): Disabled text, placeholder text, chevron/arrow icons
+- **Border Hairline** (`#E3E6EA`): 1px card borders and table cell dividers
 
-### §2.6 Semantic Signal Color — Scoped Exception
-This project scans stocks for buy signals and must show price direction and
-signal state at a glance; a strictly monochrome-plus-blue palette cannot
-carry that meaning. This is the **only** sanctioned deviation from "Electric
-Blue is the only chromatic color," and it is deliberately narrow:
-
-- **Gain Green** (`#1DB954`): positive price change (%), "signal triggered / met" state
-- **Loss Red** (`#D93025`): negative price change (%), "not triggered / bearish" state
-- Two allowed forms only:
-  1. **Text color** on numbers/labels that represent an actual price/signal direction (e.g. `+2.4%`, `BREAKOUT`)
-  2. **Fill of a small solid indicator dot** (a single filled circle, ≤10px) that restates whether one specific signal/indicator has fired — this is a compact visual echo of the same signal information, not decoration
-- Never as a background fill, chip/badge tint, row-highlight tint, or border, and never for anything that isn't literally a gain/loss/signal value. A "NEW"/"met all conditions" marker is bold text in Gain Green with no background — not a filled chip
-- No third semantic color (no amber/warning) — a pending/partial state uses Pewter/Silver Fog (neutral, not-yet-triggered) rather than a new hue; only fully-triggered and not-triggered get Gain Green/Loss Red
-- Everywhere else on every page — nav, buttons, headings, cards, links, disclaimers — stays exactly monochrome + Electric Blue. This exception does not open the door to any other color
-
-### §2.7 Compliance Banner — Out of Scope
-`assets/investment-warning.css` (`.site-investment-warning`, shared across
-every published page) is a legal/compliance disclaimer banner, deliberately
-built to be loud and non-dismissible (saturated red background, bold white
-text, 2px border). It is **explicitly out of scope for this design system**
-— do not restyle it to Electric Blue/monochrome or fold it into the §2.6
-signal-color exception. Leave its markup and CSS exactly as-is; every other
-element on the page still follows this system.
+### Semantic (critical for this project — stock data)
+- **Gain Green** (`#05B169`): Positive price change, "buy signal triggered," bullish badges
+- **Gain Green Tint** (`#E6F9EF`): Background for positive-change table cells/badges
+- **Loss Red** (`#DF1B41`): Negative price change, bearish/warning badges, disclaimer icon accent
+- **Loss Red Tint** (`#FCE9EC`): Background for negative-change table cells/badges
+- **Caution Amber** (`#F4A81E`): "셋업 감지, 아직 미확정" / pending-state badges (W패턴 SETUP vs BREAKOUT)
+- Semantic colors are used **only** for directional financial meaning — never as decoration. A green badge always means "up/positive," never "success" in a generic UI sense
 
 ### Gradient System
-- No gradients are used anywhere in the interface, including within the signal-color exception
-- Depth is achieved entirely through whitespace, never through gradient or shadow
+- No gradients on structural surfaces (cards, nav, backgrounds stay flat)
+- The only permitted gradient is a very subtle 1–2% white-to-`#FAFBFC` wash behind full-width hero/summary bands, meant to be nearly imperceptible — never a visible color gradient
 
 ## 3. Typography Rules
 
 ### Font Family
-- **Display**: `Universal Sans Display`, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", "Hiragino Sans", Arial, sans-serif — hero/page titles only (40px)
-- **Text/UI**: `Universal Sans Text`, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", "Hiragino Sans", Arial, sans-serif — everything else: navigation, body copy, buttons, table content, product names
-- No OpenType features, no italics
+- **UI/Body**: `-apple-system, BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", "Hiragino Sans", Arial, sans-serif` — system font stack (no custom webfont load) to keep the static pages fast and to render Korean/Japanese/English correctly without a webfont dependency
+- **Numeric/Tabular data**: same stack, but numeric columns (price, %, RSI, volume) use `font-variant-numeric: tabular-nums` so digits align vertically in tables
+- No serif anywhere; no monospace except where explicitly noted for numeric alignment
 
 ### Hierarchy
 
-| Role | Size | Weight | Line Height | Letter Spacing |
-|------|------|--------|-------------|-----------------|
-| Hero/Page Title | 40px | 500 | 1.20 | normal |
-| Product/Ticker Name | 17px | 500 | 1.18 | normal |
-| Nav Item | 14px | 500 | 1.20 | normal |
-| Body Text | 14px | 400 | 1.43 | normal |
-| Button Label | 14px | 500 | 1.20 | normal |
-| Sub-link | 14px | 400 | 1.43 | normal |
-| Table Header / Cell | 14px | 400 (500 for header) | 1.43 | normal |
+| Role | Size | Weight | Line Height | Notes |
+|------|------|--------|-------------|-------|
+| Page Title (H1) | 22–24px | 600 | 1.3 | Hub/guide page titles, Ink color |
+| Section Title (H2) | 17–18px | 600 | 1.3 | Card headings ("AND 신호 스캔") |
+| Ticker/Price (large) | 20–28px | 600 | 1.2 | Tabular-nums, Ink color |
+| Body Text | 13–14px | 400 | 1.6 | Card descriptions, guide copy |
+| Metadata/Caption | 11.5–12px | 500 | 1.5 | Timestamps, scan cadence, Steel color |
+| Badge/Label | 12px | 600 | 1.2 | Signal badges (BREAKOUT, SETUP), uppercase optional |
+| Button Label | 14px | 600 | 1.2 | CTA text |
+| Table Header | 12px | 600 | 1.4 | Uppercase, Steel color, letter-spacing +0.02em |
 
 ### Principles
-- **Only two weights**: 500 (headings/UI/emphasis) and 400 (body). No bold (700), no light (300)
-- **Only two sizes matter**: 14px for essentially all UI, 40px reserved strictly for hero/page titles. Don't invent intermediate sizes
-- **Normal letter-spacing everywhere** — no negative tracking on headlines, no uppercase tracking tricks
-- **No uppercase text transforms anywhere** — lowercase/sentence case only, including table headers and badges
-- **Display vs Text split**: Display only for the single largest title on a page; Text for literally everything else, including large numeric values like prices
+- **Weight carries hierarchy, not size**: 600 for anything the eye should land on first (titles, prices, CTAs), 400 for everything read at leisure (descriptions)
+- **Slight negative tracking on headings only** (-0.01em), body text stays at normal tracking for readability across three languages
+- **Numeric columns are tabular**: any RSI/price/volume/percentage table must use tabular-nums so vertical scanning works — this is a correctness requirement for a scan-result table, not a style preference
+- **No uppercase for body/headings**: reserve uppercase strictly for small badges and table headers, matching Coinbase's restrained use of caps
+- **Line-height stays generous (1.5–1.6) on body copy** even at small sizes, since guide/disclaimer text is read carefully, not skimmed
 
 ## 4. Component Stylings
 
 ### Buttons
-All buttons: 4px border-radius, sharp technical aesthetic.
+Rounded, friendly geometry — a deliberate contrast to Tesla's 4px sharpness.
 
 **Primary CTA**:
-- bg `#3E6AE1`, text `#FFFFFF`, fontSize 14px, fontWeight 500, borderRadius 4px, minHeight 40px, width 200px
-- Border: 3px solid transparent (reserves space for focus animation)
-- Transition: `border-color 0.33s, background-color 0.33s, color 0.33s`
-- Hover: subtle darkening of blue background only — no scale, no translate
+- bg `#0052FF`, text `#FFFFFF`, fontSize 14px, fontWeight 600, borderRadius 8px, padding 10px 20px, minHeight 40px
+- Hover: bg `#0040CC`; Active: bg `#0040CC` + scale unchanged (no transform, color-only)
+- Transition: `background-color 0.15s ease`
+- Used for: primary navigation actions ("전체 대시보드 바로가기"), simulator "계산하기" button
 
-**Secondary CTA**:
-- bg `#FFFFFF`, text `#393C41`, same dimensions/border pattern as primary
+**Secondary Button**:
+- bg `#FFFFFF`, text `#0052FF`, border `1px solid #E3E6EA`, same radius/padding as primary
+- Hover: bg `#EAF0FF`, border color `#0052FF`
 
-**Nav Button**:
-- bg transparent, text `#171A20`, fontSize 14px, fontWeight 500, borderRadius 4px, padding 4px 16px, minHeight 32px
-
-**Text Link**:
-- text `#5C5E62`, no background, no border, underline on hover only
-
-Maximum two CTA buttons visible on any single screen/section.
+**Ghost/Text Link**:
+- text `#0052FF`, no background, no border, underline on hover only
+- Used inline within body copy and card arrows ("›")
 
 ### Cards & Containers
-- Background: white or transparent (inherits page white)
-- Border: **none**
-- Shadow: **none**
-- Separation between cards/sections is spacing only (minimum 16px gap, prefer 24–32px)
-- Border radius: 0px default; up to 12px only for large image-scale surfaces (not applicable here since there is no photography — keep interactive cards at 0–4px)
+The dominant structural pattern of this entire project (hub cards, stock detail cards, guide sections).
 
-### Data Table (Scan Results — `sp500_table.html`, `wpattern_table.html`)
-Tesla's own site has no data tables, so this pattern is derived from the
-system's principles rather than copied directly:
-- **No borders anywhere in the table** — no cell borders, no outer border, no rules
-- Row separation achieved purely through: (a) generous row height (min 40px), (b) alternating background between `#FFFFFF` and `#F4F4F4` (Light Ash) — this is the one exception where a background shift substitutes for a border, since it's "spacing made visible" rather than a decorative line
-- Header row: fontWeight 500, `#171A20`, no background fill, separated from body purely by an extra 8px of top/bottom padding (not a rule)
-- Numeric cells: plain text, right-aligned, `#393C41` (Graphite) by default
-- **Signal/change cells only**: colored per §2.6 (Gain Green `#1DB954` / Loss Red `#D93025`), as text color or a small solid indicator dot — never a chip/background, and never a full-row background tint
-- A per-indicator status dot (fired/not-fired) may use Gain Green/Loss Red fill; a *partial/pending* state uses a neutral (Pewter/Cloud Gray) dot, not a third color
-- Row hover (if interactive): background shifts to `#F4F4F4` only — no border, no shadow, and never a colored row tint even for fully-met rows
+- Background: `#FFFFFF`
+- Border: `1px solid #E3E6EA` (hairline, always present — replaces Tesla's borderless philosophy since cards must read as distinct data modules)
+- Border radius: 12–16px
+- Shadow: `0 1px 2px rgba(10,11,13,0.04)` at rest; `0 2px 8px rgba(10,11,13,0.08)` on hover for clickable cards
+- Padding: 18–20px
+- Transition: `background-color 0.15s ease, box-shadow 0.15s ease` (no transform/scale)
+- Clickable card (e.g. hub `.card` linking to a scan table) additionally shows a trailing chevron (Steel color) and a barely-perceptible background shift on `:active`
 
-### Inputs & Forms
-- Background: transparent, text `#171A20`, placeholder `#8E8E8E`
-- Border: none at rest; on focus, a single 1px `#3E6AE1` bottom rule only (closest Tesla equivalent to a focus indicator without a boxed border)
-- Font: Universal Sans Text, 14px
+### Signal Badges
+New component vocabulary needed for this project (not present in Tesla's system):
+- Pill shape, borderRadius 999px, padding 4px 10px, fontSize 12px, fontWeight 600
+- **Breakout/Buy**: bg `#E6F9EF`, text `#05B169`
+- **Setup/Pending**: bg `#FEF6E7`, text `#F4A81E`
+- **No signal / neutral**: bg `#F0F1F3`, text `#5B616E`
+- Never filled solid — always tint-background + saturated text, matching Coinbase's badge convention
+
+### Data Tables (`sp500_table.html`, `wpattern_table.html`)
+- Header row: bg `#F7F8FA`, text `#5B616E`, fontWeight 600, fontSize 12px, uppercase, sticky on scroll
+- Body rows: bg `#FFFFFF`, alternating `#FAFBFC` for zebra striping on wide tables
+- Row border: `1px solid #F0F1F3` (bottom only, no vertical rules)
+- Row hover: bg `#EAF0FF` (very subtle, signals "this row is scannable/clickable" if linked)
+- Numeric cells: right-aligned, tabular-nums, colored `#05B169`/`#DF1B41` when representing signed change
+- Cell padding: 10px 12px minimum for touch/scan comfort on mobile
+
+### Inputs & Forms (dividend simulator)
+- Background: `#FFFFFF`, border `1px solid #E3E6EA`, borderRadius 8px, padding 10px 12px
+- Focus: border `#0052FF`, box-shadow `0 0 0 3px rgba(0,82,255,0.12)` (soft focus ring, replaces Tesla's border-based focus)
+- Label: 12px, fontWeight 600, `#5B616E`, positioned above field
+- Placeholder: `#C3C7CF`
+
+### Disclaimer / Callout Box
+Already present across pages ("⚠️ 투자 판단은 본인 책임입니다") — formalize as a component:
+- bg `#F7F8FA` (neutral) or `#FEF6E7` (amber, when warning-toned)
+- borderRadius 12px, padding 12px 14px, fontSize 12.5px, fontWeight 500
+- Icon + text in flex row, gap 8px, icon does not get a colored background
 
 ### Navigation
-- White background, no border, no shadow — the nav blends with the page via whitespace alone
-- Active nav item: text `#3E6AE1`
+- White background, `1px solid #E3E6EA` bottom border (Coinbase always keeps a hairline separator, unlike Tesla's borderless float)
+- No frosted-glass/backdrop-filter — flat white at all scroll positions
+- Active nav item: text `#0052FF`, optional `#EAF0FF` pill background
 
 ## 5. Layout Principles
 
 ### Spacing System
-- **Base unit**: 8px
-- **Common values**: 8px, 16px, 24px, 32px
-- **Section spacing**: generous — treat each major section like a Tesla viewport-height section where the content allows (hub/guide pages); dense scan tables may compress this out of necessity but must still use spacing (never borders) between the table and surrounding content
+- **Base unit**: 4px (finer-grained than Tesla's 8px, needed for dense numeric tables)
+- **Common values**: 4, 8, 12, 16, 20, 24, 32px
+- **Card gap**: 12–14px between stacked cards (hub page), 16px in grid layouts
+- **Section spacing**: 32–40px between major page sections (not full-viewport — this is a scan/read tool, not a gallery)
 
 ### Grid & Container
-- **3-column grid on desktop, 2-column on tablet, 1-column on mobile** for any card/link grid (hub pages, category-style listings)
-- **Max width**: content-appropriate (480px for mobile-first hub pages, wider for data tables), full-bleed avoided in favor of centered content with generous side margins
+- **Max width**: 480px for single-column mobile-first pages (hub, disclaimer flow — matches existing `.wrap { max-width:480px }`), 1080–1200px for wide data tables/guide pages on desktop
+- **Table pages**: full-width scrollable container with `overflow-x:auto` on mobile rather than forcing column collapse, since row identity (ticker + all indicators) must stay intact
 
 ### Whitespace Philosophy
-Whitespace is the luxury signal. Never fill available space just because it's empty. On this project specifically: resist the urge to add dividers, boxes, or borders to "organize" a page — add space instead. A page that feels sparse is working correctly.
+Unlike Tesla's "one message per screen" gallery pacing, this system uses
+whitespace *inside* and *between* cards to create scannable rhythm across a
+dense list — the goal is a reader moving quickly through 20–100 rows of
+signals without eye strain, not a slow cinematic scroll. Padding inside
+cards/rows does the work; the page overall stays compact.
 
 ### Border Radius Scale
 | Value | Context |
 |-------|---------|
-| 0px | Default — sharp edges everywhere |
-| 4px | Buttons, nav items only |
+| 8px | Buttons, inputs |
+| 12px | Cards, disclaimer boxes |
+| 16px | Larger feature cards / modals |
+| 999px | Badges, pills |
 
 ## 6. Depth & Elevation
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Level 0 (Flat) | No shadow, no border | Default and only state for every element on the page |
+| Level 0 (Flat) | No shadow, hairline border only | Table rows, inline text, nav |
+| Level 1 (Card) | `0 1px 2px rgba(10,11,13,0.04)` + `1px solid #E3E6EA` | Default card/module state |
+| Level 2 (Hover) | `0 2px 8px rgba(10,11,13,0.08)` | Clickable card/table row hover |
+| Level 3 (Overlay) | `0 8px 24px rgba(10,11,13,0.12)` | Modals, dropdown menus, tooltips |
 
 ### Shadow Philosophy
-No box-shadows anywhere, no exceptions. Depth is communicated only through spacing and z-index/positioning where strictly necessary (e.g. a dropdown appearing above content) — never through shadow, border, or gradient.
+Unlike Tesla's zero-shadow doctrine, this system uses *very* soft shadows
+deliberately: a data card needs to read as a distinct, trustworthy "unit" of
+information the way a bank statement line item does. Shadows stay low-alpha
+(4–12%) and tight-radius — never a glow or dramatic drop shadow. Combined
+with the 1px hairline border, elevation communicates "this is a discrete,
+verified data module," not decoration.
 
 ## 7. Do's and Don'ts
 
 ### Do
-- Use Electric Blue (`#3E6AE1`) exclusively for primary CTAs and links — never decoratively
-- Keep typography at weight 400–500 only, sizes clustered at 14px with 40px reserved for hero titles
-- Use 4px border-radius for buttons/nav only; 0px everywhere else
-- Trust whitespace — never fill space just because it's empty
-- Keep all transitions at 0.33s, color/background only
-- Use lowercase/sentence-case text everywhere, no uppercase transforms
-- Separate table rows and sections with spacing (and, only in tables, the Light Ash zebra background) — never a border
-- Apply Gain Green / Loss Red **only** to actual price-change or signal-state text (§2.6) — nothing else may use color
+- Keep the page background off-white/light-gray (`#F7F8FA`) so white cards visibly separate
+- Reserve green/red exclusively for actual price/signal direction — never for arbitrary success/error UI states unrelated to market data
+- Use tabular-nums on every numeric column so tables scan cleanly
+- Keep a 1px hairline border on every card and table row group
+- Use soft, low-alpha shadows only — nothing above ~12% opacity
+- Keep the disclaimer/callout box visually distinct but calm (neutral gray, not alarming red) unless content is genuinely a warning
+- Use pill-shaped badges with tint backgrounds for signal states (SETUP/BREAKOUT/NONE)
+- Keep transitions short (0.15–0.2s) and color/shadow-only — no scale or translate
 
 ### Don't
-- Add shadows to any element
-- Use any color besides Electric Blue and the §2.6 signal-color exception — no new accent colors, ever
-- Apply gradients or decorative backgrounds
-- Use text larger than 40px, or introduce sizes outside the defined hierarchy
-- Add borders to cards, containers, or table cells — separation is spacing only
-- Use uppercase text transforms
-- Introduce large border-radii or pill shapes — 4px is the maximum, and only on buttons/nav
-- Add hover animations with scale/translate transforms — interactions are color-only
-- Put more than two CTA buttons in one screen/section
-- Turn the §2.6 exception into a general-purpose UI color (e.g. don't use green for "success" toasts unrelated to price/signal data)
+- Don't introduce photography or hero imagery — this is a data tool, not a brand showroom
+- Don't use blue for anything except CTAs, links, and active/focus states — it must stay meaningful, not decorative
+- Don't color a table row or number green/red unless it reflects an actual gain/loss or signal state
+- Don't remove the card border in the name of "cleaner" design — the hairline is what makes dense tables/cards parseable
+- Don't use uppercase for body copy or descriptions — reserve it for table headers and small badges only
+- Don't add drop shadows heavier than the Level 3 spec — this system stays quiet, not "elevated SaaS with glowing cards"
+- Don't override the system font stack with a webfont — these are static, no-build-step pages and load speed/CJK correctness matter more than brand typography
 
 ## 8. Responsive Behavior
 
 ### Breakpoints
 | Name | Width | Key Changes |
-|------|-------|--------------|
-| Mobile | <768px | Single-column, hero text scales to ~28px, CTA buttons stack vertically, grid becomes 1-column |
-| Tablet | 768–1024px | 2-column grid, CTAs remain side-by-side |
-| Desktop | >1024px | 3-column grid, hero at 40px, side-by-side CTAs |
+|------|-------|-------------|
+| Mobile | <480px | Single column, `.wrap` max-width 480px pattern, cards full-width, tables horizontally scrollable |
+| Tablet | 480–1024px | Cards may go 2-up in grid contexts (not hub page), tables gain more visible columns |
+| Desktop | >1024px | Guide/table pages use full 1080–1200px container; hub-style pages stay capped at 480–560px (they're meant to be read like a mobile card list even on desktop) |
 
 ### Touch Targets
-- Primary CTA buttons: 200×40px minimum
-- Nav buttons: minimum 32px height
-- Table rows: minimum 40px height
+- Card tap targets: full card is clickable, minimum 44px effective height
+- Table rows (if row-level links exist): minimum 40px row height
+- Buttons/inputs: minimum 40px height
 
 ### Collapsing Strategy
-- **Grid**: 3-column → 2-column (tablet) → 1-column (mobile)
-- **CTA pair**: side-by-side on desktop, stacked on mobile
-- **Data tables**: horizontal scroll on mobile rather than hiding columns — every indicator must stay reachable
+- **Tables**: horizontal scroll with a sticky first column (ticker) rather than hiding columns — every indicator must stay visible/reachable, not hidden behind a "more" toggle, since the columns are the entire point of the AND/W-pattern scan
+- **Cards**: never go multi-column below tablet width; stacked single column is the default and often the final state (matches current hub page)
 
 ## 9. Agent Prompt Guide
 
 ### Quick Color Reference
-- Primary CTA / links: "Electric Blue (#3E6AE1)"
-- Background: "Pure White (#FFFFFF)"
-- Heading text: "Carbon Dark (#171A20)"
-- Body text: "Graphite (#393C41)"
-- Tertiary text: "Pewter (#5C5E62)"
-- Placeholder/metadata: "Silver Fog (#8E8E8E)"
-- Alternate surface / table zebra row: "Light Ash (#F4F4F4)"
-- Positive price/signal (text or indicator dot): "Gain Green (#1DB954)"
-- Negative price/signal (text or indicator dot): "Loss Red (#D93025)"
+- Primary CTA / links: "Coinbase Blue (#0052FF)"
+- Page background: "Page Ground (#F7F8FA)"
+- Card background: "Pure White (#FFFFFF)" with "Border Hairline (#E3E6EA)"
+- Heading / price text: "Ink (#0A0B0D)"
+- Body text: "Slate (#5B616E)"
+- Metadata: "Steel (#8A919E)"
+- Positive/gain: "Gain Green (#05B169)" on "Gain Green Tint (#E6F9EF)"
+- Negative/loss: "Loss Red (#DF1B41)" on "Loss Red Tint (#FCE9EC)"
+- Pending/setup: "Caution Amber (#F4A81E)" on tint `#FEF6E7`
 
 ### Example Component Prompts
-- "Build a hero section: centered page title in Universal Sans Display 40px weight 500 Carbon Dark, a subtitle in Text 14px Pewter, and one Electric Blue primary CTA button, 4px radius, 200x40px — no shadow, no border, generous whitespace above and below"
-- "Build a scan-result table row: white or Light Ash alternating background, no borders anywhere, 40px min row height, ticker in 14px weight 500 Carbon Dark, numeric columns right-aligned Graphite, percentage change colored Gain Green if positive / Loss Red if negative — text color only, no background chip"
-- "Build a nav bar: white background, no border, no shadow, wordmark left, nav items 14px weight 500 Carbon Dark centered, Electric Blue for the active item only"
-- "Build a 3-column card grid (2-column tablet, 1-column mobile): each card is borderless, shadowless, separated by 24px gaps, product name 17px weight 500 Carbon Dark, description 14px weight 400 Pewter"
+- "Create a hub card: white background, 1px #E3E6EA border, 12px border-radius, 18px padding, a bold 16px Ink title with an emoji, a 12.5px Slate description below, an 11.5px Steel metadata line, and a trailing Steel chevron — subtle shadow on hover only, no transform"
+- "Build a scan-result table row: white background, bottom border 1px #F0F1F3, ticker left-aligned in Ink 14px 600, numeric columns right-aligned with tabular-nums, percentage change colored #05B169 if positive / #DF1B41 if negative"
+- "Design a signal badge pill: 999px border-radius, 4px 10px padding, 12px fontWeight 600 text, bg #E6F9EF text #05B169 for BREAKOUT, bg #FEF6E7 text #F4A81E for SETUP"
+- "Create a primary button: bg #0052FF, white text, 14px fontWeight 600, 8px border-radius, 10px 20px padding, 40px min-height, hover darkens to #0040CC, transition background-color only 0.15s"
+- "Design a disclaimer callout: bg #F7F8FA, 12px border-radius, 12px 14px padding, warning emoji + 12.5px fontWeight 500 Ink text in a flex row with 8px gap"
 
 ### Iteration Guide
-1. Focus on ONE component at a time — this system is minimal enough that every element must be pixel-perfect
-2. Reference exact hex codes from this document — there are only 8 colors total in the entire system (6 monochrome + 2 signal)
-3. If you're about to add a border or shadow, stop — replace it with spacing
-4. If you're about to introduce a new color for anything other than an actual price/signal value, stop — use Electric Blue or a neutral instead
-5. Verify lowercase/sentence-case text everywhere — no uppercase transforms slipped in from a component library default
+1. Every numeric table/column change must preserve tabular-nums alignment — verify visually, misaligned digits break the "trustworthy data tool" impression instantly
+2. Green/red must always trace back to an actual signal or price direction in the data — if you're reaching for green/red decoratively, use blue or gray instead
+3. When adding a new page type, start from the card or table pattern already in this file rather than inventing new elevation/radius values
+4. Keep language-neutral spacing: Korean/Japanese line-height needs the same 1.5–1.6 generosity as Korean text is denser per character than English
+5. If a screen starts to feel like a "marketing landing page," pull back — this system is Coinbase's product/dashboard register, not their marketing site
