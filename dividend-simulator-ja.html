@@ -5,10 +5,10 @@
 <meta name="naver-site-verification" content="c204b5cba61b98e4cd03a49d8984156030f9a57d" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="index,follow">
-<title>配当ポートフォリオ・シミュレーター — 複数銘柄を追加して予想月間配当金(USD)を確認</title>
-<meta name="description" content="複数の銘柄の保有株数を追加すると、1分ごとに配当データを自動取得してポートフォリオ全体の予想月間配当金を米ドルで計算します。">
-<meta property="og:title" content="配当ポートフォリオ・シミュレーター — 複数銘柄を追加して予想月間配当金(USD)を確認">
-<meta property="og:description" content="複数の銘柄の保有株数を追加すると、1分ごとに配当データを自動取得してポートフォリオ全体の予想月間配当金を米ドルで計算します。">
+<title>配当金を計算する</title>
+<meta name="description" content="保有銘柄と株数を入力すると、直近12か月の配当をもとに月平均額を計算できます。">
+<meta property="og:title" content="配当金を計算する">
+<meta property="og:description" content="保有銘柄と株数を入力すると、直近12か月の配当をもとに月平均額を計算できます。">
 <link rel="canonical" href="dividend-simulator-ja.html">
 <link rel="alternate" hreflang="ko" href="dividend-simulator-ko.html">
 <link rel="alternate" hreflang="ja" href="dividend-simulator-ja.html">
@@ -87,19 +87,19 @@
 </head>
 <body>
   <div class="wrap">
-    <h1>配当ポートフォリオ・シミュレーター</h1>
-    <div class="sub">銘柄ごとに保有株数を追加すると1分ごとに配当データを自動取得し、予想月間配当金を米ドル（税引前）で計算します</div>
+    <h1>配当金を計算する</h1>
+    <div class="sub">保有銘柄と株数を入力すると、直近12か月の配当をもとに月平均額を計算できます。</div>
 
-    <div class="disclaimer"><span>⚠️</span><span>すべての金額は税引前です。実際の受取額は源泉徴収税やご自身の税務状況により異なります。配当方針が変更される可能性もあり、本計算は参考用シミュレーションであり投資助言ではありません。</span></div>
+    <div class="disclaimer"><span>⚠️</span><span>月平均額は直近12か月の配当を12で割った税引前の推計です。実際の月別支払額とは異なり、今後の配当や税金により受取額は変わります。</span></div>
 
     <div class="summary-card">
       <div class="invested">評価金額合計 <b id="total-invested">$0.00</b></div>
-      <div class="headline">予想月間配当金（税引前・ポートフォリオ合計）</div>
+      <div class="headline">月平均配当金（税引前）</div>
       <div class="headline-value" id="total-monthly">$0.00</div>
     </div>
 
     <div class="status-bar">
-      <span><i class="dot idle" id="status-dot"></i><span id="status-text">銘柄を追加すると自動取得が始まります</span></span>
+      <span><i class="dot idle" id="status-dot"></i><span id="status-text">保有銘柄を追加して配当金を確認できます</span></span>
       <span id="updated-at"></span>
     </div>
     <div class="progress-track" id="global-progress" hidden><div class="bar"></div></div>
@@ -121,11 +121,11 @@
       <div id="holdings-list"></div>
     </div>
 
-    <div class="credit">株価・配当データ: Yahoo Finance（毎日更新されるローカルDBを優先取得、なければリアルタイム取得）</div>
+    <div class="credit">株価・配当データ：Yahoo Finance。銘柄によりデータの基準時点が異なる場合があります。</div>
 
     <div class="nav">
       <a href="index.html">← ダッシュボードホーム</a>
-      <a href="exchange-rate-ja.html">リアルタイム為替を見る →</a>
+      <a href="exchange-rate-ja.html">ドル・円の為替 →</a>
     </div>
     <div class="other-langs">他の言語で見る: <a href="dividend-simulator-ko.html">한국어</a> · <a href="dividend-simulator-en.html">English</a></div>
   </div>
@@ -311,17 +311,17 @@
       var body = '<div class="top-row"><span class="ticker"></span>' +
         '<button type="button" class="del" aria-label="削除">✕</button></div>';
 
-      if (h.error) {
+      if (h.error && !h.hasData) {
         body += '<div class="err"></div>';
       } else if (h.loading && !h.hasData) {
         if (h.loadingSource === "live") {
-          body += '<div class="loading-label">リアルタイム取得中…（少し時間がかかる場合があります）</div>' +
+          body += '<div class="loading-label">配当情報を確認しています…</div>' +
             '<div class="progress-track"><div class="bar"></div></div>';
         } else {
           body += '<div class="loading-label">読み込み中…</div>';
         }
       } else if (h.hasData) {
-        body += '<div class="monthly"><span class="monthly-val"></span><span class="per"> /月（税引前）</span></div>' +
+        body += '<div class="monthly"><span class="monthly-val"></span><span class="per"> /月平均（税引前）</span></div>' +
           '<table class="detail">' +
           '<tr><td>保有株数</td><td class="val shares-val"></td></tr>' +
           '<tr><td>現在価格</td><td class="val price-val"></td></tr>' +
@@ -380,13 +380,13 @@
     }).catch(function (err) {
       h.loading = false;
       h.loadingSource = null;
-      h.error = (err && err.message) || "取得失敗";
+      h.error = "銘柄情報を取得できませんでした。銘柄コードを確認するか、しばらくしてから再度お試しください。";
     });
   }
 
   function refreshAll() {
     if (holdings.length === 0) {
-      setStatus("idle", "銘柄を追加すると自動取得が始まります");
+      setStatus("idle", "保有銘柄を追加して配当金を確認できます");
       return;
     }
     setStatus("loading", "読み込み中…");
@@ -395,8 +395,8 @@
     Promise.all(holdings.map(refreshHolding)).then(function () {
       renderHoldings();
       var anyError = holdings.some(function (h) { return h.error; });
-      updatedEl.textContent = "更新 " + new Date().toLocaleTimeString("ja-JP");
-      setStatus(anyError ? "error" : "", anyError ? "一部の銘柄の取得に失敗（下記参照）" : "リアルタイム更新中（1分間隔）");
+      updatedEl.textContent = "確認時刻 " + new Date().toLocaleTimeString("ja-JP");
+      setStatus(anyError ? "error" : "", anyError ? "一部の銘柄の取得に失敗（下記参照）" : "配当金の計算が完了しました");
     });
   }
 
@@ -423,8 +423,8 @@
     setStatus("loading", "読み込み中…");
     refreshHolding(h).then(function () {
       renderHoldings();
-      updatedEl.textContent = "更新 " + new Date().toLocaleTimeString("ja-JP");
-      setStatus(h.error ? "error" : "", h.error ? "取得失敗（下記参照）" : "リアルタイム更新中（1分間隔）");
+      updatedEl.textContent = "確認時刻 " + new Date().toLocaleTimeString("ja-JP");
+      setStatus(h.error ? "error" : "", h.error ? "取得失敗（下記参照）" : "配当金の計算が完了しました");
       ensureTimer();
     });
   }
@@ -444,7 +444,7 @@
     holdings = [];
     savePortfolio();
     renderHoldings();
-    setStatus("idle", "銘柄を追加すると自動取得が始まります");
+    setStatus("idle", "保有銘柄を追加して配当金を確認できます");
   });
 
   // 保存済みポートフォリオを復元 — 直近の計算結果もキャッシュされていれば
@@ -474,3 +474,4 @@
 </script>
 </body>
 </html>
+

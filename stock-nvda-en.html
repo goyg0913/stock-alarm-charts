@@ -55,9 +55,9 @@
     <div class="nav-top"><a href="index.html">← Dashboard home</a></div>
     <h1>NVDA Stock · Buy Signal</h1>
     <div class="sub">Nvidia · as of 2026-09-04</div>
-    <div class="signal">⚪ No signal right now</div>
+    <div class="signal">⚪ Combined conditions not met as of the analysis date</div>
 
-    <div class="disclaimer"><span>⚠️</span><span>Investment decisions are your own responsibility. Reference indicators only — not a buy/sell recommendation.</span></div>
+    <div class="disclaimer"><span>⚠️</span><span>Indicators and calculations are for reference. They do not guarantee returns or recommend trades.</span></div>
 
     <table>
       <tr><td class="lbl">Close</td><td class="val">230.36 (+0.84%)</td></tr>
@@ -71,12 +71,12 @@
       <tr><td class="lbl">Avg volume</td><td class="val">128,899,820</td></tr>
     </table>
 
-    <h2>Indicator status</h2>
-    <div class="ind-row"><i class="dot on"></i> <b>Golden</b> — Short-term MA crosses above long-term MA → bullish trend reversal <span class="when">(2 bar(s) ago)</span></div>
-<div class="ind-row"><i class="dot off"></i> <b>RSI</b> — Bounces from oversold (RSI ≤ 30) → selling pressure easing <span class="when">(inactive)</span></div>
-<div class="ind-row"><i class="dot on"></i> <b>MACD</b> — MACD line crosses above signal line → bullish momentum shift <span class="when">(1 bar(s) ago)</span></div>
-<div class="ind-row"><i class="dot off"></i> <b>Bollinger</b> — Touches lower Bollinger Band then reclaims it → oversold bounce <span class="when">(inactive)</span></div>
-<div class="ind-row"><i class="dot off"></i> <b>Volume</b> — Trades at a multiple of recent average volume → rising inflows <span class="when">(inactive)</span></div>
+    <h2>Indicator conditions</h2>
+    <div class="ind-row"><i class="dot on"></i> <b>Golden</b> — Short-term moving average crosses above the long-term average <span class="when">(2 bar(s) ago)</span></div>
+<div class="ind-row"><i class="dot off"></i> <b>RSI</b> — RSI recovers from below the threshold to at least the threshold (default: 30) <span class="when">(condition not met)</span></div>
+<div class="ind-row"><i class="dot on"></i> <b>MACD</b> — MACD crosses above its signal line <span class="when">(1 bar(s) ago)</span></div>
+<div class="ind-row"><i class="dot off"></i> <b>Bollinger</b> — Previous close was at or below the lower band; current close is above it <span class="when">(condition not met)</span></div>
+<div class="ind-row"><i class="dot off"></i> <b>Volume</b> — Volume reaches or exceeds the selected multiple of its recent average <span class="when">(condition not met)</span></div>
 
     <div class="nav">
       <a href="index.html">← Dashboard home</a>
@@ -86,3 +86,4 @@
   </div>
 </body>
 </html>
+

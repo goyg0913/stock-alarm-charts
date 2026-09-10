@@ -5,10 +5,10 @@
 <meta name="naver-site-verification" content="c204b5cba61b98e4cd03a49d8984156030f9a57d" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="index,follow">
-<title>실시간 환율 정보 — 미국 달러(USD) · 일본 엔(JPY)</title>
-<meta name="description" content="미국 달러(USD)와 일본 엔(JPY) 환율을 1분마다 자동으로 불러와 실시간에 가깝게 보여드립니다.">
-<meta property="og:title" content="실시간 환율 정보 — 미국 달러(USD) · 일본 엔(JPY)">
-<meta property="og:description" content="미국 달러(USD)와 일본 엔(JPY) 환율을 1분마다 자동으로 불러와 실시간에 가깝게 보여드립니다.">
+<title>달러·엔 환율</title>
+<meta name="description" content="1달러와 100엔이 원화로 얼마인지 확인하세요.">
+<meta property="og:title" content="달러·엔 환율">
+<meta property="og:description" content="1달러와 100엔이 원화로 얼마인지 확인하세요.">
 <link rel="canonical" href="exchange-rate-ko.html">
 <link rel="alternate" hreflang="ko" href="exchange-rate-ko.html">
 <link rel="alternate" hreflang="ja" href="exchange-rate-ja.html">
@@ -52,10 +52,10 @@
 </head>
 <body>
   <div class="wrap">
-    <h1>환율 정보 · 실시간 갱신</h1>
-    <div class="sub">1분마다 자동으로 최신 환율을 불러옵니다</div>
+    <h1>달러·엔 환율</h1>
+    <div class="sub">1달러와 100엔이 원화로 얼마인지 확인하세요.</div>
 
-    <div class="disclaimer"><span>⚠️</span><span>본 환율은 참고용 시장 지표이며 실제 은행·환전소 고시 환율과 차이가 있을 수 있습니다. 최종 거래는 반드시 금융기관에서 확인하세요.</span></div>
+    <div class="disclaimer"><span>⚠️</span><span>제공된 환율을 기준으로 계산한 참고 금액이에요. 은행이나 환전소의 실제 적용 환율과 수수료는 다를 수 있어요.</span></div>
 
     <div class="rate-card usd">
       <div class="name">🇺🇸 미국 달러</div>
@@ -118,8 +118,8 @@
         var krwPer100Jpy = (data.rates.KRW / data.rates.JPY) * 100;
         usdEl.textContent = fmt(krwPerUsd);
         jpyEl.textContent = fmt(krwPer100Jpy);
-        updatedEl.textContent = "업데이트 " + new Date().toLocaleTimeString("ko-KR");
-        setStatus("", "실시간 갱신 중 (1분 간격)");
+        updatedEl.textContent = "조회 시각 " + new Date().toLocaleTimeString("ko-KR");
+        setStatus("", "조회한 환율을 표시하고 있어요");
       })
       .catch(function () {
         setStatus("error", "환율을 불러오지 못했습니다. 잠시 후 다시 시도합니다.");
@@ -132,3 +132,4 @@
 </script>
 </body>
 </html>
+

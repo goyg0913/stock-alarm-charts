@@ -5,10 +5,10 @@
 <meta name="naver-site-verification" content="c204b5cba61b98e4cd03a49d8984156030f9a57d" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="index,follow">
-<title>Dividend Portfolio Simulator — Add Tickers, See Estimated Monthly Income (USD)</title>
-<meta name="description" content="Add each ticker's share count and this auto-refreshes dividend data every minute to estimate your portfolio's monthly dividend income in USD.">
-<meta property="og:title" content="Dividend Portfolio Simulator — Add Tickers, See Estimated Monthly Income (USD)">
-<meta property="og:description" content="Add each ticker's share count and this auto-refreshes dividend data every minute to estimate your portfolio's monthly dividend income in USD.">
+<title>Dividend Calculator</title>
+<meta name="description" content="Enter your holdings to estimate average monthly dividends using the trailing 12 months of payouts.">
+<meta property="og:title" content="Dividend Calculator">
+<meta property="og:description" content="Enter your holdings to estimate average monthly dividends using the trailing 12 months of payouts.">
 <link rel="canonical" href="dividend-simulator-en.html">
 <link rel="alternate" hreflang="ko" href="dividend-simulator-ko.html">
 <link rel="alternate" hreflang="ja" href="dividend-simulator-ja.html">
@@ -87,19 +87,19 @@
 </head>
 <body>
   <div class="wrap">
-    <h1>Dividend Portfolio Simulator</h1>
-    <div class="sub">Add tickers with a share count and this auto-refreshes dividend data every minute to estimate monthly income in USD (pre-tax)</div>
+    <h1>Dividend Calculator</h1>
+    <div class="sub">Enter your holdings to estimate average monthly dividends using the trailing 12 months of payouts.</div>
 
-    <div class="disclaimer"><span>⚠️</span><span>All amounts are pre-tax; actual payouts depend on withholding tax and your own tax situation. Dividend policy can also change — this is a reference simulation only, not investment advice.</span></div>
+    <div class="disclaimer"><span>⚠️</span><span>The monthly average is trailing 12-month dividends divided by 12, before tax. It is not a monthly payment schedule; future dividends and taxes can change what you receive.</span></div>
 
     <div class="summary-card">
       <div class="invested">Total market value <b id="total-invested">$0.00</b></div>
-      <div class="headline">Estimated monthly dividend (pre-tax, portfolio total)</div>
+      <div class="headline">Average monthly dividends (before tax)</div>
       <div class="headline-value" id="total-monthly">$0.00</div>
     </div>
 
     <div class="status-bar">
-      <span><i class="dot idle" id="status-dot"></i><span id="status-text">Add a ticker to start auto-refreshing</span></span>
+      <span><i class="dot idle" id="status-dot"></i><span id="status-text">Add your holdings to see their dividends</span></span>
       <span id="updated-at"></span>
     </div>
     <div class="progress-track" id="global-progress" hidden><div class="bar"></div></div>
@@ -121,11 +121,11 @@
       <div id="holdings-list"></div>
     </div>
 
-    <div class="credit">Price &amp; dividend data: Yahoo Finance (checks a daily-refreshed local DB first, live lookup otherwise)</div>
+    <div class="credit">Price and dividend data: Yahoo Finance. Data dates may vary by holding.</div>
 
     <div class="nav">
       <a href="index.html">← Dashboard home</a>
-      <a href="exchange-rate-en.html">See live exchange rates →</a>
+      <a href="exchange-rate-en.html">USD & JPY Exchange Rates →</a>
     </div>
     <div class="other-langs">View in another language: <a href="dividend-simulator-ko.html">한국어</a> · <a href="dividend-simulator-ja.html">日本語</a></div>
   </div>
@@ -311,20 +311,20 @@
       var body = '<div class="top-row"><span class="ticker"></span>' +
         '<button type="button" class="del" aria-label="Delete">✕</button></div>';
 
-      if (h.error) {
+      if (h.error && !h.hasData) {
         body += '<div class="err"></div>';
       } else if (h.loading && !h.hasData) {
         if (h.loadingSource === "live") {
-          body += '<div class="loading-label">Looking up live… (this can take a moment)</div>' +
+          body += '<div class="loading-label">Checking dividend data…</div>' +
             '<div class="progress-track"><div class="bar"></div></div>';
         } else {
           body += '<div class="loading-label">Loading…</div>';
         }
       } else if (h.hasData) {
-        body += '<div class="monthly"><span class="monthly-val"></span><span class="per"> /mo (pre-tax)</span></div>' +
+        body += '<div class="monthly"><span class="monthly-val"></span><span class="per"> /mo average (pre-tax)</span></div>' +
           '<table class="detail">' +
           '<tr><td>Shares held</td><td class="val shares-val"></td></tr>' +
-          '<tr><td>Current price</td><td class="val price-val"></td></tr>' +
+          '<tr><td>Retrieved price</td><td class="val price-val"></td></tr>' +
           '<tr><td>Market value</td><td class="val invested-val"></td></tr>' +
           '<tr><td>Dividend/share (trailing 12mo)</td><td class="val dps-val"></td></tr>' +
           '<tr><td>Estimated annual dividend</td><td class="val annual-val"></td></tr>' +
@@ -380,13 +380,13 @@
     }).catch(function (err) {
       h.loading = false;
       h.loadingSource = null;
-      h.error = (err && err.message) || "Lookup failed";
+      h.error = "Could not load this stock. Check the ticker or try again shortly.";
     });
   }
 
   function refreshAll() {
     if (holdings.length === 0) {
-      setStatus("idle", "Add a ticker to start auto-refreshing");
+      setStatus("idle", "Add your holdings to see their dividends");
       return;
     }
     setStatus("loading", "Loading…");
@@ -395,8 +395,8 @@
     Promise.all(holdings.map(refreshHolding)).then(function () {
       renderHoldings();
       var anyError = holdings.some(function (h) { return h.error; });
-      updatedEl.textContent = "Updated " + new Date().toLocaleTimeString("en-US");
-      setStatus(anyError ? "error" : "", anyError ? "Some tickers failed (see below)" : "Live · refreshing every minute");
+      updatedEl.textContent = "Checked " + new Date().toLocaleTimeString("en-US");
+      setStatus(anyError ? "error" : "", anyError ? "Some tickers failed (see below)" : "Dividend calculation complete");
     });
   }
 
@@ -423,8 +423,8 @@
     setStatus("loading", "Loading…");
     refreshHolding(h).then(function () {
       renderHoldings();
-      updatedEl.textContent = "Updated " + new Date().toLocaleTimeString("en-US");
-      setStatus(h.error ? "error" : "", h.error ? "Lookup failed (see below)" : "Live · refreshing every minute");
+      updatedEl.textContent = "Checked " + new Date().toLocaleTimeString("en-US");
+      setStatus(h.error ? "error" : "", h.error ? "Lookup failed (see below)" : "Dividend calculation complete");
       ensureTimer();
     });
   }
@@ -444,7 +444,7 @@
     holdings = [];
     savePortfolio();
     renderHoldings();
-    setStatus("idle", "Add a ticker to start auto-refreshing");
+    setStatus("idle", "Add your holdings to see their dividends");
   });
 
   // Restore saved portfolio — if the last computed values were cached too,
@@ -474,3 +474,4 @@
 </script>
 </body>
 </html>
+

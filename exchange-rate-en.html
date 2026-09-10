@@ -5,10 +5,10 @@
 <meta name="naver-site-verification" content="c204b5cba61b98e4cd03a49d8984156030f9a57d" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="index,follow">
-<title>Live Exchange Rates — US Dollar (USD) &amp; Japanese Yen (JPY)</title>
-<meta name="description" content="US Dollar (USD) and Japanese Yen (JPY) exchange rates, auto-refreshed every minute.">
-<meta property="og:title" content="Live Exchange Rates — US Dollar (USD) &amp; Japanese Yen (JPY)">
-<meta property="og:description" content="US Dollar (USD) and Japanese Yen (JPY) exchange rates, auto-refreshed every minute.">
+<title>USD &amp; JPY Exchange Rates</title>
+<meta name="description" content="See how much one US dollar and 100 Japanese yen are worth in Korean won.">
+<meta property="og:title" content="USD &amp; JPY Exchange Rates">
+<meta property="og:description" content="See how much one US dollar and 100 Japanese yen are worth in Korean won.">
 <link rel="canonical" href="exchange-rate-en.html">
 <link rel="alternate" hreflang="ko" href="exchange-rate-ko.html">
 <link rel="alternate" hreflang="ja" href="exchange-rate-ja.html">
@@ -52,10 +52,10 @@
 </head>
 <body>
   <div class="wrap">
-    <h1>Exchange Rates · Live Updates</h1>
-    <div class="sub">Auto-refreshes with the latest rates every minute</div>
+    <h1>USD &amp; JPY Exchange Rates</h1>
+    <div class="sub">See how much one US dollar and 100 Japanese yen are worth in Korean won.</div>
 
-    <div class="disclaimer"><span>⚠️</span><span>These rates are a reference market indicator and may differ from the rate quoted by your bank or exchange. Always confirm with a financial institution before transacting.</span></div>
+    <div class="disclaimer"><span>⚠️</span><span>These are reference amounts based on the supplied rates. Bank and exchange rates and fees may differ.</span></div>
 
     <div class="rate-card usd">
       <div class="name">🇺🇸 US Dollar</div>
@@ -118,8 +118,8 @@
         var krwPer100Jpy = (data.rates.KRW / data.rates.JPY) * 100;
         usdEl.textContent = fmt(krwPerUsd);
         jpyEl.textContent = fmt(krwPer100Jpy);
-        updatedEl.textContent = "Updated " + new Date().toLocaleTimeString("en-US");
-        setStatus("", "Live · refreshing every minute");
+        updatedEl.textContent = "Checked " + new Date().toLocaleTimeString("en-US");
+        setStatus("", "Showing retrieved rates");
       })
       .catch(function () {
         setStatus("error", "Couldn't load rates. Retrying shortly.");
@@ -132,3 +132,4 @@
 </script>
 </body>
 </html>
+

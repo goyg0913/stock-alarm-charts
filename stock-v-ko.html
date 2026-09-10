@@ -6,9 +6,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="index,follow">
 <title>V 주가 매수 신호 분석 — RSI·MACD·거래량 지표</title>
-<meta name="description" content="V(Visa Inc.) 최신 종가, RSI, MACD, 거래량 지표와 매수 신호 발생 여부를 실시간에 가깝게 확인하세요.">
+<meta name="description" content="V(Visa Inc.) 최신 종가, RSI, MACD, 거래량 지표와 매수 신호 발생 여부를 표시된 기준일에 맞춰 확인하세요.">
 <meta property="og:title" content="V 주가 매수 신호 분석 — RSI·MACD·거래량 지표">
-<meta property="og:description" content="V(Visa Inc.) 최신 종가, RSI, MACD, 거래량 지표와 매수 신호 발생 여부를 실시간에 가깝게 확인하세요.">
+<meta property="og:description" content="V(Visa Inc.) 최신 종가, RSI, MACD, 거래량 지표와 매수 신호 발생 여부를 표시된 기준일에 맞춰 확인하세요.">
 <link rel="canonical" href="stock-v-ko.html">
 <link rel="alternate" hreflang="ko" href="stock-v-ko.html">
 <link rel="alternate" hreflang="ja" href="stock-v-ja.html">
@@ -55,9 +55,9 @@
     <div class="nav-top"><a href="index.html">← 대시보드 홈</a></div>
     <h1>V 주가 · 매수 신호</h1>
     <div class="sub">Visa Inc. · 기준 2026-09-04</div>
-    <div class="signal">⚪ 현재 신호 없음</div>
+    <div class="signal">⚪ 분석 기준일에 종합 조건 미충족</div>
 
-    <div class="disclaimer"><span>⚠️</span><span>투자 판단은 본인 책임입니다. 참고용 지표일 뿐 매수·매도 추천이 아닙니다.</span></div>
+    <div class="disclaimer"><span>⚠️</span><span>지표와 계산 결과는 참고용이며, 수익을 보장하거나 매매를 권유하지 않아요.</span></div>
 
     <table>
       <tr><td class="lbl">종가</td><td class="val">375.07 (-0.97%)</td></tr>
@@ -71,12 +71,12 @@
       <tr><td class="lbl">평균 거래량</td><td class="val">6,620,845</td></tr>
     </table>
 
-    <h2>지표별 활성 상태</h2>
-    <div class="ind-row"><i class="dot off"></i> <b>골든</b> — 단기 이동평균선이 장기 이동평균선을 위로 뚫음 → 상승 추세 전환 신호 <span class="when">(비활성)</span></div>
-<div class="ind-row"><i class="dot off"></i> <b>RSI</b> — 과매도 구간(RSI 30 이하)을 찍고 다시 위로 올라옴 → 매도 압력 약해짐 <span class="when">(비활성)</span></div>
-<div class="ind-row"><i class="dot off"></i> <b>MACD</b> — MACD선이 시그널선을 위로 뚫음 → 상승 모멘텀 전환 <span class="when">(비활성)</span></div>
-<div class="ind-row"><i class="dot off"></i> <b>볼린저</b> — 볼린저밴드 하단을 터치했다가 다시 위로 복귀 → 과매도 반등 <span class="when">(비활성)</span></div>
-<div class="ind-row"><i class="dot off"></i> <b>거래량</b> — 최근 평균 거래량 대비 일정 배수 이상 거래됨 → 관심/수급 유입 <span class="when">(비활성)</span></div>
+    <h2>지표별 조건 충족 여부</h2>
+    <div class="ind-row"><i class="dot off"></i> <b>골든</b> — 단기 이동평균선이 장기 이동평균선을 상향 돌파 <span class="when">(조건 미충족)</span></div>
+<div class="ind-row"><i class="dot off"></i> <b>RSI</b> — RSI가 기준선 미만에서 기준선 이상으로 회복 (기본 30) <span class="when">(조건 미충족)</span></div>
+<div class="ind-row"><i class="dot off"></i> <b>MACD</b> — MACD선이 시그널선을 상향 돌파 <span class="when">(조건 미충족)</span></div>
+<div class="ind-row"><i class="dot off"></i> <b>볼린저</b> — 직전 종가가 밴드 하단 이하였고, 현재 종가가 하단 위로 회복 <span class="when">(조건 미충족)</span></div>
+<div class="ind-row"><i class="dot off"></i> <b>거래량</b> — 최근 평균 대비 거래량이 기준 배수 이상 증가 <span class="when">(조건 미충족)</span></div>
 
     <div class="nav">
       <a href="index.html">← 대시보드 홈</a>
@@ -86,3 +86,4 @@
   </div>
 </body>
 </html>
+

@@ -5,10 +5,10 @@
 <meta name="naver-site-verification" content="c204b5cba61b98e4cd03a49d8984156030f9a57d" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="index,follow">
-<title>リアルタイム為替情報 — 米ドル(USD) ・ 日本円(JPY)</title>
-<meta name="description" content="米ドル(USD)と日本円(JPY)の為替レートを1分ごとに自動更新して表示します。">
-<meta property="og:title" content="リアルタイム為替情報 — 米ドル(USD) ・ 日本円(JPY)">
-<meta property="og:description" content="米ドル(USD)と日本円(JPY)の為替レートを1分ごとに自動更新して表示します。">
+<title>ドル・円の為替</title>
+<meta name="description" content="1米ドルと100円の韓国ウォン換算額を確認できます。">
+<meta property="og:title" content="ドル・円の為替">
+<meta property="og:description" content="1米ドルと100円の韓国ウォン換算額を確認できます。">
 <link rel="canonical" href="exchange-rate-ja.html">
 <link rel="alternate" hreflang="ko" href="exchange-rate-ko.html">
 <link rel="alternate" hreflang="ja" href="exchange-rate-ja.html">
@@ -52,10 +52,10 @@
 </head>
 <body>
   <div class="wrap">
-    <h1>為替情報 ・ リアルタイム更新</h1>
-    <div class="sub">1分ごとに最新の為替レートを自動取得します</div>
+    <h1>ドル・円の為替</h1>
+    <div class="sub">1米ドルと100円の韓国ウォン換算額を確認できます。</div>
 
-    <div class="disclaimer"><span>⚠️</span><span>本レートは参考用の市場指標であり、実際の銀行・両替所の掲示レートとは異なる場合があります。取引の際は必ず金融機関でご確認ください。</span></div>
+    <div class="disclaimer"><span>⚠️</span><span>提供された為替レートによる参考額です。銀行や両替所の適用レートや手数料とは異なる場合があります。</span></div>
 
     <div class="rate-card usd">
       <div class="name">🇺🇸 米ドル</div>
@@ -118,7 +118,7 @@
         var krwPer100Jpy = (data.rates.KRW / data.rates.JPY) * 100;
         usdEl.textContent = fmt(krwPerUsd);
         jpyEl.textContent = fmt(krwPer100Jpy);
-        updatedEl.textContent = "更新 " + new Date().toLocaleTimeString("ja-JP");
+        updatedEl.textContent = "確認時刻 " + new Date().toLocaleTimeString("ja-JP");
         setStatus("", "リアルタイム更新中(1分間隔)");
       })
       .catch(function () {
@@ -132,3 +132,4 @@
 </script>
 </body>
 </html>
+
