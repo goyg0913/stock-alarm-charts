@@ -8,41 +8,41 @@
 <title data-i18n="page_title">미국 주식 스캔 대시보드</title>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2563120083302883" crossorigin="anonymous"></script>
 <style>
+  :root {
+    --blue:#3E6AE1; --white:#FFFFFF; --carbon:#171A20; --graphite:#393C41;
+    --pewter:#5C5E62; --silver-fog:#8E8E8E; --pale-silver:#D0D1D2; --light-ash:#F4F4F4;
+  }
   * { box-sizing:border-box; }
-  body { margin:0; padding:20px 16px 40px; color:#1a1a1a;
-         background:linear-gradient(160deg,#f4fbf6 0%,#fff5fa 55%,#fff 100%);
-         font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',
+  body { margin:0; padding:20px 16px 40px; color:var(--graphite); background:var(--white);
+         font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,
                      'Apple SD Gothic Neo','Malgun Gothic',sans-serif; }
   .wrap { max-width:480px; margin:0 auto; }
-  h1 { font-size:22px; margin:6px 0 4px; font-weight:800; }
-  .sub { font-size:13px; color:#777; margin-bottom:22px; }
+  h1 { font-size:22px; margin:6px 0 4px; font-weight:500; color:var(--carbon); }
+  .sub { font-size:13px; color:var(--pewter); margin-bottom:22px; }
   .card { display:block; text-decoration:none; color:inherit;
-          border-radius:16px; padding:18px 18px 16px; margin-bottom:14px;
-          border:1px solid #e9e9ee; box-shadow:0 2px 10px rgba(0,0,0,.04);
-          transition:transform .12s; }
-  .card:active { transform:scale(.98); }
-  .card.green { background:linear-gradient(135deg,#f2fbf4,#fff); }
-  .card.pink { background:linear-gradient(135deg,#fff0f7,#fff); }
-  .card.blue { background:linear-gradient(135deg,#f0f6ff,#fff); }
-  .card.fx { background:linear-gradient(135deg,#fff8ee,#fff); }
-  .card.div { background:linear-gradient(135deg,#f5f2ff,#fff); }
-  .card h2 { font-size:16px; margin:0 0 4px; display:flex; align-items:center; gap:6px; }
-  .card p { font-size:12.5px; color:#666; margin:0 0 8px; line-height:1.5; }
-  .card .meta { font-size:11.5px; color:#999; }
-  .card .arrow { float:right; color:#bbb; font-size:14px; }
+          border-radius:12px; padding:18px 18px 16px; margin-bottom:14px;
+          background:var(--light-ash);
+          transition:background-color .33s; }
+  .card:active { background:#ececec; }
+  .card h2 { font-size:16px; margin:0 0 4px; font-weight:500; color:var(--carbon);
+             display:flex; align-items:center; gap:6px; }
+  .card p { font-size:12.5px; color:var(--pewter); margin:0 0 8px; line-height:1.5; }
+  .card .meta { font-size:11.5px; color:var(--silver-fog); }
+  .card .arrow { float:right; color:var(--silver-fog); font-size:14px; }
   .ad-placeholder { margin-top:24px; padding:24px; text-align:center;
-                     font-size:12px; color:#bbb; border:1px dashed #ddd;
+                     font-size:12px; color:var(--silver-fog); border:1px dashed var(--pale-silver);
                      border-radius:12px; }
 
   .i18n-switch { display:flex; gap:4px; justify-content:flex-end; margin-bottom:8px; }
-  .i18n-switch button { font-size:11px; padding:4px 9px; border-radius:999px;
-    border:1px solid #e2e6eb; background:#f7f7f9; color:#888; cursor:pointer; }
-  .i18n-switch button.active { background:#1a1a1a; color:#fff; border-color:#1a1a1a; }
+  .i18n-switch button { font-size:11px; padding:5px 10px; border-radius:4px;
+    border:1px solid var(--pale-silver); background:var(--white); color:var(--pewter);
+    cursor:pointer; font-weight:500; transition:background-color .33s,color .33s,border-color .33s; }
+  .i18n-switch button.active { background:var(--blue); color:var(--white); border-color:var(--blue); }
 
 
   .disclaimer { display:flex; align-items:flex-start; gap:8px; margin:4px 0 14px;
-    padding:11px 13px; border-radius:12px; background:#fff8e1; border:1.5px solid #ffd54f;
-    color:#7a5c00; font-size:12.5px; font-weight:700; line-height:1.5; }
+    padding:12px 14px; border-radius:12px; background:var(--light-ash);
+    color:var(--carbon); font-size:12.5px; font-weight:500; line-height:1.5; }
   .disclaimer .ico { font-size:16px; line-height:1.4; flex-shrink:0; }
 
 </style>
@@ -59,35 +59,35 @@
     <div class="sub" data-i18n="sub">미국 주식의 지표부터 환율, 배당까지 한곳에서 확인하세요.</div>
     <div class="disclaimer"><span class="ico">⚠️</span><span data-i18n="disclaimer">지표와 계산 결과는 참고용이며, 수익을 보장하거나 매매를 권유하지 않아요.</span></div>
 
-    <a class="card green" id="sp500-link" href="sp500_table.html">
+    <a class="card" id="sp500-link" href="sp500_table.html">
       <span class="arrow">›</span>
       <h2>📊 <span data-i18n="card1_title">주식 지표 살펴보기</span></h2>
       <p data-i18n="card1_desc">최근 분석 구간에서 여러 지표의 조건을 충족한 종목을 찾아보세요.</p>
       <div class="meta" data-i18n="card1_meta">RSI · MACD · 거래량 등</div>
     </a>
 
-    <a class="card pink" id="wpattern-link" href="wpattern_table.html">
+    <a class="card" id="wpattern-link" href="wpattern_table.html">
       <span class="arrow">›</span>
       <h2>🌊 <span data-i18n="card2_title">W패턴 찾아보기</span></h2>
       <p data-i18n="card2_desc">두 번의 저점으로 나타나는 W자 형태와 저항선 돌파 여부를 확인하세요.</p>
       <div class="meta" data-i18n="card2_meta">패턴 후보 · 돌파 대기 · 돌파</div>
     </a>
 
-    <a class="card blue" href="guide.html">
+    <a class="card" href="guide.html">
       <span class="arrow">›</span>
       <h2>📚 <span data-i18n="card3_title">지표 쉽게 알아보기</span></h2>
       <p data-i18n="card3_desc">RSI, MACD, 거래량이 무엇을 보여주는지 알아보세요.</p>
       <div class="meta" data-i18n="card3_meta">간단한 설명과 계산 기준</div>
     </a>
 
-    <a class="card fx" id="exchange-rate-link" href="exchange-rate-ko.html">
+    <a class="card" id="exchange-rate-link" href="exchange-rate-ko.html">
       <span class="arrow">›</span>
       <h2>💱 <span data-i18n="card4_title">달러·엔 환율</span></h2>
       <p data-i18n="card4_desc">미국 달러와 일본 엔의 원화 환율을 한눈에 확인하세요.</p>
       <div class="meta" data-i18n="card4_meta">1달러 · 100엔 기준</div>
     </a>
 
-    <a class="card div" id="dividend-link" href="dividend-simulator-ko.html">
+    <a class="card" id="dividend-link" href="dividend-simulator-ko.html">
       <span class="arrow">›</span>
       <h2>💰 <span data-i18n="card5_title">내 배당금 계산하기</span></h2>
       <p data-i18n="card5_desc">보유 종목과 주식 수를 입력하고 월평균 배당금을 계산해보세요.</p>
@@ -150,4 +150,3 @@
 
 </body>
 </html>
-
