@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title data-i18n="page_title">Wパターンをチェック</title>
+<meta name="description" content="ダブルボトム(Wパターン)の形状とスコア制で判定した、時価総額上位20銘柄のセットアップ・ブレイクアウト結果表です。">
+<link rel="canonical" href="wpattern_table-ja.html">
+<link rel="alternate" hreflang="ko" href="wpattern_table.html">
+<link rel="alternate" hreflang="ja" href="wpattern_table-ja.html">
+<link rel="alternate" hreflang="en" href="wpattern_table-en.html">
+<link rel="alternate" hreflang="x-default" href="wpattern_table.html">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2563120083302883" crossorigin="anonymous"></script>
+<style>
+  * { box-sizing:border-box; }
+  body { margin:0; padding:16px 10px 40px; color:#0A0B0D; background:#F7F8FA;
+         font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',
+                     'Apple SD Gothic Neo','Malgun Gothic',sans-serif; }
+  h1 { font-size:21px; margin:0 0 3px; font-weight:600;
+       display:flex; align-items:center; gap:6px; }
+  .sub { font-size:12.5px; color:#8A919E; margin-bottom:12px; font-weight:400; }
+  .stats { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
+  .pill { font-size:12px; font-weight:600; color:#5B616E; white-space:nowrap;
+          background:#FFFFFF; border:1px solid #E3E6EA; border-radius:999px; padding:5px 12px; }
+  details { margin-bottom:10px; }
+  summary { font-size:12.5px; color:#0052FF; cursor:pointer; font-weight:500; }
+  .legend { font-size:12px; color:#5B616E; line-height:1.65; padding:8px 2px 0; }
+  input { width:100%; padding:10px 12px; font-size:16px; border-radius:8px;
+          border:1px solid #E3E6EA; background:#FFFFFF; margin-bottom:10px;
+          transition:border-color .15s ease, box-shadow .15s ease; }
+  input:focus { outline:none; border-color:#0052FF; box-shadow:0 0 0 3px rgba(0,82,255,0.12); }
+  table { border-collapse:collapse; width:100%; table-layout:auto;
+          font-size:13px; font-variant-numeric:tabular-nums;
+          background:#FFFFFF; border:1px solid #E3E6EA; border-radius:12px; overflow:hidden; }
+  th, td { padding:9px 6px; white-space:nowrap; }
+  tbody tr:nth-child(even) { background:#FAFBFC; }
+  tbody tr { border-bottom:1px solid #F0F1F3; }
+  th { position:sticky; top:0; background:#F7F8FA; font-size:11px; font-weight:600;
+       color:#5B616E; text-align:right; cursor:pointer; user-select:none; z-index:1;
+       text-transform:uppercase; letter-spacing:.02em; }
+  th.l { text-align:left; }
+  th.c, td.c { text-align:center; padding-left:3px; padding-right:3px; }
+  td.n { text-align:right; }
+  td.st { text-align:center; color:#5B616E; }
+  td.tk { font-weight:600; padding-left:4px; }
+  td.nm { width:100%; max-width:0; overflow:hidden; text-overflow:ellipsis;
+          color:#5B616E; }
+  td.geo { color:#8A919E; font-size:11.5px; }
+  td.cp { text-align:center; padding-left:2px; padding-right:2px; }
+  .copy-btn { border:none; background:transparent; cursor:pointer; font-size:15px;
+              line-height:1; padding:4px 6px; border-radius:8px; }
+  .copy-btn:active { background:#EAF0FF; }
+  .dot { display:inline-block; width:10px; height:10px; border-radius:50%;
+         vertical-align:middle; }
+  .dot.on { background:#05B169; }
+  .dot.part { background:#8A919E; }
+  .dot.cand { background:#C3C7CF; }
+  .dot.off { background:#E3E6EA; }
+  .none { padding:18px; text-align:center; color:#8A919E; font-size:13px; }
+  @media (max-width:420px) {
+    table { font-size:12px; }
+    th, td { padding:6px 4px; }
+    td.geo { display:none; }
+    th:nth-child(8) { display:none; }
+  }
+
+  .i18n-switch { display:flex; gap:4px; justify-content:flex-end; margin-bottom:8px; }
+  .i18n-switch button { font-size:11px; font-weight:600; padding:4px 9px; border-radius:999px;
+    border:1px solid #E3E6EA; background:#FFFFFF; color:#5B616E; cursor:pointer;
+    transition:background-color .15s ease, color .15s ease; }
+  .i18n-switch button.active { background:#0052FF; color:#FFFFFF; border-color:#0052FF; }
+
+  .topbar { display:flex; align-items:center; justify-content:space-between;
+    gap:8px; margin-bottom:8px; }
+  .topbar .i18n-switch { margin-bottom:0; }
+  .home-btn { display:inline-flex; align-items:center; gap:4px; font-size:11px;
+    font-weight:600; padding:4px 10px; border-radius:999px; border:1px solid #E3E6EA;
+    background:#FFFFFF; color:#5B616E; text-decoration:none; white-space:nowrap;
+    transition:background-color .15s ease, color .15s ease; }
+
+
+  .disclaimer { display:flex; align-items:flex-start; gap:8px; margin:4px 0 14px;
+    padding:12px 14px; border-radius:12px; background:#F7F8FA;
+    color:#0A0B0D; font-size:12.5px; font-weight:500; line-height:1.5; }
+  .disclaimer .ico { font-size:16px; line-height:1.4; flex-shrink:0; }
+
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <a class="home-btn" href="index.html">🏠 <span data-i18n="home_label">ホーム</span></a>
+    <div class="i18n-switch">
+    <button type="button" data-lang="ko">한국어</button>
+    <button type="button" data-lang="ja">日本語</button>
+    <button type="button" data-lang="en">English</button>
+  </div>
+  </div>
+  <h1>🌊 <span class="grad" data-i18n="h1_grad">Wパターン</span>
+    <span data-i18n="h1_rest">をチェック</span> ✨</h1>
+  <div class="sub"><span data-i18n="lbl_generated">分析日時</span> 2026-09-11 16:16 ·
+    <span data-i18n="threshold_line" data-i18n-n="6">新しいブレイク待ちのスコア基準：<b>6</b>点以上</span></div>
+  <div class="disclaimer"><span class="ico">⚠️</span><span data-i18n="disclaimer">指標や計算結果は参考情報です。利益を保証したり、売買を勧めたりするものではありません。</span></div>
+
+  <div class="stats">
+    <span class="pill" data-i18n="pill_total" data-i18n-n="20">合計 <b>20</b>銘柄</span>
+    <span class="pill"><i class="dot on"></i> <span data-i18n="pill_breakout" data-i18n-n="0">ブレイクアウト <b>0</b>銘柄</span></span>
+    <span class="pill"><i class="dot part"></i> <span data-i18n="pill_setup" data-i18n-n="1">ブレイク待ち <b>1</b>銘柄</span></span>
+    <span class="pill"><i class="dot cand"></i> <span data-i18n="pill_candidate" data-i18n-n="5">候補 <b>5</b>銘柄</span></span>
+  </div>
+
+  <details>
+    <summary data-i18n="legend_title">パターン説明</summary>
+    <div class="legend">
+      <div><b data-i18n="status_breakout">ブレイクアウト</b> (W_BREAKOUT) <span data-i18n="legend_breakout">ブレイクアウト：確認済みのパターンの抵抗線を終値が上回った状態です。出来高の条件は別に確認します。</span></div>
+      <div><b data-i18n="status_setup">ブレイク待ち</b> (W_SETUP) <span data-i18n="legend_setup">ブレイク待ち：形状とスコアの基準を満たすか、以前のパターンが引き続き有効な状態です。</span></div>
+      <div><b data-i18n="status_candidate">候補</b> <span data-i18n="legend_candidate">候補：W字型の基本条件を満たし、さらに確認できる銘柄です。</span></div>
+      <div data-i18n="legend_geo">L1：最初の安値・N：2つの安値の間の高値（抵抗線）・L2：2つ目の安値</div>
+    </div>
+  </details>
+
+  <input id="q" type="search" data-i18n-ph="search_ph"
+         placeholder="ティッカーまたは会社名で検索（例: NVDA, Apple）" autocomplete="off">
+
+  <table id="t">
+    <thead><tr>
+      <th class="c" data-k="status" data-i18n="th_status">状態</th>
+      <th class="l" data-k="text" data-i18n="th_ticker">ティッカー</th>
+      <th class="l" data-k="text" data-i18n="th_company">会社名</th>
+      <th data-k="text" data-i18n="th_type">区分</th>
+      <th data-k="num" data-i18n="th_score">スコア</th>
+      <th data-k="num" data-i18n="th_price">終値</th>
+      <th data-k="num">RSI</th>
+      <th class="l" data-k="text" data-i18n="th_geo">L1/N/L2</th>
+      <th class="c" data-i18n="th_copy">コピー</th>
+    </tr></thead>
+    <tbody>
+<tr data-q="nvda nvidia" data-status="setup" data-score="0" data-copy="{&quot;ticker&quot;: &quot;NVDA&quot;, &quot;name&quot;: &quot;Nvidia&quot;, &quot;status&quot;: &quot;setup&quot;, &quot;score&quot;: 0, &quot;score_detail&quot;: {}, &quot;geometry&quot;: {&quot;low1_date&quot;: &quot;2026-08-24&quot;, &quot;low1_price&quot;: 207.25, &quot;neckline_date&quot;: &quot;2026-08-27&quot;, &quot;neckline_price&quot;: 230.47000122070312, &quot;low2_date&quot;: &quot;2026-09-01&quot;, &quot;low2_price&quot;: 215.10000610351562}, &quot;detail&quot;: {&quot;date&quot;: &quot;2026-09-10&quot;, &quot;price&quot;: &quot;218.36&quot;, &quot;change_pct&quot;: &quot;-2.26%&quot;, &quot;rsi&quot;: &quot;50.0&quot;, &quot;vol_ratio&quot;: &quot;0.82x&quot;, &quot;sma_short&quot;: &quot;225.11&quot;}}"><td class="c"><i class="dot part"></i></td><td class="tk">NVDA</td><td class="nm">Nvidia</td><td class="st" data-i18n="status_setup">ブレイク待ち</td><td class="n">0</td><td class="n">218.36</td><td class="n">50.0</td><td class="geo">L1 207.25 · N 230.47 · L2 215.10</td><td class="cp"><button type="button" class="copy-btn" data-i18n-title="copy_title" title="銘柄の分析内容をコピー">📋</button></td></tr>
+<tr data-q="intc intel" data-status="candidate" data-score="9" data-copy="{&quot;ticker&quot;: &quot;INTC&quot;, &quot;name&quot;: &quot;Intel&quot;, &quot;status&quot;: &quot;candidate&quot;, &quot;score&quot;: 9, &quot;score_detail&quot;: {&quot;저점유사&quot;: 2, &quot;higher_low&quot;: 1, &quot;rsi_divergence&quot;: 2, &quot;rsi_zone&quot;: 1, &quot;vol_decrease&quot;: 1, &quot;close_above_sma5&quot;: 1, &quot;sma_slope_turn&quot;: 0, &quot;vol_reaccel&quot;: 1}, &quot;geometry&quot;: {&quot;low1_date&quot;: &quot;2026-08-24&quot;, &quot;low1_price&quot;: 85.1399993896, &quot;neckline_date&quot;: &quot;2026-08-28&quot;, &quot;neckline_price&quot;: 93.6999969482, &quot;low2_date&quot;: &quot;2026-09-01&quot;, &quot;low2_price&quot;: 85.7200012207}, &quot;detail&quot;: {&quot;date&quot;: &quot;2026-09-10&quot;, &quot;price&quot;: &quot;100.32&quot;, &quot;change_pct&quot;: &quot;-5.57%&quot;, &quot;rsi&quot;: &quot;54.8&quot;, &quot;vol_ratio&quot;: &quot;1.03x&quot;, &quot;sma_short&quot;: &quot;99.70&quot;}}"><td class="c"><i class="dot cand"></i></td><td class="tk">INTC</td><td class="nm">Intel</td><td class="st" data-i18n="status_candidate">候補</td><td class="n">9</td><td class="n">100.32</td><td class="n">54.8</td><td class="geo">L1 85.14 · N 93.70 · L2 85.72</td><td class="cp"><button type="button" class="copy-btn" data-i18n-title="copy_title" title="銘柄の分析内容をコピー">📋</button></td></tr>
+<tr data-q="aapl apple inc." data-status="candidate" data-score="8" data-copy="{&quot;ticker&quot;: &quot;AAPL&quot;, &quot;name&quot;: &quot;Apple Inc.&quot;, &quot;status&quot;: &quot;candidate&quot;, &quot;score&quot;: 8, &quot;score_detail&quot;: {&quot;저점유사&quot;: 2, &quot;higher_low&quot;: 1, &quot;rsi_divergence&quot;: 0, &quot;rsi_zone&quot;: 1, &quot;vol_decrease&quot;: 1, &quot;close_above_sma5&quot;: 1, &quot;sma_slope_turn&quot;: 1, &quot;vol_reaccel&quot;: 1}, &quot;geometry&quot;: {&quot;low1_date&quot;: &quot;2026-07-31&quot;, &quot;low1_price&quot;: 299.7415030463, &quot;neckline_date&quot;: &quot;2026-08-06&quot;, &quot;neckline_price&quot;: 316.0174696892, &quot;low2_date&quot;: &quot;2026-08-12&quot;, &quot;low2_price&quot;: 300.5700073242}, &quot;detail&quot;: {&quot;date&quot;: &quot;2026-09-10&quot;, &quot;price&quot;: &quot;326.57&quot;, &quot;change_pct&quot;: &quot;+3.56%&quot;, &quot;rsi&quot;: &quot;59.0&quot;, &quot;vol_ratio&quot;: &quot;1.66x&quot;, &quot;sma_short&quot;: &quot;321.26&quot;}}"><td class="c"><i class="dot cand"></i></td><td class="tk">AAPL</td><td class="nm">Apple Inc.</td><td class="st" data-i18n="status_candidate">候補</td><td class="n">8</td><td class="n">326.57</td><td class="n">59.0</td><td class="geo">L1 299.74 · N 316.02 · L2 300.57</td><td class="cp"><button type="button" class="copy-btn" data-i18n-title="copy_title" title="銘柄の分析内容をコピー">📋</button></td></tr>
+<tr data-q="meta meta platforms" data-status="candidate" data-score="7" data-copy="{&quot;ticker&quot;: &quot;META&quot;, &quot;name&quot;: &quot;Meta Platforms&quot;, &quot;status&quot;: &quot;candidate&quot;, &quot;score&quot;: 7, &quot;score_detail&quot;: {&quot;저점유사&quot;: 1, &quot;higher_low&quot;: 1, &quot;rsi_divergence&quot;: 2, &quot;rsi_zone&quot;: 0, &quot;vol_decrease&quot;: 1, &quot;close_above_sma5&quot;: 1, &quot;sma_slope_turn&quot;: 0, &quot;vol_reaccel&quot;: 1}, &quot;geometry&quot;: {&quot;low1_date&quot;: &quot;2026-08-19&quot;, &quot;low1_price&quot;: 537.2700195312, &quot;neckline_date&quot;: &quot;2026-08-26&quot;, &quot;neckline_price&quot;: 593.3400268555, &quot;low2_date&quot;: &quot;2026-09-01&quot;, &quot;low2_price&quot;: 556.0999755859}, &quot;detail&quot;: {&quot;date&quot;: &quot;2026-09-10&quot;, &quot;price&quot;: &quot;644.38&quot;, &quot;change_pct&quot;: &quot;-1.42%&quot;, &quot;rsi&quot;: &quot;66.4&quot;, &quot;vol_ratio&quot;: &quot;1.22x&quot;, &quot;sma_short&quot;: &quot;627.80&quot;}}"><td class="c"><i class="dot cand"></i></td><td class="tk">META</td><td class="nm">Meta Platforms</td><td class="st" data-i18n="status_candidate">候補</td><td class="n">7</td><td class="n">644.38</td><td class="n">66.4</td><td class="geo">L1 537.27 · N 593.34 · L2 556.10</td><td class="cp"><button type="button" class="copy-btn" data-i18n-title="copy_title" title="銘柄の分析内容をコピー">📋</button></td></tr>
+<tr data-q="brk-b berkshire hathaway" data-status="candidate" data-score="5" data-copy="{&quot;ticker&quot;: &quot;BRK-B&quot;, &quot;name&quot;: &quot;Berkshire Hathaway&quot;, &quot;status&quot;: &quot;candidate&quot;, &quot;score&quot;: 5, &quot;score_detail&quot;: {&quot;저점유사&quot;: 2, &quot;higher_low&quot;: 1, &quot;rsi_divergence&quot;: 0, &quot;rsi_zone&quot;: 1, &quot;vol_decrease&quot;: 0, &quot;close_above_sma5&quot;: 1, &quot;sma_slope_turn&quot;: 0, &quot;vol_reaccel&quot;: 0}, &quot;geometry&quot;: {&quot;low1_date&quot;: &quot;2026-07-23&quot;, &quot;low1_price&quot;: 486.0599975586, &quot;neckline_date&quot;: &quot;2026-08-10&quot;, &quot;neckline_price&quot;: 537.7399902344, &quot;low2_date&quot;: &quot;2026-08-21&quot;, &quot;low2_price&quot;: 495.6799926758}, &quot;detail&quot;: {&quot;date&quot;: &quot;2026-09-10&quot;, &quot;price&quot;: &quot;507.00&quot;, &quot;change_pct&quot;: &quot;+0.06%&quot;, &quot;rsi&quot;: &quot;53.1&quot;, &quot;vol_ratio&quot;: &quot;0.94x&quot;, &quot;sma_short&quot;: &quot;506.74&quot;}}"><td class="c"><i class="dot cand"></i></td><td class="tk">BRK-B</td><td class="nm">Berkshire Hathaway</td><td class="st" data-i18n="status_candidate">候補</td><td class="n">5</td><td class="n">507.00</td><td class="n">53.1</td><td class="geo">L1 486.06 · N 537.74 · L2 495.68</td><td class="cp"><button type="button" class="copy-btn" data-i18n-title="copy_title" title="銘柄の分析内容をコピー">📋</button></td></tr>
+<tr data-q="v visa inc." data-status="candidate" data-score="3" data-copy="{&quot;ticker&quot;: &quot;V&quot;, &quot;name&quot;: &quot;Visa Inc.&quot;, &quot;status&quot;: &quot;candidate&quot;, &quot;score&quot;: 3, &quot;score_detail&quot;: {&quot;저점유사&quot;: 1, &quot;higher_low&quot;: 1, &quot;rsi_divergence&quot;: 0, &quot;rsi_zone&quot;: 0, &quot;vol_decrease&quot;: 1, &quot;close_above_sma5&quot;: 0, &quot;sma_slope_turn&quot;: 0, &quot;vol_reaccel&quot;: 0}, &quot;geometry&quot;: {&quot;low1_date&quot;: &quot;2026-08-18&quot;, &quot;low1_price&quot;: 358.049987793, &quot;neckline_date&quot;: &quot;2026-08-26&quot;, &quot;neckline_price&quot;: 385.5700073242, &quot;low2_date&quot;: &quot;2026-09-01&quot;, &quot;low2_price&quot;: 372.2200012207}, &quot;detail&quot;: {&quot;date&quot;: &quot;2026-09-10&quot;, &quot;price&quot;: &quot;367.21&quot;, &quot;change_pct&quot;: &quot;-0.05%&quot;, &quot;rsi&quot;: &quot;47.0&quot;, &quot;vol_ratio&quot;: &quot;0.59x&quot;, &quot;sma_short&quot;: &quot;371.41&quot;}}"><td class="c"><i class="dot cand"></i></td><td class="tk">V</td><td class="nm">Visa Inc.</td><td class="st" data-i18n="status_candidate">候補</td><td class="n">3</td><td class="n">367.21</td><td class="n">47.0</td><td class="geo">L1 358.05 · N 385.57 · L2 372.22</td><td class="cp"><button type="button" class="copy-btn" data-i18n-title="copy_title" title="銘柄の分析内容をコピー">📋</button></td></tr>
+<tr data-q="amd advanced micro devices" data-status="none" data-score="0" data-copy="{&quot;ticker&quot;: &quot;AMD&quot;, &quot;name&quot;: &quot;Advanced Micro Devices&quot;, &quot;status&quot;: &quot;none&quot;, &quot;score&quot;: 0, &quot;score_detail&quot;: {}, &quot;geometry&quot;: {&quot;low1_date&quot;: null, &quot;low1_price&quot;: null, &quot;neckline_date&quot;: null, &quot;neckline_price&quot;: null, &quot;low2_date&quot;: null, &quot;low2_price&quot;: null}, &quot;detail&quot;: {&quot;date&quot;: &quot;2026-09-10&quot;, &quot;price&quot;: &quot;503.60&quot;, &quot;change_pct&quot;: &quot;-3.36%&quot;, &quot;rsi&quot;: &quot;55.1&quot;, &quot;vol_ratio&quot;: &quot;0.89x&quot;, &quot;sma_short&quot;: &quot;492.83&quot;}}"><td class="c"><i class="dot off"></i></td><td class="tk">AMD</td><td class="nm">Advanced Micro Devices</td><td class="st" data-i18n="status_none">-</td><td class="n">0</td><td class="n">503.60</td><td class="n">55.1</td><td class="geo">-</td><td class="cp"><button type="button" class="copy-btn" data-i18n-title="copy_title" title="銘柄の分析内容をコピー">📋</button></td></tr>
+<tr data-q="amzn amazon" data-status="none" data-score="0" data-copy="{&quot;ticker&quot;: &quot;AMZN&quot;, &quot;name&quot;: &quot;Amazon&quot;, &quot;status&quot;: &quot;none&quot;, &quot;score&quot;: 0, &quot;score_detail&quot;: {}, &quot;geometry&quot;: {&quot;low1_date&quot;: null, &quot;low1_price&quot;: null, &quot;neckline_date&quot;: null, &quot;neckline_price&quot;: null, &quot;low2_date&quot;: null, &quot;low2_price&quot;: null}, &quot;detail&quot;: {&quot;date&quot;: &quot;2026-09-10&quot;, &quot;price&quot;: &quot;251.89&quot;, &quot;change_pct&quot;: &quot;-0.20%&quot;, &quot;rsi&quot;: &quot;43.6&quot;, &quot;vol_ratio&quot;: &quot;0.79x&quot;, &quot;sma_short&quot;: &quot;255.73&quot;}}"><td class="c"><i class="dot off"></i></td><td class="tk">AMZN</td><td class="nm">Amazon</td><td class="st" data-i18n="status_none">-</td><td class="n">0</td><td class="n">251.89</td><td class="n">43.6</td><td class="geo">-</td><td class="cp"><button type="button" class="copy-btn" data-i18n-title="copy_title" title="銘柄の分析内容をコピー">📋</button></td></tr>
+<tr data-q="avgo broadcom" data-status="none" data-score="0" data-copy="{&quot;ticker&quot;: &quot;AVGO&quot;, &quot;name&quot;: &quot;Broadcom&quot;, &quot;status&quot;: &quot;none&quot;, &quot;score&quot;: 0, &quot;score_detail&quot;: {}, &quot;geometry&quot;: {&quot;low1_date&quot;: null, &quot;low1_price&quot;: null, &quot;neckline_date&quot;: null, &quot;neckline_price&quot;: null, &quot;low2_date&quot;: null, &quot;low2_price&quot;: null}, &quot;detail&quot;: {&quot;date&quot;: &quot;2026-09-10&quot;, &quot;price&quot;: &quot;360.83&quot;, &quot;change_pct&quot;: &quot;-0.97%&quot;, &quot;rsi&quot;: &quot;41.4&quot;, &quot;vol_ratio&quot;: &quot;0.95x&quot;, &quot;sma_short&quot;: &quot;361.77&quot;}}"><td class="c"><i class="dot off"></i></td><td class="tk">AVGO</td><td class="nm">Broadcom</td><td class="st" data-i18n="status_none">-</td><td class="n">0</td><td class="n">360.83</td><td class="n">41.4</td><td class="geo">-</td><td class="cp"><button type="button" class="copy-btn" data-i18n-title="copy_title" title="銘柄の分析内容をコピー">📋</button></td></tr>
+<tr data-q="goog alphabet inc. (class c)" data-status="none" data-score="0" data-copy="{&quot;ticker&quot;: &quot;GOOG&quot;, &quot;name&quot;: &quot;Alphabet Inc. (Class C)&quot;, &quot;status&quot;: &quot;none&quot;, &quot;score&quot;: 0, &quot;score_detail&quot;: {}, &quot;geometry&quot;: {&quot;low1_date&quot;: null, &quot;low1_price&quot;: null, &quot;neckline_date&quot;: null, &quot;neckline_price&quot;: null, &quot;low2_date&quot;: null, &quot;low2_price&quot;: null}, &quot;detail&quot;: {&quot;date&quot;: &quot;2026-09-10&quot;, &quot;price&quot;: &quot;330.39&quot;, &quot;change_pct&quot;: &quot;+0.61%&quot;, &quot;rsi&quot;: &quot;41.1&quot;, &quot;vol_ratio&quot;: &quot;1.07x&quot;, &quot;sma_short&quot;: &quot;333.66&quot;}}"><td class="c"><i class="dot off"></i></td><td class="tk">GOOG</td><td class="nm">Alphabet Inc. (Class C)</td><td class="st" data-i18n="status_none">-</td><td class="n">0</td><td class="n">330.39</td><td class="n">41.1</td><td class="geo">-</td><td class="cp"><button type="button" class="copy-btn" data-i18n-title="copy_title" title="銘柄の分析内容をコピー">📋</button></td></tr>
+<tr data-q="googl alphabet inc. (class a)" data-status="none" data-score="0" data-copy="{&quot;ticker&quot;: &quot;GOOGL&quot;, &quot;name&quot;: &quot;Alphabet Inc. (Class A)&quot;, &quot;status&quot;: &quot;none&quot;, &quot;score&quot;: 0, &quot;score_detail&quot;: {}, &quot;geometry&quot;: {&quot;low1_date&quot;: null, &quot;low1_price&quot;: null, &quot;neckline_date&quot;: null, &quot;neckline_price&quot;: null, &quot;low2_date&quot;: null, &quot;low2_price&quot;: null}, &quot;detail&quot;: {&quot;date&quot;: &quot;2026-09-10&quot;, &quot;price&quot;: &quot;332.60&quot;, &quot;change_pct&quot;: &quot;+0.59%&quot;, &quot;rsi&quot;: &quot;41.4&quot;, &quot;vol_ratio&quot;: &quot;1.04x&quot;, &quot;sma_short&quot;: &quot;336.47&quot;}}"><td class="c"><i class="dot off"></i></td><td class="tk">GOOGL</td><td class="nm">Alphabet Inc. (Class A)</td><td class="st" data-i18n="status_none">-</td><td class="n">0</td><td class="n">332.60</td><td class="n">41.4</td><td class="geo">-</td><td class="cp"><button type="button" class="copy-btn" data-i18n-title="copy_title" title="銘柄の分析内容をコピー">📋</button></td></tr>
+<tr data-q="jnj johnson &amp; johnson" data-status="none" data-score="0" data-copy="{&quot;ticker&quot;: &quot;JNJ&quot;, &quot;name&quot;: &quot;Johnson &amp; Johnson&quot;, &quot;status&quot;: &quot;none&quot;, &quot;score&quot;: 0, &quot;score_detail&quot;: {}, &quot;geometry&quot;: {&quot;low1_date&quot;: null, &quot;low1_price&quot;: null, &quot;neckline_date&quot;: null, &quot;neckline_price&quot;: null, &quot;low2_date&quot;: null, &quot;low2_price&quot;: null}, &quot;detail&quot;: {&quot;date&quot;: &quot;2026-09-10&quot;, &quot;price&quot;: &quot;266.35&quot;, &quot;change_pct&quot;: &quot;-0.27%&quot;, &quot;rsi&quot;: &quot;50.1&quot;, &quot;vol_ratio&quot;: &quot;0.79x&quot;, &quot;sma_short&quot;: &quot;271.24&quot;}}"><td class="c"><i class="dot off"></i></td><td class="tk">JNJ</td><td class="nm">Johnson &amp; Johnson</td><td class="st" data-i18n="status_none">-</td><td class="n">0</td><td class="n">266.35</td><td class="n">50.1</td><td class="geo">-</td><td class="cp"><button type="button" class="copy-btn" data-i18n-title="copy_title" title="銘柄の分析内容をコピー">📋</button></td></tr>
+<tr data-q="jpm jpmorgan chase" data-status="none" data-score="0" data-copy="{&quot;ticker&quot;: &quot;JPM&quot;, &quot;name&quot;: &quot;JPMorgan Chase&quot;, &quot;status&quot;: &quot;none&quot;, &quot;score&quot;: 0, &quot;score_detail&quot;: {}, &quot;geometry&quot;: {&quot;low1_date&quot;: null, &quot;low1_price&quot;: null, &quot;neckline_date&quot;: null, &quot;neckline_price&quot;: null, &quot;low2_date&quot;: null, &quot;low2_price&quot;: null}, &quot;detail&quot;: {&quot;date&quot;: &quot;2026-09-10&quot;, &quot;price&quot;: &quot;353.56&quot;, &quot;change_pct&quot;: &quot;-0.32%&quot;, &quot;rsi&quot;: &quot;48.2&quot;, &quot;vol_ratio&quot;: &quot;0.75x&quot;, &quot;sma_short&quot;: &quot;356.50&quot;}}"><td class="c"><i class="dot off"></i></td><td class="tk">JPM</td><td class="nm">JPMorgan Chase</td><td class="st" data-i18n="status_none">-</td><td class="n">0</td><td class="n">353.56</td><td class="n">48.2</td><td class="geo">-</td><td class="cp"><button type="button" class="copy-btn" data-i18n-title="copy_title" title="銘柄の分析内容をコピー">📋</button></td></tr>
+<tr data-q="lly lilly (eli)" data-status="none" data-score="0" data-copy="{&quot;ticker&quot;: &quot;LLY&quot;, &quot;name&quot;: &quot;Lilly (Eli)&quot;, &quot;status&quot;: &quot;none&quot;, &quot;score&quot;: 0, &quot;score_detail&quot;: {}, &quot;geometry&quot;: {&quot;low1_date&quot;: null, &quot;low1_price&quot;: null, &quot;neckline_date&quot;: null, &quot;neckline_price&quot;: null, &quot;low2_date&quot;: null, &quot;low2_price&quot;: null}, &quot;detail&quot;: {&quot;date&quot;: &quot;2026-09-10&quot;, &quot;price&quot;: &quot;1123.00&quot;, &quot;change_pct&quot;: &quot;-0.11%&quot;, &quot;rsi&quot;: &quot;36.9&quot;, &quot;vol_ratio&quot;: &quot;0.81x&quot;, &quot;sma_short&quot;: &quot;1136.02&quot;}}"><td class="c"><i class="dot off"></i></td><td class="tk">LLY</td><td class="nm">Lilly (Eli)</td><td class="st" data-i18n="status_none">-</td><td class="n">0</td><td class="n">1123.00</td><td class="n">36.9</td><td class="geo">-</td><td class="cp"><button type="button" class="copy-btn" data-i18n-title="copy_title" title="銘柄の分析内容をコピー">📋</button></td></tr>
+<tr data-q="ma mastercard" data-status="none" data-score="0" data-copy="{&quot;ticker&quot;: &quot;MA&quot;, &quot;name&quot;: &quot;Mastercard&quot;, &quot;status&quot;: &quot;none&quot;, &quot;score&quot;: 0, &quot;score_detail&quot;: {}, &quot;geometry&quot;: {&quot;low1_date&quot;: null, &quot;low1_price&quot;: null, &quot;neckline_date&quot;: null, &quot;neckline_price&quot;: null, &quot;low2_date&quot;: null, &quot;low2_price&quot;: null}, &quot;detail&quot;: {&quot;date&quot;: &quot;2026-09-10&quot;, &quot;price&quot;: &quot;565.37&quot;, &quot;change_pct&quot;: &quot;-0.38%&quot;, &quot;rsi&quot;: &quot;44.1&quot;, &quot;vol_ratio&quot;: &quot;0.71x&quot;, &quot;sma_short&quot;: &quot;573.74&quot;}}"><td class="c"><i class="dot off"></i></td><td class="tk">MA</td><td class="nm">Mastercard</td><td class="st" data-i18n="status_none">-</td><td class="n">0</td><td class="n">565.37</td><td class="n">44.1</td><td class="geo">-</td><td class="cp"><button type="button" class="copy-btn" data-i18n-title="copy_title" title="銘柄の分析内容をコピー">📋</button></td></tr>
+<tr data-q="msft microsoft" data-status="none" data-score="0" data-copy="{&quot;ticker&quot;: &quot;MSFT&quot;, &quot;name&quot;: &quot;Microsoft&quot;, &quot;status&quot;: &quot;none&quot;, &quot;score&quot;: 0, &quot;score_detail&quot;: {}, &quot;geometry&quot;: {&quot;low1_date&quot;: null, &quot;low1_price&quot;: null, &quot;neckline_date&quot;: null, &quot;neckline_price&quot;: null, &quot;low2_date&quot;: null, &quot;low2_price&quot;: null}, &quot;detail&quot;: {&quot;date&quot;: &quot;2026-09-10&quot;, &quot;price&quot;: &quot;492.44&quot;, &quot;change_pct&quot;: &quot;+0.16%&quot;, &quot;rsi&quot;: &quot;55.2&quot;, &quot;vol_ratio&quot;: &quot;0.75x&quot;, &quot;sma_short&quot;: &quot;497.57&quot;}}"><td class="c"><i class="dot off"></i></td><td class="tk">MSFT</td><td class="nm">Microsoft</td><td class="st" data-i18n="status_none">-</td><td class="n">0</td><td class="n">492.44</td><td class="n">55.2</td><td class="geo">-</td><td class="cp"><button type="button" class="copy-btn" data-i18n-title="copy_title" title="銘柄の分析内容をコピー">📋</button></td></tr>
+<tr data-q="mu micron technology" data-status="none" data-score="0" data-copy="{&quot;ticker&quot;: &quot;MU&quot;, &quot;name&quot;: &quot;Micron Technology&quot;, &quot;status&quot;: &quot;none&quot;, &quot;score&quot;: 0, &quot;score_detail&quot;: {}, &quot;geometry&quot;: {&quot;low1_date&quot;: null, &quot;low1_price&quot;: null, &quot;neckline_date&quot;: null, &quot;neckline_price&quot;: null, &quot;low2_date&quot;: null, &quot;low2_price&quot;: null}, &quot;detail&quot;: {&quot;date&quot;: &quot;2026-09-10&quot;, &quot;price&quot;: &quot;977.41&quot;, &quot;change_pct&quot;: &quot;-4.90%&quot;, &quot;rsi&quot;: &quot;53.3&quot;, &quot;vol_ratio&quot;: &quot;0.97x&quot;, &quot;sma_short&quot;: &quot;996.04&quot;}}"><td class="c"><i class="dot off"></i></td><td class="tk">MU</td><td class="nm">Micron Technology</td><td class="st" data-i18n="status_none">-</td><td class="n">0</td><td class="n">977.41</td><td class="n">53.3</td><td class="geo">-</td><td class="cp"><button type="button" class="copy-btn" data-i18n-title="copy_title" title="銘柄の分析内容をコピー">📋</button></td></tr>
+<tr data-q="tsla tesla, inc." data-status="none" data-score="0" data-copy="{&quot;ticker&quot;: &quot;TSLA&quot;, &quot;name&quot;: &quot;Tesla, Inc.&quot;, &quot;status&quot;: &quot;none&quot;, &quot;score&quot;: 0, &quot;score_detail&quot;: {}, &quot;geometry&quot;: {&quot;low1_date&quot;: null, &quot;low1_price&quot;: null, &quot;neckline_date&quot;: null, &quot;neckline_price&quot;: null, &quot;low2_date&quot;: null, &quot;low2_price&quot;: null}, &quot;detail&quot;: {&quot;date&quot;: &quot;2026-09-10&quot;, &quot;price&quot;: &quot;363.56&quot;, &quot;change_pct&quot;: &quot;-1.16%&quot;, &quot;rsi&quot;: &quot;53.7&quot;, &quot;vol_ratio&quot;: &quot;0.74x&quot;, &quot;sma_short&quot;: &quot;366.00&quot;}}"><td class="c"><i class="dot off"></i></td><td class="tk">TSLA</td><td class="nm">Tesla, Inc.</td><td class="st" data-i18n="status_none">-</td><td class="n">0</td><td class="n">363.56</td><td class="n">53.7</td><td class="geo">-</td><td class="cp"><button type="button" class="copy-btn" data-i18n-title="copy_title" title="銘柄の分析内容をコピー">📋</button></td></tr>
+<tr data-q="wmt walmart" data-status="none" data-score="0" data-copy="{&quot;ticker&quot;: &quot;WMT&quot;, &quot;name&quot;: &quot;Walmart&quot;, &quot;status&quot;: &quot;none&quot;, &quot;score&quot;: 0, &quot;score_detail&quot;: {}, &quot;geometry&quot;: {&quot;low1_date&quot;: null, &quot;low1_price&quot;: null, &quot;neckline_date&quot;: null, &quot;neckline_price&quot;: null, &quot;low2_date&quot;: null, &quot;low2_price&quot;: null}, &quot;detail&quot;: {&quot;date&quot;: &quot;2026-09-10&quot;, &quot;price&quot;: &quot;105.73&quot;, &quot;change_pct&quot;: &quot;-0.09%&quot;, &quot;rsi&quot;: &quot;42.7&quot;, &quot;vol_ratio&quot;: &quot;0.62x&quot;, &quot;sma_short&quot;: &quot;106.63&quot;}}"><td class="c"><i class="dot off"></i></td><td class="tk">WMT</td><td class="nm">Walmart</td><td class="st" data-i18n="status_none">-</td><td class="n">0</td><td class="n">105.73</td><td class="n">42.7</td><td class="geo">-</td><td class="cp"><button type="button" class="copy-btn" data-i18n-title="copy_title" title="銘柄の分析内容をコピー">📋</button></td></tr>
+<tr data-q="xom exxonmobil" data-status="none" data-score="0" data-copy="{&quot;ticker&quot;: &quot;XOM&quot;, &quot;name&quot;: &quot;ExxonMobil&quot;, &quot;status&quot;: &quot;none&quot;, &quot;score&quot;: 0, &quot;score_detail&quot;: {}, &quot;geometry&quot;: {&quot;low1_date&quot;: null, &quot;low1_price&quot;: null, &quot;neckline_date&quot;: null, &quot;neckline_price&quot;: null, &quot;low2_date&quot;: null, &quot;low2_price&quot;: null}, &quot;detail&quot;: {&quot;date&quot;: &quot;2026-09-10&quot;, &quot;price&quot;: &quot;165.23&quot;, &quot;change_pct&quot;: &quot;+0.61%&quot;, &quot;rsi&quot;: &quot;60.8&quot;, &quot;vol_ratio&quot;: &quot;1.20x&quot;, &quot;sma_short&quot;: &quot;162.36&quot;}}"><td class="c"><i class="dot off"></i></td><td class="tk">XOM</td><td class="nm">ExxonMobil</td><td class="st" data-i18n="status_none">-</td><td class="n">0</td><td class="n">165.23</td><td class="n">60.8</td><td class="geo">-</td><td class="cp"><button type="button" class="copy-btn" data-i18n-title="copy_title" title="銘柄の分析内容をコピー">📋</button></td></tr>
+    </tbody>
+  </table>
+  <div class="none" id="none" data-i18n="no_results" hidden>該当する銘柄がありません。銘柄コードや会社名を確認してください。</div>
+
+<script>
+  const tb = document.querySelector('#t tbody');
+  const all = Array.from(tb.rows);
+
+  document.getElementById('q').addEventListener('input', e => {
+    const q = e.target.value.trim().toLowerCase();
+    let shown = 0;
+    for (const tr of all) {
+      const hit = !q || tr.dataset.q.includes(q);
+      tr.hidden = !hit;
+      if (hit) shown++;
+    }
+    document.getElementById('none').hidden = shown > 0;
+  });
+
+  const statusRank = {breakout:0, setup:1, candidate:2, none:3};
+  let sortCol = -1, asc = false;
+  document.querySelectorAll('#t th').forEach((th, i) => {
+    th.addEventListener('click', () => {
+      asc = sortCol === i ? !asc : false;
+      sortCol = i;
+      const kind = th.dataset.k;
+      const val = tr => {
+        if (kind === 'status') return statusRank[tr.dataset.status];
+        const c = tr.cells[i];
+        if (kind === 'num')
+          return parseFloat(c.textContent.replace(/[^0-9.\-]/g, '')) || 0;
+        return c.textContent;
+      };
+      const sorted = all.slice().sort((a, b) => {
+        const x = val(a), y = val(b);
+        const c = typeof x === 'string' ? x.localeCompare(y) : x - y;
+        return asc ? c : -c;
+      });
+      sorted.forEach(tr => tb.appendChild(tr));
+    });
+  });
+
+  tb.addEventListener('click', e => {
+    const btn = e.target.closest('.copy-btn');
+    if (!btn) return;
+    const text = btn.closest('tr').dataset.copy;
+    const flash = () => {
+      btn.classList.add('copied');
+      const prev = btn.textContent;
+      btn.textContent = '✅';
+      setTimeout(() => { btn.classList.remove('copied'); btn.textContent = prev; }, 1200);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(flash).catch(() => _fallbackCopy(text, flash));
+    } else {
+      _fallbackCopy(text, flash);
+    }
+  });
+
+  function _fallbackCopy(text, done) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); done(); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+</script>
+
+<script>
+(function() {
+  var DICT = {"ko": {"page_title": "W패턴 살펴보기", "h1_grad": "W패턴", "h1_rest": "살펴보기", "lbl_generated": "분석 시각", "threshold_line": "새 돌파 대기 패턴의 점수 기준: {n}점 이상", "pill_total": "전체 {n}종목", "pill_breakout": "돌파 {n}종목", "pill_setup": "돌파 대기 {n}종목", "pill_candidate": "후보 {n}종목", "legend_title": "패턴 설명", "legend_breakout": "돌파: 이전에 확인한 패턴의 저항선을 종가가 넘어선 상태예요. 거래량 조건은 별도로 확인해요.", "legend_setup": "돌파 대기: 형태와 점수 기준을 충족했거나, 이전에 확인한 패턴이 아직 유효한 상태예요.", "legend_candidate": "후보: W자 형태의 기본 조건을 충족해 추가로 살펴볼 수 있는 종목이에요.", "legend_geo": "L1: 첫 저점 · N: 두 저점 사이의 고점(저항선) · L2: 두 번째 저점", "search_ph": "티커 또는 회사명 검색 (예: NVDA, Apple)", "th_status": "상태", "th_ticker": "티커", "th_company": "회사명", "th_type": "구분", "th_score": "점수", "th_price": "종가", "th_geo": "L1/N/L2", "th_copy": "복사", "copy_title": "종목 분석 내용 복사", "no_results": "검색한 종목이 없어요. 종목 코드나 회사명을 확인해주세요.", "status_breakout": "돌파", "status_setup": "돌파 대기", "status_candidate": "후보", "status_none": "-", "disclaimer": "지표와 계산 결과는 참고용이며, 수익을 보장하거나 매매를 권유하지 않아요.", "home_label": "홈"}, "ja": {"page_title": "Wパターンをチェック", "h1_grad": "Wパターン", "h1_rest": "をチェック", "lbl_generated": "分析日時", "threshold_line": "新しいブレイク待ちのスコア基準：{n}点以上", "pill_total": "合計 {n}銘柄", "pill_breakout": "ブレイクアウト {n}銘柄", "pill_setup": "ブレイク待ち {n}銘柄", "pill_candidate": "候補 {n}銘柄", "legend_title": "パターン説明", "legend_breakout": "ブレイクアウト：確認済みのパターンの抵抗線を終値が上回った状態です。出来高の条件は別に確認します。", "legend_setup": "ブレイク待ち：形状とスコアの基準を満たすか、以前のパターンが引き続き有効な状態です。", "legend_candidate": "候補：W字型の基本条件を満たし、さらに確認できる銘柄です。", "legend_geo": "L1：最初の安値・N：2つの安値の間の高値（抵抗線）・L2：2つ目の安値", "search_ph": "ティッカーまたは会社名で検索（例: NVDA, Apple）", "th_status": "状態", "th_ticker": "ティッカー", "th_company": "会社名", "th_type": "区分", "th_score": "スコア", "th_price": "終値", "th_geo": "L1/N/L2", "th_copy": "コピー", "copy_title": "銘柄の分析内容をコピー", "no_results": "該当する銘柄がありません。銘柄コードや会社名を確認してください。", "status_breakout": "ブレイクアウト", "status_setup": "ブレイク待ち", "status_candidate": "候補", "status_none": "-", "disclaimer": "指標や計算結果は参考情報です。利益を保証したり、売買を勧めたりするものではありません。", "home_label": "ホーム"}, "en": {"page_title": "Explore W Patterns", "h1_grad": "W Pattern", "h1_rest": "Explorer", "lbl_generated": "Analyzed", "threshold_line": "New setup score threshold: {n} or higher", "pill_total": "{n} total", "pill_breakout": "Breakout {n}", "pill_setup": "Setup {n}", "pill_candidate": "Candidate {n}", "legend_title": "Pattern guide", "legend_breakout": "Breakout: the close has moved above a previously identified resistance level. Volume confirmation is a separate condition.", "legend_setup": "Setup: shape and score criteria were met, or a previously identified setup remains valid.", "legend_candidate": "Candidate: a stock that meets the basic W-shape criteria for further review.", "legend_geo": "L1: first low · N: intervening high (resistance) · L2: second low", "search_ph": "Search ticker or company (e.g. NVDA, Apple)", "th_status": "Status", "th_ticker": "Ticker", "th_company": "Company", "th_type": "Type", "th_score": "Score", "th_price": "Price", "th_geo": "L1/N/L2", "th_copy": "Copy", "copy_title": "Copy stock analysis", "no_results": "No matching stocks. Check the ticker or company name.", "status_breakout": "Breakout", "status_setup": "Setup", "status_candidate": "Candidate", "status_none": "-", "disclaimer": "Indicators and calculations are for reference. They do not guarantee returns or recommend trades.", "home_label": "Home"}};
+  var KEY = "sa_lang";
+
+  function apply(lang) {
+    document.documentElement.lang = lang;
+    document.querySelectorAll("[data-i18n]").forEach(function(el) {
+      var k = el.getAttribute("data-i18n");
+      var tpl = (DICT[lang] && DICT[lang][k]) || (DICT.ko && DICT.ko[k]) || "";
+      var n = el.getAttribute("data-i18n-n");
+      el.innerHTML = n !== null ? tpl.split("{n}").join("<b>" + n + "</b>") : tpl;
+    });
+    document.querySelectorAll("[data-i18n-ph]").forEach(function(el) {
+      var k = el.getAttribute("data-i18n-ph");
+      el.placeholder = (DICT[lang] && DICT[lang][k]) || "";
+    });
+    document.querySelectorAll("[data-i18n-title]").forEach(function(el) {
+      var k = el.getAttribute("data-i18n-title");
+      el.title = (DICT[lang] && DICT[lang][k]) || "";
+    });
+    document.querySelectorAll("[data-i18n-alt]").forEach(function(el) {
+      var k = el.getAttribute("data-i18n-alt");
+      el.alt = (DICT[lang] && DICT[lang][k]) || (DICT.ko && DICT.ko[k]) || "";
+    });
+    document.querySelectorAll(".i18n-switch button").forEach(function(b) {
+      b.classList.toggle("active", b.dataset.lang === lang);
+    });
+    var fxLink = document.getElementById("exchange-rate-link");
+    if (fxLink) { fxLink.href = "exchange-rate-" + lang + ".html"; }
+    var divLink = document.getElementById("dividend-link");
+    if (divLink) { divLink.href = "dividend-simulator-" + lang + ".html"; }
+    try { localStorage.setItem(KEY, lang); } catch (e) {}
+  }
+
+  document.querySelectorAll(".i18n-switch button").forEach(function(b) {
+    b.addEventListener("click", function() { apply(b.dataset.lang); });
+  });
+
+  var initial = "ko";
+  try { initial = localStorage.getItem(KEY) || "ko"; } catch (e) {}
+  apply(initial);
+})();
+</script>
+
+</body>
+</html>
