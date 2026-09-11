@@ -3,15 +3,75 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://goyg0913.github.io/stock-alarm-charts/index.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://goyg0913.github.io/stock-alarm-charts/index.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://goyg0913.github.io/stock-alarm-charts/index-ja.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://goyg0913.github.io/stock-alarm-charts/index-en.html"/>
+  </url>
+  <url>
+    <loc>https://goyg0913.github.io/stock-alarm-charts/index-ja.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://goyg0913.github.io/stock-alarm-charts/index.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://goyg0913.github.io/stock-alarm-charts/index-ja.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://goyg0913.github.io/stock-alarm-charts/index-en.html"/>
+  </url>
+  <url>
+    <loc>https://goyg0913.github.io/stock-alarm-charts/index-en.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://goyg0913.github.io/stock-alarm-charts/index.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://goyg0913.github.io/stock-alarm-charts/index-ja.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://goyg0913.github.io/stock-alarm-charts/index-en.html"/>
   </url>
   <url>
     <loc>https://goyg0913.github.io/stock-alarm-charts/sp500_table.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://goyg0913.github.io/stock-alarm-charts/sp500_table.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://goyg0913.github.io/stock-alarm-charts/sp500_table-ja.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://goyg0913.github.io/stock-alarm-charts/sp500_table-en.html"/>
+  </url>
+  <url>
+    <loc>https://goyg0913.github.io/stock-alarm-charts/sp500_table-ja.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://goyg0913.github.io/stock-alarm-charts/sp500_table.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://goyg0913.github.io/stock-alarm-charts/sp500_table-ja.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://goyg0913.github.io/stock-alarm-charts/sp500_table-en.html"/>
+  </url>
+  <url>
+    <loc>https://goyg0913.github.io/stock-alarm-charts/sp500_table-en.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://goyg0913.github.io/stock-alarm-charts/sp500_table.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://goyg0913.github.io/stock-alarm-charts/sp500_table-ja.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://goyg0913.github.io/stock-alarm-charts/sp500_table-en.html"/>
   </url>
   <url>
     <loc>https://goyg0913.github.io/stock-alarm-charts/wpattern_table.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://goyg0913.github.io/stock-alarm-charts/wpattern_table.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://goyg0913.github.io/stock-alarm-charts/wpattern_table-ja.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://goyg0913.github.io/stock-alarm-charts/wpattern_table-en.html"/>
+  </url>
+  <url>
+    <loc>https://goyg0913.github.io/stock-alarm-charts/wpattern_table-ja.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://goyg0913.github.io/stock-alarm-charts/wpattern_table.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://goyg0913.github.io/stock-alarm-charts/wpattern_table-ja.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://goyg0913.github.io/stock-alarm-charts/wpattern_table-en.html"/>
+  </url>
+  <url>
+    <loc>https://goyg0913.github.io/stock-alarm-charts/wpattern_table-en.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://goyg0913.github.io/stock-alarm-charts/wpattern_table.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://goyg0913.github.io/stock-alarm-charts/wpattern_table-ja.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://goyg0913.github.io/stock-alarm-charts/wpattern_table-en.html"/>
   </url>
   <url>
     <loc>https://goyg0913.github.io/stock-alarm-charts/guide.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://goyg0913.github.io/stock-alarm-charts/guide.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://goyg0913.github.io/stock-alarm-charts/guide-ja.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://goyg0913.github.io/stock-alarm-charts/guide-en.html"/>
+  </url>
+  <url>
+    <loc>https://goyg0913.github.io/stock-alarm-charts/guide-ja.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://goyg0913.github.io/stock-alarm-charts/guide.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://goyg0913.github.io/stock-alarm-charts/guide-ja.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://goyg0913.github.io/stock-alarm-charts/guide-en.html"/>
+  </url>
+  <url>
+    <loc>https://goyg0913.github.io/stock-alarm-charts/guide-en.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://goyg0913.github.io/stock-alarm-charts/guide.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://goyg0913.github.io/stock-alarm-charts/guide-ja.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://goyg0913.github.io/stock-alarm-charts/guide-en.html"/>
   </url>
   <url>
     <loc>https://goyg0913.github.io/stock-alarm-charts/exchange-rate-ko.html</loc>
