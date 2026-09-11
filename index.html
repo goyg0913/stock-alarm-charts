@@ -6,44 +6,43 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="google-site-verification" content="s1rzLV0Q0BlzUWLPDHMjkM8rl-VBnfE6Y_yjEFrab_8" />
 <title data-i18n="page_title">미국 주식 스캔 대시보드</title>
+<meta name="description" content="S&amp;P 500을 AND 신호 조합과 W패턴 점수제, 두 가지 방식으로 스캔해 매수 신호를 알려주는 대시보드입니다.">
+<link rel="canonical" href="index.html">
+<link rel="alternate" hreflang="ko" href="index.html">
+<link rel="alternate" hreflang="ja" href="index-ja.html">
+<link rel="alternate" hreflang="en" href="index-en.html">
+<link rel="alternate" hreflang="x-default" href="index.html">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2563120083302883" crossorigin="anonymous"></script>
 <style>
-  :root {
-    --blue:#3E6AE1; --blue-grad:linear-gradient(135deg,#5178ef 0%,#2d4fc4 100%);
-    --white:#FFFFFF; --carbon:#171A20; --graphite:#393C41;
-    --pewter:#5C5E62; --silver-fog:#8E8E8E; --pale-silver:#D0D1D2; --light-ash:#F4F4F4;
-  }
   * { box-sizing:border-box; }
-  body { margin:0; padding:20px 16px 40px; color:var(--graphite); background:var(--white);
-         font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,
+  body { margin:0; padding:20px 16px 40px; color:#0A0B0D; background:#F7F8FA;
+         font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',
                      'Apple SD Gothic Neo','Malgun Gothic',sans-serif; }
   .wrap { max-width:480px; margin:0 auto; }
-  h1 { font-size:22px; margin:6px 0 4px; font-weight:500; color:var(--carbon); }
-  .sub { font-size:13px; color:var(--pewter); margin-bottom:22px; }
-  .card { display:block; text-decoration:none; color:inherit;
-          border-radius:12px; padding:18px 18px 16px; margin-bottom:14px;
-          background:var(--light-ash);
-          transition:background-color .33s; }
-  .card:active { background:#ececec; }
-  .card h2 { font-size:16px; margin:0 0 4px; font-weight:500; color:var(--carbon);
-             display:flex; align-items:center; gap:6px; }
-  .card p { font-size:12.5px; color:var(--pewter); margin:0 0 8px; line-height:1.5; }
-  .card .meta { font-size:11.5px; color:var(--silver-fog); }
-  .card .arrow { float:right; color:var(--silver-fog); font-size:14px; }
+  h1 { font-size:22px; margin:6px 0 4px; font-weight:600; }
+  .sub { font-size:13px; color:#5B616E; margin-bottom:22px; }
+  .card { display:block; text-decoration:none; color:inherit; background:#FFFFFF;
+          border:1px solid #E3E6EA; border-radius:12px; padding:18px 20px 16px; margin-bottom:14px;
+          box-shadow:0 1px 2px rgba(10,11,13,0.04);
+          transition:background-color .15s ease, box-shadow .15s ease; }
+  .card:active { background-color:#EAF0FF; box-shadow:0 2px 8px rgba(10,11,13,0.08); }
+  .card h2 { font-size:16px; font-weight:600; margin:0 0 4px; display:flex; align-items:center; gap:6px; }
+  .card p { font-size:12.5px; color:#5B616E; margin:0 0 8px; line-height:1.5; }
+  .card .meta { font-size:11.5px; color:#8A919E; }
+  .card .arrow { float:right; color:#8A919E; font-size:14px; }
   .ad-placeholder { margin-top:24px; padding:24px; text-align:center;
-                     font-size:12px; color:var(--silver-fog); border:1px dashed var(--pale-silver);
-                     border-radius:12px; }
+                     font-size:12px; color:#8A919E; }
 
   .i18n-switch { display:flex; gap:4px; justify-content:flex-end; margin-bottom:8px; }
-  .i18n-switch button { font-size:11px; padding:5px 10px; border-radius:4px;
-    border:1px solid var(--pale-silver); background:var(--white); color:var(--pewter);
-    cursor:pointer; font-weight:500; transition:background-color .33s,color .33s,border-color .33s; }
-  .i18n-switch button.active { background:var(--blue-grad); color:var(--white); border-color:var(--blue); }
+  .i18n-switch button { font-size:11px; font-weight:600; padding:4px 9px; border-radius:999px;
+    border:1px solid #E3E6EA; background:#FFFFFF; color:#5B616E; cursor:pointer;
+    transition:background-color .15s ease, color .15s ease; }
+  .i18n-switch button.active { background:#0052FF; color:#FFFFFF; border-color:#0052FF; }
 
 
   .disclaimer { display:flex; align-items:flex-start; gap:8px; margin:4px 0 14px;
-    padding:12px 14px; border-radius:12px; background:var(--light-ash);
-    color:var(--carbon); font-size:12.5px; font-weight:500; line-height:1.5; }
+    padding:12px 14px; border-radius:12px; background:#F7F8FA;
+    color:#0A0B0D; font-size:12.5px; font-weight:500; line-height:1.5; }
   .disclaimer .ico { font-size:16px; line-height:1.4; flex-shrink:0; }
 
 </style>
@@ -63,15 +62,15 @@
     <a class="card" id="sp500-link" href="sp500_table.html">
       <span class="arrow">›</span>
       <h2>📊 <span data-i18n="card1_title">주식 지표 살펴보기</span></h2>
-      <p data-i18n="card1_desc">필수 지표 3가지(MACD·RSI·거래량)가 동시에 활성화된 종목을 찾아보세요. 골든크로스·볼린저는 표에서 참고용으로만 표시돼요.</p>
-      <div class="meta" data-i18n="card1_meta">시총 상위 100종목 · 매시간 스캔</div>
+      <p data-i18n="card1_desc">최근 분석 구간에서 여러 지표의 조건을 충족한 종목을 찾아보세요.</p>
+      <div class="meta" data-i18n="card1_meta">RSI · MACD · 거래량 등</div>
     </a>
 
     <a class="card" id="wpattern-link" href="wpattern_table.html">
       <span class="arrow">›</span>
       <h2>🌊 <span data-i18n="card2_title">W패턴 찾아보기</span></h2>
-      <p data-i18n="card2_desc">저점→반등→저점의 이중바닥 형태를 점수제로 판정해요. 돌파 전 셋업 단계까지 포착할 수 있어요.</p>
-      <div class="meta" data-i18n="card2_meta">시총 상위 20종목 · 매일 오전 10시(KST)</div>
+      <p data-i18n="card2_desc">두 번의 저점으로 나타나는 W자 형태와 저항선 돌파 여부를 확인하세요.</p>
+      <div class="meta" data-i18n="card2_meta">패턴 후보 · 돌파 대기 · 돌파</div>
     </a>
 
     <a class="card" href="guide.html">
@@ -95,7 +94,7 @@
       <div class="meta" data-i18n="card5_meta">최근 12개월 배당 기준 · 세전</div>
     </a>
 
-    <div class="ad-placeholder" data-i18n="ad_placeholder">광고</div>
+    <div class="ad-placeholder" data-i18n="ad_placeholder"></div>
   </div>
 
 <script>
@@ -108,9 +107,12 @@
   });
 </script>
 
+
+
+
 <script>
 (function() {
-  var DICT = {"ko": {"page_title": "미국 주식 스캔 대시보드", "h1": "미국 주식 스캔 대시보드", "sub": "미국 주식의 지표부터 환율, 배당까지 한곳에서 확인하세요.", "card1_title": "주식 지표 살펴보기", "card1_desc": "필수 지표 3가지(MACD·RSI·거래량)가 동시에 활성화된 종목을 찾아보세요. 골든크로스·볼린저는 표에서 참고용으로만 표시돼요.", "card1_meta": "시총 상위 100종목 · 매시간 스캔", "card2_title": "W패턴 찾아보기", "card2_desc": "저점→반등→저점의 이중바닥 형태를 점수제로 판정해요. 돌파 전 셋업 단계까지 포착할 수 있어요.", "card2_meta": "시총 상위 20종목 · 매일 오전 10시(KST)", "card3_title": "지표 쉽게 알아보기", "card3_desc": "RSI, MACD, 거래량이 무엇을 보여주는지 알아보세요.", "card3_meta": "간단한 설명과 계산 기준", "card4_title": "달러·엔 환율", "card4_desc": "미국 달러와 일본 엔의 원화 환율을 한눈에 확인하세요.", "card4_meta": "1달러 · 100엔 기준", "card5_title": "내 배당금 계산하기", "card5_desc": "보유 종목과 주식 수를 입력하고 월평균 배당금을 계산해보세요.", "card5_meta": "최근 12개월 배당 기준 · 세전", "ad_placeholder": "광고", "disclaimer": "지표와 계산 결과는 참고용이며, 수익을 보장하거나 매매를 권유하지 않아요."}, "ja": {"page_title": "米国株スキャンダッシュボード", "h1": "米国株スキャンダッシュボード", "sub": "米国株の指標、為替、配当をまとめて確認できます。", "card1_title": "株式指標をチェック", "card1_desc": "必須指標3つ(MACD・RSI・出来高)が同時に発生した銘柄を確認できます。ゴールデンクロス・ボリンジャーバンドは表で参考表示のみです。", "card1_meta": "時価総額上位100銘柄・毎時スキャン", "card2_title": "Wパターンを探す", "card2_desc": "安値→反発→安値のダブルボトム形状をスコア制で判定します。ブレイク前のセットアップ段階も検出できます。", "card2_meta": "時価総額上位20銘柄・毎日午前10時(KST)", "card3_title": "指標をやさしく解説", "card3_desc": "RSI、MACD、出来高の読み方を紹介します。", "card3_meta": "簡単な説明と計算の基準", "card4_title": "ドル・円の為替", "card4_desc": "米ドルと日本円の韓国ウォン換算レートを確認できます。", "card4_meta": "1米ドル・100円あたり", "card5_title": "配当金を計算する", "card5_desc": "保有銘柄と株数を入力して、月平均の配当金を計算できます。", "card5_meta": "直近12か月の配当基準・税引前", "ad_placeholder": "広告", "disclaimer": "指標や計算結果は参考情報です。利益を保証したり、売買を勧めたりするものではありません。"}, "en": {"page_title": "US Stock Scan Dashboard", "h1": "US Stock Scan Dashboard", "sub": "Explore US stock indicators, exchange rates, and dividends in one place.", "card1_title": "Explore Stock Indicators", "card1_desc": "Find stocks where all 3 required indicators (MACD, RSI, volume) are active at once. Golden cross and Bollinger Bands are shown in the table for reference only.", "card1_meta": "Top 100 by market cap · Scanned hourly", "card2_title": "Explore W Patterns", "card2_desc": "Scores a double-bottom pattern (low → rebound → low) with a point system — catches setups even before the breakout.", "card2_meta": "Top 20 by market cap · Daily at 10am KST", "card3_title": "Learn the Indicators", "card3_desc": "Learn what RSI, MACD, and volume can tell you.", "card3_meta": "Quick explanations and calculation details", "card4_title": "USD & JPY Exchange Rates", "card4_desc": "Check US dollar and Japanese yen exchange rates in Korean won.", "card4_meta": "Per US dollar · Per 100 yen", "card5_title": "Dividend Calculator", "card5_desc": "Enter your holdings to estimate average monthly dividends.", "card5_meta": "Based on trailing 12-month dividends · Before tax", "ad_placeholder": "Advertisement", "disclaimer": "Indicators and calculations are for reference. They do not guarantee returns or recommend trades."}};
+  var DICT = {"ko": {"page_title": "미국 주식 스캔 대시보드", "h1": "미국 주식 스캔 대시보드", "sub": "미국 주식의 지표부터 환율, 배당까지 한곳에서 확인하세요.", "card1_title": "주식 지표 살펴보기", "card1_desc": "최근 분석 구간에서 여러 지표의 조건을 충족한 종목을 찾아보세요.", "card1_meta": "RSI · MACD · 거래량 등", "card2_title": "W패턴 찾아보기", "card2_desc": "두 번의 저점으로 나타나는 W자 형태와 저항선 돌파 여부를 확인하세요.", "card2_meta": "패턴 후보 · 돌파 대기 · 돌파", "card3_title": "지표 쉽게 알아보기", "card3_desc": "RSI, MACD, 거래량이 무엇을 보여주는지 알아보세요.", "card3_meta": "간단한 설명과 계산 기준", "ad_placeholder": "광고", "card4_title": "달러·엔 환율", "card4_desc": "미국 달러와 일본 엔의 원화 환율을 한눈에 확인하세요.", "card4_meta": "1달러 · 100엔 기준", "card5_title": "내 배당금 계산하기", "card5_desc": "보유 종목과 주식 수를 입력하고 월평균 배당금을 계산해보세요.", "card5_meta": "최근 12개월 배당 기준 · 세전", "disclaimer": "지표와 계산 결과는 참고용이며, 수익을 보장하거나 매매를 권유하지 않아요."}, "ja": {"page_title": "米国株スキャンダッシュボード", "h1": "米国株スキャンダッシュボード", "sub": "米国株の指標、為替、配当をまとめて確認できます。", "card1_title": "株式指標をチェック", "card1_desc": "直近の分析期間に複数の指標の条件を満たした銘柄を確認できます。", "card1_meta": "RSI・MACD・出来高など", "card2_title": "Wパターンを探す", "card2_desc": "2つの安値でできるW字型と、抵抗線を上抜けたかを確認できます。", "card2_meta": "候補・ブレイク待ち・ブレイクアウト", "card3_title": "指標をやさしく解説", "card3_desc": "RSI、MACD、出来高の読み方を紹介します。", "card3_meta": "簡単な説明と計算の基準", "ad_placeholder": "広告", "card4_title": "ドル・円の為替", "card4_desc": "米ドルと日本円の韓国ウォン換算レートを確認できます。", "card4_meta": "1米ドル・100円あたり", "card5_title": "配当金を計算する", "card5_desc": "保有銘柄と株数を入力して、月平均の配当金を計算できます。", "card5_meta": "直近12か月の配当基準・税引前", "disclaimer": "指標や計算結果は参考情報です。利益を保証したり、売買を勧めたりするものではありません。"}, "en": {"page_title": "US Stock Scan Dashboard", "h1": "US Stock Scan Dashboard", "sub": "Explore US stock indicators, exchange rates, and dividends in one place.", "card1_title": "Explore Stock Indicators", "card1_desc": "Find stocks that met multiple indicator conditions within the recent analysis window.", "card1_meta": "RSI · MACD · Volume and more", "card2_title": "Explore W Patterns", "card2_desc": "Explore double-bottom patterns and check whether price has crossed resistance.", "card2_meta": "Candidates · Setups · Breakouts", "card3_title": "Learn the Indicators", "card3_desc": "Learn what RSI, MACD, and volume can tell you.", "card3_meta": "Quick explanations and calculation details", "ad_placeholder": "Advertisement", "card4_title": "USD & JPY Exchange Rates", "card4_desc": "Check US dollar and Japanese yen exchange rates in Korean won.", "card4_meta": "Per US dollar · Per 100 yen", "card5_title": "Dividend Calculator", "card5_desc": "Enter your holdings to estimate average monthly dividends.", "card5_meta": "Based on trailing 12-month dividends · Before tax", "disclaimer": "Indicators and calculations are for reference. They do not guarantee returns or recommend trades."}};
   var KEY = "sa_lang";
 
   function apply(lang) {
@@ -128,6 +130,10 @@
     document.querySelectorAll("[data-i18n-title]").forEach(function(el) {
       var k = el.getAttribute("data-i18n-title");
       el.title = (DICT[lang] && DICT[lang][k]) || "";
+    });
+    document.querySelectorAll("[data-i18n-alt]").forEach(function(el) {
+      var k = el.getAttribute("data-i18n-alt");
+      el.alt = (DICT[lang] && DICT[lang][k]) || (DICT.ko && DICT.ko[k]) || "";
     });
     document.querySelectorAll(".i18n-switch button").forEach(function(b) {
       b.classList.toggle("active", b.dataset.lang === lang);
@@ -151,3 +157,4 @@
 
 </body>
 </html>
+
