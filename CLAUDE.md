@@ -17,15 +17,24 @@ Static site (no build step) served via GitHub Pages from the `main` branch.
 A separate automation (`stock-alarm-bot`, commits as `kyk0068@gmail.com`)
 regenerates and force-overwrites these files directly on `main`, often
 multiple times a day:
-- `index.html`
+- `index.html`, `index-ja.html`, `index-en.html`
 - `sitemap.xml`
 - `stock-*.html` (all tickers/languages)
+- `sp500_table.html`, `sp500_table-ja.html`, `sp500_table-en.html`
+- `wpattern_table.html`, `wpattern_table-ja.html`, `wpattern_table-en.html`
+
+The `-ja`/`-en` files are stock-api's `localize.py` output — genuinely
+separate static pages per language (not just client-side JS switching) so
+Google indexes each language on its own URL. `guide.html` also has
+`guide-ja.html`/`guide-en.html` siblings, but the trio is only regenerated
+by a manual `POST /admin/publish/guide` call, same cadence as `guide.html`
+itself (see stock-api's CLAUDE.md).
 
 Any hand-edit to those files (e.g. a new card on the homepage, a meta tag)
 can be silently wiped by the bot's next run, since it rebuilds them from a
 source outside this repo. After editing one of these files, it's worth
 re-checking `main` a bit later to confirm the change survived. Files the
-bot doesn't manage (e.g. `exchange-rate-*.html`, `guide.html`,
-`robots.txt`) are safe from this.
+bot doesn't manage (e.g. `exchange-rate-*.html`, `dividend-simulator-*.html`,
+`guide.html` and its `-ja`/`-en` siblings, `robots.txt`) are safe from this.
 
 루트 디렉토리에 있는 DESIGN.md를 읽어줘. 앞으로 네가 작성하는 모든 프론트엔드 UI 컴포넌트는 반드시 이 디자인 시스템에 명시된 색상, 여백, 타이포그래피 규칙을 완벽하게 따라야 해. 임의의 Tailwind 클래스를 추가하지 마."
