@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="naver-site-verification" content="c204b5cba61b98e4cd03a49d8984156030f9a57d" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="google-site-verification" content="s1rzLV0Q0BlzUWLPDHMjkM8rl-VBnfE6Y_yjEFrab_8" />
+<title data-i18n="page_title">US Stock Scan Dashboard</title>
+<meta name="description" content="A dashboard that scans the S&amp;P 500 two ways — combined AND signals and W-pattern scoring — to surface buy signals.">
+<link rel="canonical" href="index-en.html">
+<link rel="alternate" hreflang="ko" href="index.html">
+<link rel="alternate" hreflang="ja" href="index-ja.html">
+<link rel="alternate" hreflang="en" href="index-en.html">
+<link rel="alternate" hreflang="x-default" href="index.html">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2563120083302883" crossorigin="anonymous"></script>
+<style>
+  * { box-sizing:border-box; }
+  body { margin:0; padding:20px 16px 40px; color:#0A0B0D; background:#F7F8FA;
+         font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',
+                     'Apple SD Gothic Neo','Malgun Gothic',sans-serif; }
+  .wrap { max-width:480px; margin:0 auto; }
+  h1 { font-size:22px; margin:6px 0 4px; font-weight:600; }
+  .sub { font-size:13px; color:#5B616E; margin-bottom:22px; }
+  .card { display:block; text-decoration:none; color:inherit; background:#FFFFFF;
+          border:1px solid #E3E6EA; border-radius:12px; padding:18px 20px 16px; margin-bottom:14px;
+          box-shadow:0 1px 2px rgba(10,11,13,0.04);
+          transition:background-color .15s ease, box-shadow .15s ease; }
+  .card:active { background-color:#EAF0FF; box-shadow:0 2px 8px rgba(10,11,13,0.08); }
+  .card h2 { font-size:16px; font-weight:600; margin:0 0 4px; display:flex; align-items:center; gap:6px; }
+  .card p { font-size:12.5px; color:#5B616E; margin:0 0 8px; line-height:1.5; }
+  .card .meta { font-size:11.5px; color:#8A919E; }
+  .card .arrow { float:right; color:#8A919E; font-size:14px; }
+  .ad-placeholder { margin-top:24px; padding:24px; text-align:center;
+                     font-size:12px; color:#8A919E; }
+
+  .i18n-switch { display:flex; gap:4px; justify-content:flex-end; margin-bottom:8px; }
+  .i18n-switch button { font-size:11px; font-weight:600; padding:4px 9px; border-radius:999px;
+    border:1px solid #E3E6EA; background:#FFFFFF; color:#5B616E; cursor:pointer;
+    transition:background-color .15s ease, color .15s ease; }
+  .i18n-switch button.active { background:#0052FF; color:#FFFFFF; border-color:#0052FF; }
+
+
+  .disclaimer { display:flex; align-items:flex-start; gap:8px; margin:4px 0 14px;
+    padding:12px 14px; border-radius:12px; background:#F7F8FA;
+    color:#0A0B0D; font-size:12.5px; font-weight:500; line-height:1.5; }
+  .disclaimer .ico { font-size:16px; line-height:1.4; flex-shrink:0; }
+
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="i18n-switch">
+    <button type="button" data-lang="ko">한국어</button>
+    <button type="button" data-lang="ja">日本語</button>
+    <button type="button" data-lang="en">English</button>
+  </div>
+
+    <h1>📈 <span data-i18n="h1">US Stock Scan Dashboard</span></h1>
+    <div class="sub" data-i18n="sub">Explore US stock indicators, exchange rates, and dividends in one place.</div>
+    <div class="disclaimer"><span class="ico">⚠️</span><span data-i18n="disclaimer">Indicators and calculations are for reference. They do not guarantee returns or recommend trades.</span></div>
+
+    <a class="card" id="sp500-link" href="sp500_table.html">
+      <span class="arrow">›</span>
+      <h2>📊 <span data-i18n="card1_title">Explore Stock Indicators</span></h2>
+      <p data-i18n="card1_desc">Find stocks that met multiple indicator conditions within the recent analysis window.</p>
+      <div class="meta" data-i18n="card1_meta">RSI · MACD · Volume and more</div>
+    </a>
+
+    <a class="card" id="wpattern-link" href="wpattern_table.html">
+      <span class="arrow">›</span>
+      <h2>🌊 <span data-i18n="card2_title">Explore W Patterns</span></h2>
+      <p data-i18n="card2_desc">Explore double-bottom patterns and check whether price has crossed resistance.</p>
+      <div class="meta" data-i18n="card2_meta">Candidates · Setups · Breakouts</div>
+    </a>
+
+    <a class="card" href="guide.html">
+      <span class="arrow">›</span>
+      <h2>📚 <span data-i18n="card3_title">Learn the Indicators</span></h2>
+      <p data-i18n="card3_desc">Learn what RSI, MACD, and volume can tell you.</p>
+      <div class="meta" data-i18n="card3_meta">Quick explanations and calculation details</div>
+    </a>
+
+    <a class="card" id="exchange-rate-link" href="exchange-rate-ko.html">
+      <span class="arrow">›</span>
+      <h2>💱 <span data-i18n="card4_title">USD & JPY Exchange Rates</span></h2>
+      <p data-i18n="card4_desc">Check US dollar and Japanese yen exchange rates in Korean won.</p>
+      <div class="meta" data-i18n="card4_meta">Per US dollar · Per 100 yen</div>
+    </a>
+
+    <a class="card" id="dividend-link" href="dividend-simulator-ko.html">
+      <span class="arrow">›</span>
+      <h2>💰 <span data-i18n="card5_title">Dividend Calculator</span></h2>
+      <p data-i18n="card5_desc">Enter your holdings to estimate average monthly dividends.</p>
+      <div class="meta" data-i18n="card5_meta">Based on trailing 12-month dividends · Before tax</div>
+    </a>
+
+    <div class="ad-placeholder" data-i18n="ad_placeholder">Advertisement</div>
+  </div>
+
+<script>
+  // 링크 클릭 시 캐시 우회 쿼리를 붙여 항상 최신 버전을 연다.
+  ["sp500-link", "wpattern-link"].forEach(id => {
+    const a = document.getElementById(id);
+    a.addEventListener("click", () => {
+      a.href = a.getAttribute("href").split("?")[0] + "?v=" + Date.now();
+    });
+  });
+</script>
+
+
+
+
+<script>
+(function() {
+  var DICT = {"ko": {"page_title": "미국 주식 스캔 대시보드", "h1": "미국 주식 스캔 대시보드", "sub": "미국 주식의 지표부터 환율, 배당까지 한곳에서 확인하세요.", "card1_title": "주식 지표 살펴보기", "card1_desc": "최근 분석 구간에서 여러 지표의 조건을 충족한 종목을 찾아보세요.", "card1_meta": "RSI · MACD · 거래량 등", "card2_title": "W패턴 찾아보기", "card2_desc": "두 번의 저점으로 나타나는 W자 형태와 저항선 돌파 여부를 확인하세요.", "card2_meta": "패턴 후보 · 돌파 대기 · 돌파", "card3_title": "지표 쉽게 알아보기", "card3_desc": "RSI, MACD, 거래량이 무엇을 보여주는지 알아보세요.", "card3_meta": "간단한 설명과 계산 기준", "ad_placeholder": "광고", "card4_title": "달러·엔 환율", "card4_desc": "미국 달러와 일본 엔의 원화 환율을 한눈에 확인하세요.", "card4_meta": "1달러 · 100엔 기준", "card5_title": "내 배당금 계산하기", "card5_desc": "보유 종목과 주식 수를 입력하고 월평균 배당금을 계산해보세요.", "card5_meta": "최근 12개월 배당 기준 · 세전", "disclaimer": "지표와 계산 결과는 참고용이며, 수익을 보장하거나 매매를 권유하지 않아요."}, "ja": {"page_title": "米国株スキャンダッシュボード", "h1": "米国株スキャンダッシュボード", "sub": "米国株の指標、為替、配当をまとめて確認できます。", "card1_title": "株式指標をチェック", "card1_desc": "直近の分析期間に複数の指標の条件を満たした銘柄を確認できます。", "card1_meta": "RSI・MACD・出来高など", "card2_title": "Wパターンを探す", "card2_desc": "2つの安値でできるW字型と、抵抗線を上抜けたかを確認できます。", "card2_meta": "候補・ブレイク待ち・ブレイクアウト", "card3_title": "指標をやさしく解説", "card3_desc": "RSI、MACD、出来高の読み方を紹介します。", "card3_meta": "簡単な説明と計算の基準", "ad_placeholder": "広告", "card4_title": "ドル・円の為替", "card4_desc": "米ドルと日本円の韓国ウォン換算レートを確認できます。", "card4_meta": "1米ドル・100円あたり", "card5_title": "配当金を計算する", "card5_desc": "保有銘柄と株数を入力して、月平均の配当金を計算できます。", "card5_meta": "直近12か月の配当基準・税引前", "disclaimer": "指標や計算結果は参考情報です。利益を保証したり、売買を勧めたりするものではありません。"}, "en": {"page_title": "US Stock Scan Dashboard", "h1": "US Stock Scan Dashboard", "sub": "Explore US stock indicators, exchange rates, and dividends in one place.", "card1_title": "Explore Stock Indicators", "card1_desc": "Find stocks that met multiple indicator conditions within the recent analysis window.", "card1_meta": "RSI · MACD · Volume and more", "card2_title": "Explore W Patterns", "card2_desc": "Explore double-bottom patterns and check whether price has crossed resistance.", "card2_meta": "Candidates · Setups · Breakouts", "card3_title": "Learn the Indicators", "card3_desc": "Learn what RSI, MACD, and volume can tell you.", "card3_meta": "Quick explanations and calculation details", "ad_placeholder": "Advertisement", "card4_title": "USD & JPY Exchange Rates", "card4_desc": "Check US dollar and Japanese yen exchange rates in Korean won.", "card4_meta": "Per US dollar · Per 100 yen", "card5_title": "Dividend Calculator", "card5_desc": "Enter your holdings to estimate average monthly dividends.", "card5_meta": "Based on trailing 12-month dividends · Before tax", "disclaimer": "Indicators and calculations are for reference. They do not guarantee returns or recommend trades."}};
+  var KEY = "sa_lang";
+
+  function apply(lang) {
+    document.documentElement.lang = lang;
+    document.querySelectorAll("[data-i18n]").forEach(function(el) {
+      var k = el.getAttribute("data-i18n");
+      var tpl = (DICT[lang] && DICT[lang][k]) || (DICT.ko && DICT.ko[k]) || "";
+      var n = el.getAttribute("data-i18n-n");
+      el.innerHTML = n !== null ? tpl.split("{n}").join("<b>" + n + "</b>") : tpl;
+    });
+    document.querySelectorAll("[data-i18n-ph]").forEach(function(el) {
+      var k = el.getAttribute("data-i18n-ph");
+      el.placeholder = (DICT[lang] && DICT[lang][k]) || "";
+    });
+    document.querySelectorAll("[data-i18n-title]").forEach(function(el) {
+      var k = el.getAttribute("data-i18n-title");
+      el.title = (DICT[lang] && DICT[lang][k]) || "";
+    });
+    document.querySelectorAll("[data-i18n-alt]").forEach(function(el) {
+      var k = el.getAttribute("data-i18n-alt");
+      el.alt = (DICT[lang] && DICT[lang][k]) || (DICT.ko && DICT.ko[k]) || "";
+    });
+    document.querySelectorAll(".i18n-switch button").forEach(function(b) {
+      b.classList.toggle("active", b.dataset.lang === lang);
+    });
+    var fxLink = document.getElementById("exchange-rate-link");
+    if (fxLink) { fxLink.href = "exchange-rate-" + lang + ".html"; }
+    var divLink = document.getElementById("dividend-link");
+    if (divLink) { divLink.href = "dividend-simulator-" + lang + ".html"; }
+    try { localStorage.setItem(KEY, lang); } catch (e) {}
+  }
+
+  document.querySelectorAll(".i18n-switch button").forEach(function(b) {
+    b.addEventListener("click", function() { apply(b.dataset.lang); });
+  });
+
+  var initial = "ko";
+  try { initial = localStorage.getItem(KEY) || "ko"; } catch (e) {}
+  apply(initial);
+})();
+</script>
+
+</body>
+</html>
+
