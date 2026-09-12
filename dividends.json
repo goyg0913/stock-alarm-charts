@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T08:15:20Z",
+  "generated_at": "2026-09-12T22:16:06Z",
   "tickers": {
     "A": {
       "symbol": "A",
@@ -65,7 +65,7 @@
       "symbol": "ADP",
       "currency": "USD",
       "price": 268.26,
-      "ttm_dividend": 6.64
+      "ttm_dividend": 6.8
     },
     "ADSK": {
       "symbol": "ADSK",
@@ -125,7 +125,7 @@
       "symbol": "ALB",
       "currency": "USD",
       "price": 117.52,
-      "ttm_dividend": 1.62
+      "ttm_dividend": 1.625
     },
     "ALGN": {
       "symbol": "ALGN",
@@ -365,7 +365,7 @@
       "symbol": "BKNG",
       "currency": "USD",
       "price": 173.92,
-      "ttm_dividend": 1.224
+      "ttm_dividend": 1.644
     },
     "BKR": {
       "symbol": "BKR",
@@ -467,7 +467,7 @@
       "symbol": "CB",
       "currency": "USD",
       "price": 338.25,
-      "ttm_dividend": 1.99
+      "ttm_dividend": 3.01
     },
     "CBOE": {
       "symbol": "CBOE",
