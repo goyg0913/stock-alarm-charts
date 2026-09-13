@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T04:16:07Z",
+  "generated_at": "2026-09-13T06:16:05Z",
   "tickers": {
     "A": {
       "symbol": "A",
@@ -2843,7 +2843,7 @@
       "symbol": "TXT",
       "currency": "USD",
       "price": 81.0,
-      "ttm_dividend": 0.1
+      "ttm_dividend": 0.08
     },
     "TYL": {
       "symbol": "TYL",
