@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T06:16:05Z",
+  "generated_at": "2026-09-13T08:15:20Z",
   "tickers": {
     "A": {
       "symbol": "A",
@@ -3077,13 +3077,13 @@
       "symbol": "WM",
       "currency": "USD",
       "price": 213.46,
-      "ttm_dividend": 4.485
+      "ttm_dividend": 3.66
     },
     "WMB": {
       "symbol": "WMB",
       "currency": "USD",
       "price": 72.85,
-      "ttm_dividend": 2.575
+      "ttm_dividend": 2.075
     },
     "WMT": {
       "symbol": "WMT",
