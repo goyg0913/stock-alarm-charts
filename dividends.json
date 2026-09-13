@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T00:16:07Z",
+  "generated_at": "2026-09-13T02:16:06Z",
   "tickers": {
     "A": {
       "symbol": "A",
@@ -623,7 +623,7 @@
       "symbol": "FTV",
       "currency": "USD",
       "price": 54.69,
-      "ttm_dividend": 0.31
+      "ttm_dividend": 0.25
     },
     "GD": {
       "symbol": "GD",
@@ -719,13 +719,13 @@
       "symbol": "GPN",
       "currency": "USD",
       "price": 88.29,
-      "ttm_dividend": 1.25
+      "ttm_dividend": 1.0
     },
     "GRMN": {
       "symbol": "GRMN",
       "currency": "USD",
       "price": 282.67,
-      "ttm_dividend": 4.8
+      "ttm_dividend": 3.9
     },
     "GS": {
       "symbol": "GS",
