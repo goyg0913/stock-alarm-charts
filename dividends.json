@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T02:16:06Z",
+  "generated_at": "2026-09-13T04:16:07Z",
   "tickers": {
     "A": {
       "symbol": "A",
@@ -2015,7 +2015,7 @@
       "symbol": "NDAQ",
       "currency": "USD",
       "price": 91.19,
-      "ttm_dividend": 1.43
+      "ttm_dividend": 1.16
     },
     "NDSN": {
       "symbol": "NDSN",
