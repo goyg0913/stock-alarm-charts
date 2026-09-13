@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T22:16:06Z",
+  "generated_at": "2026-09-13T00:16:07Z",
   "tickers": {
     "A": {
       "symbol": "A",
@@ -1763,7 +1763,7 @@
       "symbol": "FIS",
       "currency": "USD",
       "price": 38.14,
-      "ttm_dividend": 1.28
+      "ttm_dividend": 1.72
     },
     "FISV": {
       "symbol": "FISV",
