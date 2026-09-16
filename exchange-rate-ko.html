@@ -46,6 +46,12 @@
   @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.35;} }
   .credit { font-size:11px; color:var(--silver-fog); margin-bottom:18px; }
   .credit a { color:var(--pewter); }
+  .info-card { border-radius:12px; padding:18px 20px; margin-bottom:18px; background:var(--white);
+    border:1px solid var(--pale-silver); }
+  .info-card h2 { font-size:17px; font-weight:600; color:var(--carbon); margin:0 0 10px; }
+  .info-card p { font-size:13.5px; line-height:1.6; color:var(--graphite); margin:0 0 10px; }
+  .info-card p:last-child { margin-bottom:0; }
+  .info-card a { color:var(--blue); text-decoration:none; }
   .nav { margin-top:22px; font-size:12.5px; display:flex; justify-content:space-between; }
   .nav a { color:var(--blue); text-decoration:none; }
   .other-langs { margin-top:8px; font-size:11.5px; color:var(--silver-fog); }
@@ -76,6 +82,14 @@
     </div>
 
     <div class="credit">환율 제공: <a href="https://www.exchangerate-api.com" target="_blank" rel="noopener">ExchangeRate-API</a></div>
+
+    <div class="info-card">
+      <h2>환율은 왜 확인해야 하나요?</h2>
+      <p>미국주식을 사고팔 때는 원화를 달러로 바꾸는 환전이 함께 일어나요. 종목 자체의 주가가 그대로여도 환율이 오르면 원화로 환산한 평가금액은 늘고, 환율이 내리면 줄어들어요 — 종목 수익률과 별개로 환차익·환차손이 함께 반영되는 셈이에요.</p>
+      <p>위에 표시되는 값은 은행 간 거래에 쓰이는 매매기준율(mid-market rate)이에요. 실제로 환전할 때는 은행이나 증권사가 스프레드(수수료)를 더해 적용하기 때문에, 계좌에 찍히는 환율은 이 값보다 다소 불리할 수 있어요.</p>
+      <p>엔화는 1엔 단위 금액이 너무 작아 통상 100엔을 기준으로 표기해요 — 여기서도 같은 관례를 따랐어요.</p>
+      <p>이 사이트는 S&amp;P 500 매수 신호를 스캔하는 대시보드예요. 환전한 원화로 실제 얼마나 살 수 있는지 감이 필요하면 <a href="index.html">종목 스캔 결과</a>와 <a href="dividend-simulator-ko.html">배당금 계산기</a>도 함께 확인해보세요.</p>
+    </div>
 
     <div class="nav">
       <a href="index.html">← 대시보드 홈</a>

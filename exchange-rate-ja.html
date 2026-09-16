@@ -46,6 +46,12 @@
   @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.35;} }
   .credit { font-size:11px; color:var(--silver-fog); margin-bottom:18px; }
   .credit a { color:var(--pewter); }
+  .info-card { border-radius:12px; padding:18px 20px; margin-bottom:18px; background:var(--white);
+    border:1px solid var(--pale-silver); }
+  .info-card h2 { font-size:17px; font-weight:600; color:var(--carbon); margin:0 0 10px; }
+  .info-card p { font-size:13.5px; line-height:1.6; color:var(--graphite); margin:0 0 10px; }
+  .info-card p:last-child { margin-bottom:0; }
+  .info-card a { color:var(--blue); text-decoration:none; }
   .nav { margin-top:22px; font-size:12.5px; display:flex; justify-content:space-between; }
   .nav a { color:var(--blue); text-decoration:none; }
   .other-langs { margin-top:8px; font-size:11.5px; color:var(--silver-fog); }
@@ -77,6 +83,14 @@
     </div>
 
     <div class="credit">為替提供: <a href="https://www.exchangerate-api.com" target="_blank" rel="noopener">ExchangeRate-API</a></div>
+
+    <div class="info-card">
+      <h2>為替レートを確認する理由</h2>
+      <p>米国株を売買するときは、円をドルに換える為替取引が同時に発生します。銘柄自体の株価が変わらなくても、為替レートが上がれば円換算の評価額は増え、下がれば減ります — 銘柄自体の値動きとは別に、為替差益・為替差損が反映されるということです。</p>
+      <p>ここに表示されている値は、銀行間取引で使われる仲値(mid-market rate)です。実際の両替では銀行や証券会社がスプレッド(手数料)を上乗せするため、口座に反映されるレートはこの値より不利になることがあります。</p>
+      <p>日本円は1円あたりの金額が小さすぎるため、慣例的に100円を基準に表示しています。</p>
+      <p>このサイトはS&amp;P 500の買いシグナルをスキャンするダッシュボードです。円換算でどれくらい購入できるかの目安には、<a href="index.html">銘柄スキャン結果</a>や<a href="dividend-simulator-ja.html">配当シミュレーター</a>もあわせてご覧ください。</p>
+    </div>
 
     <div class="nav">
       <a href="index.html">← ダッシュボードホーム</a>
