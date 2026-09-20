@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T06:16:08Z",
+  "generated_at": "2026-09-20T08:15:20Z",
   "tickers": {
     "A": {
       "symbol": "A",
@@ -3017,7 +3017,7 @@
       "symbol": "VYM",
       "currency": "USD",
       "price": 159.26,
-      "ttm_dividend": 4.518
+      "ttm_dividend": 3.676
     },
     "VZ": {
       "symbol": "VZ",
