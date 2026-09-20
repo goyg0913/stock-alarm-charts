@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T22:16:08Z",
+  "generated_at": "2026-09-20T00:16:08Z",
   "tickers": {
     "A": {
       "symbol": "A",
@@ -1439,7 +1439,7 @@
       "symbol": "DIA",
       "currency": "USD",
       "price": 515.88,
-      "ttm_dividend": 6.034
+      "ttm_dividend": 7.226
     },
     "DIS": {
       "symbol": "DIS",
@@ -1721,7 +1721,7 @@
       "symbol": "FDVV",
       "currency": "USD",
       "price": 62.04,
-      "ttm_dividend": 1.729
+      "ttm_dividend": 1.352
     },
     "FDX": {
       "symbol": "FDX",
