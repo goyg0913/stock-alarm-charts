@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T04:16:07Z",
+  "generated_at": "2026-09-20T06:16:08Z",
   "tickers": {
     "A": {
       "symbol": "A",
@@ -2999,7 +2999,7 @@
       "symbol": "VST",
       "currency": "USD",
       "price": 140.67,
-      "ttm_dividend": 0.91
+      "ttm_dividend": 0.684
     },
     "VTR": {
       "symbol": "VTR",
