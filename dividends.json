@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-21T04:16:08Z",
+  "generated_at": "2026-09-21T06:16:08Z",
   "tickers": {
     "A": {
       "symbol": "A",
@@ -2416,7 +2416,7 @@
     "REGN": {
       "symbol": "REGN",
       "currency": "USD",
-      "price": 784.85,
+      "price": 784.668,
       "ttm_dividend": 3.7
     },
     "RF": {
