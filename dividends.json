@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T02:16:07Z",
+  "generated_at": "2026-09-27T04:16:08Z",
   "tickers": {
     "A": {
       "symbol": "A",
@@ -1871,7 +1871,7 @@
       "symbol": "MDT",
       "currency": "USD",
       "price": 88.64,
-      "ttm_dividend": 3.57
+      "ttm_dividend": 2.86
     },
     "MET": {
       "symbol": "MET",
