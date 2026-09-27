@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T22:16:07Z",
+  "generated_at": "2026-09-27T00:16:09Z",
   "tickers": {
     "A": {
       "symbol": "A",
@@ -1427,7 +1427,7 @@
       "symbol": "DHR",
       "currency": "USD",
       "price": 224.49,
-      "ttm_dividend": 1.44
+      "ttm_dividend": 1.12
     },
     "DHS": {
       "symbol": "DHS",
@@ -1745,7 +1745,7 @@
       "symbol": "FERG",
       "currency": "USD",
       "price": 222.74,
-      "ttm_dividend": 4.39
+      "ttm_dividend": 3.56
     },
     "FFIV": {
       "symbol": "FFIV",
