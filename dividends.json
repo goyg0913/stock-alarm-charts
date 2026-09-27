@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T00:16:09Z",
+  "generated_at": "2026-09-27T02:16:07Z",
   "tickers": {
     "A": {
       "symbol": "A",
@@ -857,7 +857,7 @@
       "symbol": "HUM",
       "currency": "USD",
       "price": 397.93,
-      "ttm_dividend": 3.54
+      "ttm_dividend": 2.655
     },
     "HWM": {
       "symbol": "HWM",
@@ -1031,7 +1031,7 @@
       "symbol": "KDP",
       "currency": "USD",
       "price": 31.95,
-      "ttm_dividend": 0.92
+      "ttm_dividend": 0.69
     },
     "KEY": {
       "symbol": "KEY",
