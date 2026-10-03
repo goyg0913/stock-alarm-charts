@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T08:15:20Z",
+  "generated_at": "2026-10-03T22:16:06Z",
   "tickers": {
     "A": {
       "symbol": "A",
@@ -389,7 +389,7 @@
       "symbol": "BMY",
       "currency": "USD",
       "price": 61.15,
-      "ttm_dividend": 2.51
+      "ttm_dividend": 2.52
     },
     "BNY": {
       "symbol": "BNY",
