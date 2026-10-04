@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T22:16:06Z",
+  "generated_at": "2026-10-04T00:16:07Z",
   "tickers": {
     "A": {
       "symbol": "A",
@@ -1301,7 +1301,7 @@
       "symbol": "CSCO",
       "currency": "USD",
       "price": 112.2,
-      "ttm_dividend": 1.66
+      "ttm_dividend": 1.67
     },
     "CSGP": {
       "symbol": "CSGP",
@@ -1415,7 +1415,7 @@
       "symbol": "DGX",
       "currency": "USD",
       "price": 233.33,
-      "ttm_dividend": 3.32
+      "ttm_dividend": 2.52
     },
     "DHI": {
       "symbol": "DHI",
