@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T04:16:08Z",
+  "generated_at": "2026-10-04T06:16:08Z",
   "tickers": {
     "A": {
       "symbol": "A",
@@ -2459,7 +2459,7 @@
       "symbol": "ROP",
       "currency": "USD",
       "price": 354.32,
-      "ttm_dividend": 4.465
+      "ttm_dividend": 3.64
     },
     "ROST": {
       "symbol": "ROST",
@@ -2675,7 +2675,7 @@
       "symbol": "SYY",
       "currency": "USD",
       "price": 77.49,
-      "ttm_dividend": 2.72
+      "ttm_dividend": 2.18
     },
     "T": {
       "symbol": "T",
