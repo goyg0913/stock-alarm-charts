@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T02:16:06Z",
+  "generated_at": "2026-10-04T04:16:08Z",
   "tickers": {
     "A": {
       "symbol": "A",
@@ -2003,7 +2003,7 @@
       "symbol": "MU",
       "currency": "USD",
       "price": 1074.89,
-      "ttm_dividend": 0.53
+      "ttm_dividend": 0.415
     },
     "NCLH": {
       "symbol": "NCLH",
@@ -2087,7 +2087,7 @@
       "symbol": "NTAP",
       "currency": "USD",
       "price": 226.27,
-      "ttm_dividend": 2.08
+      "ttm_dividend": 1.56
     },
     "NTRS": {
       "symbol": "NTRS",
@@ -2291,7 +2291,7 @@
       "symbol": "PM",
       "currency": "USD",
       "price": 187.46,
-      "ttm_dividend": 7.48
+      "ttm_dividend": 6.01
     },
     "PNC": {
       "symbol": "PNC",
