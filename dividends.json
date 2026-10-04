@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T00:16:07Z",
+  "generated_at": "2026-10-04T02:16:06Z",
   "tickers": {
     "A": {
       "symbol": "A",
@@ -677,7 +677,7 @@
       "symbol": "GL",
       "currency": "USD",
       "price": 165.68,
-      "ttm_dividend": 1.2
+      "ttm_dividend": 0.93
     },
     "GLW": {
       "symbol": "GLW",
