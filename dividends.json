@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-07T06:16:06Z",
+  "generated_at": "2026-10-07T08:15:20Z",
   "tickers": {
     "A": {
       "symbol": "A",
@@ -3004,37 +3004,37 @@
     "VTR": {
       "symbol": "VTR",
       "currency": "USD",
-      "price": 81.36,
+      "price": 81.86,
       "ttm_dividend": 2.04
     },
     "VTRS": {
       "symbol": "VTRS",
       "currency": "USD",
-      "price": 17.62,
+      "price": 17.54,
       "ttm_dividend": 0.48
     },
     "VYM": {
       "symbol": "VYM",
       "currency": "USD",
-      "price": 157.03,
+      "price": 158.37,
       "ttm_dividend": 3.676
     },
     "VZ": {
       "symbol": "VZ",
       "currency": "USD",
-      "price": 45.85,
+      "price": 45.98,
       "ttm_dividend": 2.796
     },
     "WAB": {
       "symbol": "WAB",
       "currency": "USD",
-      "price": 291.86,
+      "price": 291.16,
       "ttm_dividend": 1.18
     },
     "WAT": {
       "symbol": "WAT",
       "currency": "USD",
-      "price": 440.12,
+      "price": 436.43,
       "ttm_dividend": 0
     },
     "WBD": {
@@ -3046,139 +3046,139 @@
     "WDAY": {
       "symbol": "WDAY",
       "currency": "USD",
-      "price": 188.96,
+      "price": 186.55,
       "ttm_dividend": 0
     },
     "WDC": {
       "symbol": "WDC",
       "currency": "USD",
-      "price": 441.64,
+      "price": 411.04,
       "ttm_dividend": 0.55
     },
     "WEC": {
       "symbol": "WEC",
       "currency": "USD",
-      "price": 101.3,
+      "price": 103.19,
       "ttm_dividend": 3.752
     },
     "WELL": {
       "symbol": "WELL",
       "currency": "USD",
-      "price": 224.16,
+      "price": 225.78,
       "ttm_dividend": 3.07
     },
     "WFC": {
       "symbol": "WFC",
       "currency": "USD",
-      "price": 81.44,
+      "price": 81.51,
       "ttm_dividend": 1.85
     },
     "WM": {
       "symbol": "WM",
       "currency": "USD",
-      "price": 206.66,
+      "price": 207.88,
       "ttm_dividend": 3.66
     },
     "WMB": {
       "symbol": "WMB",
       "currency": "USD",
-      "price": 70.81,
+      "price": 72.39,
       "ttm_dividend": 2.075
     },
     "WMT": {
       "symbol": "WMT",
       "currency": "USD",
-      "price": 105.07,
+      "price": 107.2,
       "ttm_dividend": 0.979
     },
     "WRB": {
       "symbol": "WRB",
       "currency": "USD",
-      "price": 69.77,
+      "price": 69.65,
       "ttm_dividend": 1.88
     },
     "WSM": {
       "symbol": "WSM",
       "currency": "USD",
-      "price": 238.7,
+      "price": 242.25,
       "ttm_dividend": 2.84
     },
     "WST": {
       "symbol": "WST",
       "currency": "USD",
-      "price": 376.76,
+      "price": 372.64,
       "ttm_dividend": 0.88
     },
     "WTW": {
       "symbol": "WTW",
       "currency": "USD",
-      "price": 288.11,
+      "price": 291.98,
       "ttm_dividend": 3.8
     },
     "WY": {
       "symbol": "WY",
       "currency": "USD",
-      "price": 18.49,
+      "price": 18.6,
       "ttm_dividend": 0.84
     },
     "WYNN": {
       "symbol": "WYNN",
       "currency": "USD",
-      "price": 77.17,
+      "price": 76.62,
       "ttm_dividend": 1.0
     },
     "XEL": {
       "symbol": "XEL",
       "currency": "USD",
-      "price": 71.49,
+      "price": 72.73,
       "ttm_dividend": 2.349
     },
     "XOM": {
       "symbol": "XOM",
       "currency": "USD",
-      "price": 164.0,
+      "price": 164.48,
       "ttm_dividend": 4.12
     },
     "XYL": {
       "symbol": "XYL",
       "currency": "USD",
-      "price": 102.42,
+      "price": 104.57,
       "ttm_dividend": 1.69
     },
     "XYLD": {
       "symbol": "XYLD",
       "currency": "USD",
-      "price": 41.85,
+      "price": 41.9,
       "ttm_dividend": 3.926
     },
     "XYZ": {
       "symbol": "XYZ",
       "currency": "USD",
-      "price": 76.23,
+      "price": 76.54,
       "ttm_dividend": 0
     },
     "YUM": {
       "symbol": "YUM",
       "currency": "USD",
-      "price": 136.97,
+      "price": 139.84,
       "ttm_dividend": 2.96
     },
     "ZBH": {
       "symbol": "ZBH",
       "currency": "USD",
-      "price": 91.57,
+      "price": 89.68,
       "ttm_dividend": 0.96
     },
     "ZBRA": {
       "symbol": "ZBRA",
       "currency": "USD",
-      "price": 375.66,
+      "price": 385.78,
       "ttm_dividend": 0
     },
     "ZTS": {
       "symbol": "ZTS",
       "currency": "USD",
-      "price": 71.41,
+      "price": 71.33,
       "ttm_dividend": 2.09
     },
     "ILMN": {
