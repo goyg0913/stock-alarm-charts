@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T02:16:07Z",
+  "generated_at": "2026-10-10T04:16:07Z",
   "tickers": {
     "A": {
       "symbol": "A",
@@ -1198,7 +1198,7 @@
     "LYB": {
       "symbol": "LYB",
       "currency": "USD",
-      "price": 60.34,
+      "price": 60.03,
       "ttm_dividend": 3.44
     },
     "CNC": {
@@ -1804,541 +1804,541 @@
     "LYV": {
       "symbol": "LYV",
       "currency": "USD",
-      "price": 171.34,
+      "price": 170.33,
       "ttm_dividend": 0
     },
     "MA": {
       "symbol": "MA",
       "currency": "USD",
-      "price": 574.76,
-      "ttm_dividend": 3.37
+      "price": 589.14,
+      "ttm_dividend": 3.48
     },
     "MAA": {
       "symbol": "MAA",
       "currency": "USD",
-      "price": 116.19,
+      "price": 116.86,
       "ttm_dividend": 6.105
     },
     "MAIN": {
       "symbol": "MAIN",
       "currency": "USD",
-      "price": 54.47,
+      "price": 53.74,
       "ttm_dividend": 3.5
     },
     "MAR": {
       "symbol": "MAR",
       "currency": "USD",
-      "price": 361.08,
+      "price": 365.88,
       "ttm_dividend": 2.8
     },
     "MAS": {
       "symbol": "MAS",
       "currency": "USD",
-      "price": 69.5,
+      "price": 68.75,
       "ttm_dividend": 1.27
     },
     "MCD": {
       "symbol": "MCD",
       "currency": "USD",
-      "price": 236.9,
+      "price": 235.23,
       "ttm_dividend": 7.44
     },
     "MCHP": {
       "symbol": "MCHP",
       "currency": "USD",
-      "price": 75.52,
+      "price": 75.55,
       "ttm_dividend": 1.82
     },
     "MCK": {
       "symbol": "MCK",
       "currency": "USD",
-      "price": 930.25,
+      "price": 938.84,
       "ttm_dividend": 3.4
     },
     "MCO": {
       "symbol": "MCO",
       "currency": "USD",
-      "price": 458.69,
+      "price": 464.23,
       "ttm_dividend": 4.03
     },
     "MDLZ": {
       "symbol": "MDLZ",
       "currency": "USD",
-      "price": 60.67,
+      "price": 60.41,
       "ttm_dividend": 2.02
     },
     "MDT": {
       "symbol": "MDT",
       "currency": "USD",
-      "price": 87.75,
+      "price": 88.48,
       "ttm_dividend": 2.86
     },
     "MET": {
       "symbol": "MET",
       "currency": "USD",
-      "price": 98.47,
+      "price": 98.33,
       "ttm_dividend": 2.322
     },
     "META": {
       "symbol": "META",
       "currency": "USD",
-      "price": 720.89,
+      "price": 718.67,
       "ttm_dividend": 2.1
     },
     "MGM": {
       "symbol": "MGM",
       "currency": "USD",
-      "price": 30.01,
+      "price": 29.27,
       "ttm_dividend": 0
     },
     "MKC": {
       "symbol": "MKC",
       "currency": "USD",
-      "price": 45.94,
+      "price": 44.81,
       "ttm_dividend": 1.89
     },
     "MLM": {
       "symbol": "MLM",
       "currency": "USD",
-      "price": 481.57,
+      "price": 478.35,
       "ttm_dividend": 3.33
     },
     "MMM": {
       "symbol": "MMM",
       "currency": "USD",
-      "price": 163.58,
+      "price": 159.96,
       "ttm_dividend": 3.07
     },
     "MNST": {
       "symbol": "MNST",
       "currency": "USD",
-      "price": 43.65,
+      "price": 43.64,
       "ttm_dividend": 0
     },
     "MO": {
       "symbol": "MO",
       "currency": "USD",
-      "price": 71.42,
+      "price": 71.68,
       "ttm_dividend": 4.29
     },
     "MOS": {
       "symbol": "MOS",
       "currency": "USD",
-      "price": 19.73,
+      "price": 18.74,
       "ttm_dividend": 0.88
     },
     "MPC": {
       "symbol": "MPC",
       "currency": "USD",
-      "price": 463.34,
+      "price": 455.03,
       "ttm_dividend": 4.0
     },
     "MPWR": {
       "symbol": "MPWR",
       "currency": "USD",
-      "price": 1369.8,
+      "price": 1386.29,
       "ttm_dividend": 7.56
     },
     "MRK": {
       "symbol": "MRK",
       "currency": "USD",
-      "price": 142.38,
+      "price": 145.6,
       "ttm_dividend": 3.4
     },
     "MRNA": {
       "symbol": "MRNA",
       "currency": "USD",
-      "price": 197.0,
+      "price": 225.0,
       "ttm_dividend": 0
     },
     "MRSH": {
       "symbol": "MRSH",
       "currency": "USD",
-      "price": 176.67,
+      "price": 175.76,
       "ttm_dividend": 3.78
     },
     "MRVL": {
       "symbol": "MRVL",
       "currency": "USD",
-      "price": 274.66,
-      "ttm_dividend": 0.24
+      "price": 275.28,
+      "ttm_dividend": 0.3
     },
     "MS": {
       "symbol": "MS",
       "currency": "USD",
-      "price": 187.44,
+      "price": 190.02,
       "ttm_dividend": 4.15
     },
     "MSCI": {
       "symbol": "MSCI",
       "currency": "USD",
-      "price": 561.67,
+      "price": 565.12,
       "ttm_dividend": 7.95
     },
     "MSFT": {
       "symbol": "MSFT",
       "currency": "USD",
-      "price": 522.61,
+      "price": 535.07,
       "ttm_dividend": 3.64
     },
     "MSI": {
       "symbol": "MSI",
       "currency": "USD",
-      "price": 447.12,
+      "price": 444.18,
       "ttm_dividend": 4.84
     },
     "MTB": {
       "symbol": "MTB",
       "currency": "USD",
-      "price": 217.56,
+      "price": 217.49,
       "ttm_dividend": 6.0
     },
     "MTD": {
       "symbol": "MTD",
       "currency": "USD",
-      "price": 1529.46,
+      "price": 1549.99,
       "ttm_dividend": 0
     },
     "MU": {
       "symbol": "MU",
       "currency": "USD",
-      "price": 1035.84,
+      "price": 1029.0,
       "ttm_dividend": 0.415
     },
     "NCLH": {
       "symbol": "NCLH",
       "currency": "USD",
-      "price": 15.49,
+      "price": 15.57,
       "ttm_dividend": 0
     },
     "NDAQ": {
       "symbol": "NDAQ",
       "currency": "USD",
-      "price": 92.37,
+      "price": 93.65,
       "ttm_dividend": 1.16
     },
     "NDSN": {
       "symbol": "NDSN",
       "currency": "USD",
-      "price": 326.87,
+      "price": 328.17,
       "ttm_dividend": 3.4
     },
     "NEE": {
       "symbol": "NEE",
       "currency": "USD",
-      "price": 77.37,
+      "price": 77.38,
       "ttm_dividend": 2.436
     },
     "NEM": {
       "symbol": "NEM",
       "currency": "USD",
-      "price": 115.55,
+      "price": 117.84,
       "ttm_dividend": 1.03
     },
     "NFLX": {
       "symbol": "NFLX",
       "currency": "USD",
-      "price": 71.57,
+      "price": 70.3,
       "ttm_dividend": 0
     },
     "NI": {
       "symbol": "NI",
       "currency": "USD",
-      "price": 40.53,
+      "price": 40.76,
       "ttm_dividend": 1.18
     },
     "NKE": {
       "symbol": "NKE",
       "currency": "USD",
-      "price": 34.74,
+      "price": 34.71,
       "ttm_dividend": 1.64
     },
     "NOBL": {
       "symbol": "NOBL",
       "currency": "USD",
-      "price": 55.05,
+      "price": 55.07,
       "ttm_dividend": 1.1735
     },
     "NOC": {
       "symbol": "NOC",
       "currency": "USD",
-      "price": 484.48,
+      "price": 480.72,
       "ttm_dividend": 9.56
     },
     "NOW": {
       "symbol": "NOW",
       "currency": "USD",
-      "price": 139.75,
+      "price": 140.86,
       "ttm_dividend": 0
     },
     "NRG": {
       "symbol": "NRG",
       "currency": "USD",
-      "price": 106.32,
+      "price": 107.97,
       "ttm_dividend": 1.865
     },
     "NSC": {
       "symbol": "NSC",
       "currency": "USD",
-      "price": 316.99,
+      "price": 317.79,
       "ttm_dividend": 5.4
     },
     "NTAP": {
       "symbol": "NTAP",
       "currency": "USD",
-      "price": 231.05,
-      "ttm_dividend": 1.56
+      "price": 237.15,
+      "ttm_dividend": 2.08
     },
     "NTRS": {
       "symbol": "NTRS",
       "currency": "USD",
-      "price": 168.5,
+      "price": 168.21,
       "ttm_dividend": 3.28
     },
     "NUE": {
       "symbol": "NUE",
       "currency": "USD",
-      "price": 246.14,
+      "price": 250.33,
       "ttm_dividend": 2.24
     },
     "NVDA": {
       "symbol": "NVDA",
       "currency": "USD",
-      "price": 230.48,
+      "price": 229.28,
       "ttm_dividend": 0.52
     },
     "NVR": {
       "symbol": "NVR",
       "currency": "USD",
-      "price": 6002.55,
+      "price": 5899.16,
       "ttm_dividend": 0
     },
     "NWS": {
       "symbol": "NWS",
       "currency": "USD",
-      "price": 31.92,
+      "price": 32.01,
       "ttm_dividend": 0.2
     },
     "NWSA": {
       "symbol": "NWSA",
       "currency": "USD",
-      "price": 28.97,
+      "price": 29.12,
       "ttm_dividend": 0.2
     },
     "NXPI": {
       "symbol": "NXPI",
       "currency": "USD",
-      "price": 231.07,
+      "price": 227.52,
       "ttm_dividend": 4.056
     },
     "O": {
       "symbol": "O",
       "currency": "USD",
-      "price": 54.17,
+      "price": 54.18,
       "ttm_dividend": 2.978
     },
     "ODFL": {
       "symbol": "ODFL",
       "currency": "USD",
-      "price": 181.65,
+      "price": 181.97,
       "ttm_dividend": 1.15
     },
     "OKE": {
       "symbol": "OKE",
       "currency": "USD",
-      "price": 90.29,
+      "price": 89.8,
       "ttm_dividend": 4.24
     },
     "OMC": {
       "symbol": "OMC",
       "currency": "USD",
-      "price": 76.45,
+      "price": 76.48,
       "ttm_dividend": 3.2
     },
     "ON": {
       "symbol": "ON",
       "currency": "USD",
-      "price": 79.41,
+      "price": 77.53,
       "ttm_dividend": 0
     },
     "ORCL": {
       "symbol": "ORCL",
       "currency": "USD",
-      "price": 135.69,
+      "price": 141.4,
       "ttm_dividend": 2.0
     },
     "ORLY": {
       "symbol": "ORLY",
       "currency": "USD",
-      "price": 86.01,
+      "price": 86.45,
       "ttm_dividend": 0
     },
     "OTIS": {
       "symbol": "OTIS",
       "currency": "USD",
-      "price": 66.11,
+      "price": 65.95,
       "ttm_dividend": 1.72
     },
     "OXY": {
       "symbol": "OXY",
       "currency": "USD",
-      "price": 60.28,
+      "price": 60.11,
       "ttm_dividend": 1.04
     },
     "PANW": {
       "symbol": "PANW",
       "currency": "USD",
-      "price": 398.5,
+      "price": 418.78,
       "ttm_dividend": 0
     },
     "PAYX": {
       "symbol": "PAYX",
       "currency": "USD",
-      "price": 104.46,
+      "price": 103.98,
       "ttm_dividend": 4.54
     },
     "PCAR": {
       "symbol": "PCAR",
       "currency": "USD",
-      "price": 109.66,
+      "price": 108.04,
       "ttm_dividend": 2.76
     },
     "PCG": {
       "symbol": "PCG",
       "currency": "USD",
-      "price": 12.67,
+      "price": 13.13,
       "ttm_dividend": 0.2
     },
     "PEG": {
       "symbol": "PEG",
       "currency": "USD",
-      "price": 71.84,
+      "price": 72.28,
       "ttm_dividend": 2.64
     },
     "PEP": {
       "symbol": "PEP",
       "currency": "USD",
-      "price": 128.34,
+      "price": 125.97,
       "ttm_dividend": 5.806
     },
     "PEY": {
       "symbol": "PEY",
       "currency": "USD",
-      "price": 23.09,
+      "price": 22.936,
       "ttm_dividend": 0.951
     },
     "PFE": {
       "symbol": "PFE",
       "currency": "USD",
-      "price": 27.82,
+      "price": 28.28,
       "ttm_dividend": 1.72
     },
     "PFF": {
       "symbol": "PFF",
       "currency": "USD",
-      "price": 29.37,
+      "price": 29.38,
       "ttm_dividend": 1.631
     },
     "PFG": {
       "symbol": "PFG",
       "currency": "USD",
-      "price": 109.77,
+      "price": 107.24,
       "ttm_dividend": 3.25
     },
     "PG": {
       "symbol": "PG",
       "currency": "USD",
-      "price": 150.59,
+      "price": 151.23,
       "ttm_dividend": 4.292
     },
     "PGR": {
       "symbol": "PGR",
       "currency": "USD",
-      "price": 218.73,
+      "price": 217.43,
       "ttm_dividend": 13.9
     },
     "PH": {
       "symbol": "PH",
       "currency": "USD",
-      "price": 946.96,
+      "price": 962.56,
       "ttm_dividend": 7.6
     },
     "PHM": {
       "symbol": "PHM",
       "currency": "USD",
-      "price": 113.53,
+      "price": 112.12,
       "ttm_dividend": 1.04
     },
     "PKG": {
       "symbol": "PKG",
       "currency": "USD",
-      "price": 229.94,
+      "price": 230.51,
       "ttm_dividend": 5.5
     },
     "PLD": {
       "symbol": "PLD",
       "currency": "USD",
-      "price": 129.29,
+      "price": 129.49,
       "ttm_dividend": 4.22
     },
     "PLTR": {
       "symbol": "PLTR",
       "currency": "USD",
-      "price": 198.78,
+      "price": 209.05,
       "ttm_dividend": 0
     },
     "PM": {
       "symbol": "PM",
       "currency": "USD",
-      "price": 200.5,
+      "price": 201.19,
       "ttm_dividend": 6.01
     },
     "PNC": {
       "symbol": "PNC",
       "currency": "USD",
-      "price": 219.68,
+      "price": 219.21,
       "ttm_dividend": 7.1
     },
     "PNR": {
       "symbol": "PNR",
       "currency": "USD",
-      "price": 52.3,
+      "price": 52.47,
       "ttm_dividend": 1.06
     },
     "PNW": {
       "symbol": "PNW",
       "currency": "USD",
-      "price": 97.98,
+      "price": 98.92,
       "ttm_dividend": 3.64
     },
     "PODD": {
       "symbol": "PODD",
       "currency": "USD",
-      "price": 134.47,
+      "price": 135.28,
       "ttm_dividend": 0
     },
     "PPG": {
       "symbol": "PPG",
       "currency": "USD",
-      "price": 105.46,
+      "price": 103.96,
       "ttm_dividend": 2.87
     },
     "PPL": {
       "symbol": "PPL",
       "currency": "USD",
-      "price": 34.1,
+      "price": 34.25,
       "ttm_dividend": 1.128
     },
     "PRU": {
       "symbol": "PRU",
       "currency": "USD",
-      "price": 113.53,
+      "price": 113.09,
       "ttm_dividend": 5.55
     },
     "PSA": {
       "symbol": "PSA",
       "currency": "USD",
-      "price": 285.52,
+      "price": 289.86,
       "ttm_dividend": 12.0
     },
     "PSKY": {
@@ -2350,43 +2350,43 @@
     "PSX": {
       "symbol": "PSX",
       "currency": "USD",
-      "price": 281.6,
+      "price": 278.18,
       "ttm_dividend": 5.01
     },
     "PTC": {
       "symbol": "PTC",
       "currency": "USD",
-      "price": 193.73,
+      "price": 194.45,
       "ttm_dividend": 0
     },
     "PWR": {
       "symbol": "PWR",
       "currency": "USD",
-      "price": 685.33,
+      "price": 705.94,
       "ttm_dividend": 0.44
     },
     "PYPL": {
       "symbol": "PYPL",
       "currency": "USD",
-      "price": 55.02,
+      "price": 55.53,
       "ttm_dividend": 0.56
     },
     "Q": {
       "symbol": "Q",
       "currency": "USD",
-      "price": 126.68,
+      "price": 126.6,
       "ttm_dividend": 0.3
     },
     "QCOM": {
       "symbol": "QCOM",
       "currency": "USD",
-      "price": 176.01,
+      "price": 175.5,
       "ttm_dividend": 3.62
     },
     "QDVO": {
       "symbol": "QDVO",
       "currency": "USD",
-      "price": 30.31,
+      "price": 30.47,
       "ttm_dividend": 2.899
     },
     "QYLD": {
@@ -3190,7 +3190,7 @@
     "P": {
       "symbol": "P",
       "currency": "USD",
-      "price": 150.57,
+      "price": 154.49,
       "ttm_dividend": 0
     },
     "BE": {
